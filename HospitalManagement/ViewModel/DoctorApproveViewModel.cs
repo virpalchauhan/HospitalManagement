@@ -10,7 +10,7 @@ namespace HospitalManagement.ViewModel
         
         public decimal SalaryAmount { get; set; }
 
-        [Required(ErrorMessage = "JoiningDate is required.")]
+        [Required(ErrorMessage = "JoiningDate is required")]
         public DateTime? JoiningDate { get; set; }
 
 

@@ -55,9 +55,11 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
 
         }
 
-        public IActionResult OnPostApprove()
+        public IActionResult OnPostApprove(int id)
         {
-            return Page();
+           
+
+            return RedirectToPage(new { id = id });
         }
 
         public IActionResult OnPostReject()
