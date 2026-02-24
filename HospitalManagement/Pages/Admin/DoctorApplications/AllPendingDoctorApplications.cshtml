@@ -1,0 +1,94 @@
+﻿@page
+@model HospitalManagement.Pages.Admin.DoctorApplications.AllPendingDoctorApplicationsModel
+@{
+
+    Layout = "/Pages/Admin/_AdminLayout.cshtml";
+    int count = 1;
+}
+<div class="card">
+    <div class="card-header">
+        <h2>
+            All Pending DoctorApplications
+        </h2>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="table-responsive">
+            <table class="table table-hover table-centered">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">FirstName</th>
+                        <th scope="col">LastName</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">DateOfBirth</th>
+                        <th scope="col">MobileNo</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Department Name</th>
+                        <th scope="col">ProfilePhotoPath</th>
+                        <th scope="col">ResumePath</th>
+                        <th scope="col">RequestDate</th>
+                        <th scope="col">ApplicationStatus</th>
+                        <th scope="col">View</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.AllPendingDoctorApplications)
+                    {
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center gap-1">
+
+                                    <div class="d-block">
+                                        <h5 class="mb-0">@count</h5>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>@item.FirstName</td>
+                            <td>@item.LastName</td>
+                            <td>@item.Gender</td>
+                            <td>@item.DateOfBirth</td>
+                            <td>@item.MobileNo</td>
+                            <td>@item.Email</td>
+                            <td>@item.DepartmentName</td>
+
+                            <td>@item.ProfilePhotoPath</td>
+                            <td>@item.ResumePath</td>
+                            <td>@item.RequestDate</td>
+
+                            <td>@item.ApplicationStatus</td>
+
+
+                            @*<td>
+            <textarea class="form-control" id="example-textarea">@item.Description</textarea>
+        </td>
+
+        <td>@(item.IsActive==1 ? "Active" : "Deactive")</td>*@
+                            <td><a asp-page="/Admin/DoctorApplications/SingleDoctorApplications" asp-route-id="@item.DoctorApplicationsId" class="btn btn-success btn-sm w-100">View</a></td>
+                            @*<a asp-page="/Admin/Department/AddDepartment" asp-route-id="@item.DepartmentId" class="btn btn-success btn-sm w-100">Edit</a>*@
+
+                            <td>
+                                @*<form method="post" asp-page-handler="Delete">
+                <input type="hidden" name="DepartmentId" value="@item.DepartmentId" />
+                <button type="submit"
+                        class="btn btn-danger btn-sm w-100"
+                        onclick="return confirm('Are you sure you want to delete this department?')">
+                    Delete
+                </button>
+            </form>*@
+                            </td>
+
+                            @*<td>@item.CreationDate</td>*@
+                        </tr>
+                        count++;
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

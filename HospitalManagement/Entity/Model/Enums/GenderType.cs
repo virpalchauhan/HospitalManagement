@@ -1,0 +1,12 @@
+﻿namespace HospitalManagement.Entity.Model.Enums
+{
+   
+        public enum GenderType : byte
+    {
+       
+        Male = 1,
+        Female = 2,
+        Other = 3
+    }
+    
+}

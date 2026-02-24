@@ -1,0 +1,77 @@
+﻿@page
+@model HospitalManagement.Pages.Admin.Department.AddDepartmentModel
+@{
+
+    Layout = "/Pages/Admin/_AdminLayout.cshtml";
+
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="mb-0">Add Department</h2>
+                </div>
+
+                <div class="card-body">
+
+                    <form id="deptForm" method="post">
+
+
+
+
+
+                        <div class="mb-3">
+                            <label for="example-palaceholder" class="form-label">Department</label>
+                            <input asp-for="DepartmentTblView.DepartmentName" type="text" id="example-palaceholder" class="form-control" placeholder="Enter Department Name">
+                            <span asp-validation-for="DepartmentTblView.DepartmentName" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="example-textarea" class="form-label">
+                                Description
+                            </label>
+                            <textarea asp-for="DepartmentTblView.Description" class="form-control" id="example-textarea" rows="5" style="height: 127px;" placeholder="Enter Description"></textarea>
+                            <span asp-validation-for="DepartmentTblView.Description" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Status</label>
+
+                            <select asp-for="DepartmentTblView.IsActive"
+                                    class="form-select">
+
+                                <option value="">-- Select Status --</option>
+                                <option value="1">Active</option>
+                                <option value="0">Deactive</option>
+
+                            </select>
+
+                            <span asp-validation-for="DepartmentTblView.IsActive"
+                                  class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-success rounded-pill">Save Department</button>
+                    </form>
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+
+    </div>
+</div>
+@if (TempData["Msg"] != null)
+{
+    <script>
+        alert("@TempData["Msg"]");
+           @if (TempData["ClearForm"] != null)
+        {
+            <text>
+                document.getElementById("deptForm").reset();
+            </text>
+        }
+    </script>
+}

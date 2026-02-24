@@ -1,0 +1,266 @@
+﻿@page
+@using HospitalManagement.Entity.Model.Enums;
+@model HospitalManagement.Pages.Client.Careers.CareersDoctorModel
+@{
+    Layout = "/Pages/Client/_ClientLayout.cshtml";
+
+}
+
+
+
+
+<style>
+    select.form-control {
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        border-radius: 0;
+        color: #fff;
+        box-shadow: none;
+    }
+
+        select.form-control:focus {
+            outline: none;
+            box-shadow: none;
+            border-bottom: 1px solid #fff;
+        }
+
+        select.form-control option {
+            color: #000; /* dropdown ke andar text black rahe */
+        }
+
+    select.form-control {
+        appearance: auto;
+        -webkit-appearance: auto;
+        -moz-appearance: auto;
+    }
+
+
+    .custom-date {
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        border-radius: 0;
+        color: #fff;
+    }
+
+        .custom-date:focus {
+            outline: none;
+            box-shadow: none;
+            border-bottom: 1px solid #fff;
+        }
+
+        /* Calendar icon white karne ke liye (Chrome based browsers) */
+        .custom-date::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
+        }
+
+    .custom-file {
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        border-radius: 0;
+        color: #fff;
+    }
+
+        .custom-file:focus {
+            outline: none;
+            box-shadow: none;
+            border-bottom: 1px solid #fff;
+        }
+</style>
+<div class="subpage-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Sub page Header start -->
+                <div class="subpage-header-box">
+                    <h1 class="text-anime-style-3" style="perspective: 400px;">
+                        <div class="split-line" style="display: block; text-align: center; position: relative;">
+
+                            <!-- Careers -->
+                            <div style="position:relative;display:inline-block;">
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">C</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">a</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">r</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">e</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">e</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">r</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">s</div>
+                            </div>
+
+                            &nbsp;
+
+                            <!-- Doctor -->
+                            <div style="position:relative;display:inline-block;">
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">D</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">o</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">c</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">t</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">o</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">r</div>
+                            </div>
+
+                        </div>
+                    </h1>
+                    <ol class="breadcrumb wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+                        <li><a href="#">Home</a></li>
+                        <li>Careers Doctor</li>
+                    </ol>
+                </div>
+                <!-- Sub page Header End -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-contact-form">
+    <div class="container">
+        <div class="row section-row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h3 class="wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">fill the form</h3>
+                    <h2 class="text-anime-style-3" style="perspective: 400px;">
+                        <div class="split-line" style="display: block; text-align: center; position: relative;">
+
+                            <!-- CareersDoctor -->
+                            <div style="position:relative;display:inline-block;">
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">C</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">a</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">r</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">e</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">e</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">r</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">s</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">D</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">o</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">c</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">t</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">o</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">r</div>
+                            </div>
+
+                            &nbsp;
+
+                            <!-- Form -->
+                            <div style="position:relative;display:inline-block;">
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">F</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">o</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">r</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">m</div>
+                            </div>
+
+                        </div>
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Contact Form start -->
+                <div class="contact-us-form wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+                    <form id="contactForm" method="post" enctype="multipart/form-data" data-toggle="validator" novalidate="true">
+                        <div class="row">
+                            <div class="form-group col-md-6 mb-4">
+                                <label class="mb-2" style="color:white;">First Name</label>
+                                <input asp-for="DoctorTableView.FirstName" class="form-control" placeholder="Enter Your First Name">
+                                <span asp-validation-for="DoctorTableView.FirstName" class="text-danger"></span>
+
+                            </div>
+
+                            <div class="form-group col-md-6 mb-4">
+                                <label class="mb-2" style="color:white;">Last Name</label>
+                                <input asp-for="DoctorTableView.LastName" class="form-control" placeholder="Enter Your Last Name">
+                                <span asp-validation-for="DoctorTableView.LastName" class="text-danger"></span>
+
+                            </div>
+
+                            <div class="form-group col-md-6 mb-4 position-relative">
+                                <label class="mb-2" style="color:white;">Gender</label>
+                                <select asp-for="DoctorTableView.Gender"
+                                        asp-items="Html.GetEnumSelectList<GenderType>()"
+                                        class="form-control custom-select">
+                                    <option value="">Select Gender</option>
+                                </select>
+                                <span asp-validation-for="DoctorTableView.Gender" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-md-6 mb-4">
+                                <label class="mb-2" style="color:white;">Date of Birth</label>
+                                <input asp-for="DoctorTableView.DateOfBirth"
+                                       type="date"
+                                       class="form-control custom-date"
+                                       max="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                                <span asp-validation-for="DoctorTableView.DateOfBirth" class="text-danger"></span>
+                            </div>
+
+
+
+
+                            <div class="form-group col-md-6 mb-4">
+                                <label class="mb-2" style="color:white;">Email</label>
+                                <input type="email" class="form-control" asp-for="DoctorTableView.Email" placeholder="Enter Your Email">
+                                <span asp-validation-for="DoctorTableView.Email" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-md-6 mb-4">
+                                <label class="mb-2" style="color:white;">Mobile Number</label>
+                                <input class="form-control" asp-for="DoctorTableView.MobileNo" placeholder="Enter Your Mobile Number">
+                                <span asp-validation-for="DoctorTableView.MobileNo" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-md-6 mb-4">
+                                <label style="color:white;">Upload Profile Photo</label>
+                                <input asp-for="DoctorTableView.ProfilePhoto" class="form-control custom-file" required>
+                                <span asp-validation-for="DoctorTableView.ProfilePhoto" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-md-6 mb-4">
+                                <label style="color:white;">Upload Resume</label>
+                                <input asp-for="DoctorTableView.Resume" class="form-control custom-file" required>
+                                <span asp-validation-for="DoctorTableView.Resume" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-md-12 mb-4 position-relative">
+                                <label class="mb-2" style="color:white;">Department</label>
+
+                                <select asp-for="DoctorTableView.DepartmentId"
+                                        asp-items="Model.DepartmentList"
+                                        class="form-control custom-select">
+
+                                    <option value="">-- Select Department --</option>
+
+                                </select>
+
+                                <span asp-validation-for="DoctorTableView.DepartmentId"
+                                      class="text-danger"></span>
+                            </div>
+
+
+                            <div class="col-lg-12">
+                                <div class="contact-form-btn">
+                                    <button type="submit" class="btn-default">book now</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- Contact Form end -->
+            </div>
+        </div>
+    </div>
+</div>
+@if (TempData["Msg"] != null)
+{
+    <script>
+        alert("@TempData["Msg"]");
+           @if (TempData["ClearForm"] != null)
+        {
+            <text>
+                document.getElementById("deptForm").reset();
+            </text>
+        }
+    </script>
+}
