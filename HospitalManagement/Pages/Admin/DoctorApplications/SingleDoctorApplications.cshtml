@@ -128,11 +128,11 @@
 
                 </div>
             </div>
-            <input type="hidden" asp-for="DoctorApplicationInnerJoin.DoctorApplicationsId" />
+         
             <div class="my-3" style="
     text-align: center;
 ">
-                <button class="btn btn-primary" type="submit" onclick="showForm2()" asp-page-handler="Approve">Approve</button>
+                <button class="btn btn-primary" type="button" onclick="showForm2()">Approve</button>
                 <button class="btn btn-danger ms-3" type="submit" asp-page-handler="Reject">Reject</button>
             </div>
         </div>
@@ -140,6 +140,7 @@
     </div>
 <div id="form2" style="display:none;">
     <form method="post" enctype="multipart/form-data">
+        <input asp-for="DoctorApproveViewModel.DoctorApplicationsId" />
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title mb-0">Approve Details</h5>

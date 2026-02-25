@@ -4,6 +4,10 @@ namespace HospitalManagement.ViewModel
 {
     public class DoctorApproveViewModel
     {
+
+      public   int DoctorApplicationsId { get; set; }
+
+
         [Required(ErrorMessage = "SalaryAmount is required.")]
         
         [RegularExpression(@"^\d+$", ErrorMessage = "Only digits are allowed.")]

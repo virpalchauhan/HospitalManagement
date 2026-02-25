@@ -113,7 +113,8 @@ namespace HospitalManagement.Services
                             ResumePath = d.ResumePath,
                             RequestDate = d.RequestDate,
                             DoctorApplicationsId = d.DoctorApplicationsId,
-                            ApplicationStatus = d.ApplicationStatus
+                            ApplicationStatus = d.ApplicationStatus,
+                            DepartmentId = d.DepartmentId
                         }).Where(m=> m.DoctorApplicationsId==Id).FirstOrDefault();
 
             return Data;

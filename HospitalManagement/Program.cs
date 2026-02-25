@@ -13,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<IDepartmentTblServices, DepartmentTblServices>();
 builder.Services.AddScoped<IDoctorApplicationservices, DoctorApplicationServices>();
+builder.Services.AddScoped<IDoctorsServices, DoctorsServices>();
 
 
 
