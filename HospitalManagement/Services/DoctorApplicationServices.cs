@@ -1,5 +1,6 @@
 ﻿using HospitalManagement.Entity;
 using HospitalManagement.Entity.Model;
+using HospitalManagement.Entity.Model.Enums;
 using HospitalManagement.Entity.Model.Innerjoin;
 using Microsoft.IdentityModel.Tokens;
 
@@ -14,10 +15,13 @@ namespace HospitalManagement.Services
 
 
         List<DoctorApplicationInnerJoin> AllPendingDoctorApplications();
-        List<DoctorApplication> AllRejectDoctorApplications();
-        List<DoctorApplication> AllAcceptDoctorApplications();
+        List<DoctorApplicationInnerJoin> AllRejectDoctorApplications();
+        List<DoctorApplicationInnerJoin> AllAcceptDoctorApplications();
+        List<DoctorApplicationInnerJoin> AlDoctorApplications();
 
         DoctorApplicationInnerJoin SingleData(int Id);
+
+        int DoctorApplicationUpdate(int id, byte ApplicationsStatusId);
 
 
 
@@ -50,9 +54,55 @@ namespace HospitalManagement.Services
             return 0;
         }
 
-        public List<DoctorApplication> AllAcceptDoctorApplications()
+        public List<DoctorApplicationInnerJoin> AlDoctorApplications()
         {
-           return db.doctorApplications.Where(m => m.ApplicationStatus == Entity.Model.Enums.ApplicationStatusType.Accept).ToList();
+            var Data = (from d in db.doctorApplications
+                        join dept in db.DepartmentTbls
+                        on d.DepartmentId equals dept.DepartmentId
+                        select new DoctorApplicationInnerJoin
+                        {
+
+                            FirstName = d.FirstName,
+                            LastName = d.LastName,
+                            Gender = d.Gender,
+                            DateOfBirth = d.DateOfBirth,
+                            MobileNo = d.MobileNo,
+                            Email = d.Email,
+                            DepartmentName = dept.DepartmentName,
+                            ProfilePhotoPath = d.ProfilePhotoPath,
+                            ResumePath = d.ResumePath,
+                            RequestDate = d.RequestDate,
+                            DoctorApplicationsId = d.DoctorApplicationsId,
+                            ApplicationStatus = d.ApplicationStatus
+                        }).ToList();
+
+            return Data;
+        }
+
+        public List<DoctorApplicationInnerJoin> AllAcceptDoctorApplications()
+        {
+            var Data = (from d in db.doctorApplications
+                        join dept in db.DepartmentTbls
+                        on d.DepartmentId equals dept.DepartmentId
+                        where d.ApplicationStatus == ApplicationStatusType.Accept
+                        select new DoctorApplicationInnerJoin
+                        {
+
+                            FirstName = d.FirstName,
+                            LastName = d.LastName,
+                            Gender = d.Gender,
+                            DateOfBirth = d.DateOfBirth,
+                            MobileNo = d.MobileNo,
+                            Email = d.Email,
+                            DepartmentName = dept.DepartmentName,
+                            ProfilePhotoPath = d.ProfilePhotoPath,
+                            ResumePath = d.ResumePath,
+                            RequestDate = d.RequestDate,
+                            DoctorApplicationsId = d.DoctorApplicationsId,
+                            ApplicationStatus = d.ApplicationStatus
+                        }).ToList();
+
+            return Data;
         }
 
         public List<DoctorApplicationInnerJoin> AllPendingDoctorApplications()
@@ -63,28 +113,51 @@ namespace HospitalManagement.Services
             var Data = (from d in db.doctorApplications
                         join dept in db.DepartmentTbls
                         on d.DepartmentId equals dept.DepartmentId
-                        where d.ApplicationStatus == 0
-                        select new DoctorApplicationInnerJoin {
-                        
-                      FirstName=  d.FirstName,
-                      LastName=  d.LastName,
-                      Gender=  d.Gender,
-                      DateOfBirth=  d.DateOfBirth,
-                     MobileNo=   d.MobileNo,
-                     Email=   d.Email,
-                    DepartmentName=    dept.DepartmentName,
-                    ProfilePhotoPath=    d.ProfilePhotoPath,
-                    ResumePath=    d.ResumePath,
-                    RequestDate=    d.RequestDate,
-                    DoctorApplicationsId=d.DoctorApplicationsId,
-                            ApplicationStatus =    d.ApplicationStatus}).ToList();
+                        where d.ApplicationStatus == ApplicationStatusType.Pending
+                        select new DoctorApplicationInnerJoin
+                        {
+
+                            FirstName = d.FirstName,
+                            LastName = d.LastName,
+                            Gender = d.Gender,
+                            DateOfBirth = d.DateOfBirth,
+                            MobileNo = d.MobileNo,
+                            Email = d.Email,
+                            DepartmentName = dept.DepartmentName,
+                            ProfilePhotoPath = d.ProfilePhotoPath,
+                            ResumePath = d.ResumePath,
+                            RequestDate = d.RequestDate,
+                            DoctorApplicationsId = d.DoctorApplicationsId,
+                            ApplicationStatus = d.ApplicationStatus
+                        }).ToList();
 
             return Data;
         }
 
-        public List<DoctorApplication> AllRejectDoctorApplications()
+        public List<DoctorApplicationInnerJoin> AllRejectDoctorApplications()
         {
-           return db.doctorApplications.Where(m => m.ApplicationStatus == Entity.Model.Enums.ApplicationStatusType.Reject).ToList();
+            var Data = (from d in db.doctorApplications
+                        join dept in db.DepartmentTbls
+                        on d.DepartmentId equals dept.DepartmentId
+                        where d.ApplicationStatus == ApplicationStatusType.Reject
+                        select new DoctorApplicationInnerJoin
+                        {
+
+                            FirstName = d.FirstName,
+                            LastName = d.LastName,
+                            Gender = d.Gender,
+                            DateOfBirth = d.DateOfBirth,
+                            MobileNo = d.MobileNo,
+                            Email = d.Email,
+                            DepartmentName = dept.DepartmentName,
+                            ProfilePhotoPath = d.ProfilePhotoPath,
+                            ResumePath = d.ResumePath,
+                            RequestDate = d.RequestDate,
+                            DoctorApplicationsId = d.DoctorApplicationsId,
+                            ApplicationStatus = d.ApplicationStatus
+                        }).ToList();
+
+            return Data;
         }
 
         public void Dispose()
@@ -93,12 +166,32 @@ namespace HospitalManagement.Services
             db.Dispose();
         }
 
+        public int DoctorApplicationUpdate(int id, byte ApplicationsStatusId)
+        {
+            var Data = db.doctorApplications.Where(m => m.DoctorApplicationsId == id).FirstOrDefault();
+
+            if (Data != null)
+            {
+                Data.ApplicationStatus = (ApplicationStatusType)ApplicationsStatusId;
+
+                int Count = db.SaveChanges();
+                if (Count > 0)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            return 0;
+        }
+
         public DoctorApplicationInnerJoin SingleData(int Id)
         {
             var Data = (from d in db.doctorApplications
                         join dept in db.DepartmentTbls
-                        on d.DepartmentId equals dept.DepartmentId
-                        where d.ApplicationStatus == 0
+                        on d.DepartmentId equals dept.DepartmentId               
                         select new DoctorApplicationInnerJoin
                         {
 
@@ -115,7 +208,7 @@ namespace HospitalManagement.Services
                             DoctorApplicationsId = d.DoctorApplicationsId,
                             ApplicationStatus = d.ApplicationStatus,
                             DepartmentId = d.DepartmentId
-                        }).Where(m=> m.DoctorApplicationsId==Id).FirstOrDefault();
+                        }).Where(m => m.DoctorApplicationsId == Id).FirstOrDefault();
 
             return Data;
         }

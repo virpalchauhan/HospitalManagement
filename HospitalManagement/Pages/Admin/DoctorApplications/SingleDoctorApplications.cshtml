@@ -1,5 +1,6 @@
 ﻿@page
 @model HospitalManagement.Pages.Admin.DoctorApplications.SingleDoctorApplicationsModel
+@using HospitalManagement.Entity.Model.Enums
 @{
     Layout = "/Pages/Admin/_AdminLayout.cshtml";
 }
@@ -128,16 +129,20 @@
 
                 </div>
             </div>
-         
-            <div class="my-3" style="
+            @if (Model.DoctorApproveViewModel.DoctorApplicationsId == 0)
+            {
+                <div class="my-3" style="
     text-align: center;
 ">
-                <button class="btn btn-primary" type="button" onclick="showForm2()">Approve</button>
-                <button class="btn btn-danger ms-3" type="submit" asp-page-handler="Reject">Reject</button>
-            </div>
+                    <button class="btn btn-primary" type="button" onclick="showForm2()">Approve</button>
+                    <button onclick="return confirm('Are you sure you want to reject this application?')" class="btn btn-danger ms-3" type="submit" asp-page-handler="Reject">Reject</button>
+                </div>
+            }
+
         </div>
+        <input asp-for="DoctorApproveViewModel.DoctorApplicationsId" />
     </form>
-    </div>
+</div>
 <div id="form2" style="display:none;">
     <form method="post" enctype="multipart/form-data">
         <input asp-for="DoctorApproveViewModel.DoctorApplicationsId" />
@@ -181,28 +186,28 @@
             <div class="my-3" style="
     text-align: center;
 ">
-                <button class="btn btn-primary" type="submit" asp-page-handler="FinalApprove">Approve</button>
+                <button onclick="return confirm('Are you sure you want to approve this application?')" class="btn btn-primary" type="submit" asp-page-handler="FinalApprove">Approve</button>
 
             </div>
         </div>
     </form>
-    </div>
-    <div id="imageModal" class="modal" onclick="closeModal()">
-        <img id="modalImage" class="modal-content" />
-    </div>
+</div>
+<div id="imageModal" class="modal" onclick="closeModal()">
+    <img id="modalImage" class="modal-content" />
+</div>
 
-    <script>
-        function openModal(src) {
-            document.getElementById("imageModal").style.display = "block";
-            document.getElementById("modalImage").src = src;
-        }
+<script>
+    function openModal(src) {
+        document.getElementById("imageModal").style.display = "block";
+        document.getElementById("modalImage").src = src;
+    }
 
-        function closeModal() {
-            document.getElementById("imageModal").style.display = "none";
-        }
-        function showForm2() {
-            document.getElementById("form1").style.display = "none";
-            document.getElementById("form2").style.display = "block";
-        }
-    </script>
+    function closeModal() {
+        document.getElementById("imageModal").style.display = "none";
+    }
+    function showForm2() {
+        document.getElementById("form1").style.display = "none";
+        document.getElementById("form2").style.display = "block";
+    }
+</script>
 

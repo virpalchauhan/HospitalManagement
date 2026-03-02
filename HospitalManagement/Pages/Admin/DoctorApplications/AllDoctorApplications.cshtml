@@ -1,5 +1,5 @@
 ﻿@page
-@model HospitalManagement.Pages.Admin.DoctorApplications.AllRejectDoctorApplicationsModel
+@model HospitalManagement.Pages.Admin.DoctorApplications.AllDoctorApplicationsModel
 @{
 
     Layout = "/Pages/Admin/_AdminLayout.cshtml";
@@ -36,7 +36,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.AllRejectDoctorApplications)
+                    @foreach (var item in Model.AllDoctorApplications)
                     {
                         <tr>
                             <td>
@@ -72,13 +72,14 @@
                             <td>@item.ApplicationStatus</td>
 
 
-
+                           
                             <td><a asp-page="/Admin/DoctorApplications/SingleDoctorApplications" asp-route-id="@item.DoctorApplicationsId" class="btn btn-success btn-sm w-100">View</a></td>
 
                             <td>
+                              
                             </td>
 
-
+                          
                         </tr>
                         count++;
                     }

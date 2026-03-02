@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Doctor</title>
+    <style>
+        /* 100% Smooth Single Line Border Animation */
+        .traveling-border-wrapper {
+            position: relative;
+            padding: 3px;
+            border-radius: 14px;
+            background-color: #1e293b;
+            overflow: hidden;
+            z-index: 1;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+            .traveling-border-wrapper::before {
+                content: '';
+                position: absolute;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background: conic-gradient(from 0deg, transparent 75%, #00f6ff 100%);
+                animation: spinBorder 2.5s linear infinite;
+                z-index: -1;
+            }
+
+        @keyframes spinBorder {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .inner-content {
+            background-color: #1e293b;
+            border-radius: 12px;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        /* Main Action Button */
+        .main-btn {
+            background-color: #00f6ff;
+            color: #0f172a;
+            text-decoration: none;
+            padding: 14px 35px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+            .main-btn:hover {
+                background-color: #ffffff !important;
+                box-shadow: 0 0 15px rgba(0, 246, 255, 0.8);
+                transform: translateY(-3px);
+            }
+    </style>
+</head>
+<body style="margin: 0; padding: 0; background-color: #0f172a; font-family: 'Segoe UI', Arial, sans-serif;">
+
+    <table width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #0f172a; padding: 40px 10px;">
+        <tr>
+            <td align="center">
+
+                <div class="traveling-border-wrapper">
+                    <div class="inner-content">
+
+                        <table width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #1e293b; border-bottom: 1px solid #334155;">
+                            <tr>
+                                <td width="25%" align="center" valign="middle" style="padding-top: 20px;">
+                                    <img src="https://media.tenor.com/bCygqzMVN7gAAAAi/confetti-celebrate.gif" alt="Boom Left" style="width: 80px; height: auto; display: block;">
+                                </td>
+
+                                <td width="50%" align="center" valign="middle" style="padding: 30px 0;">
+                                    <h1 style="color: #ffffff; margin: 0; font-size: 26px; letter-spacing: 1px;">City Care</h1>
+                                    <p style="color: #00f6ff; margin: 8px 0 0 0; font-size: 14px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px;">Welcome Aboard!</p>
+                                </td>
+
+                                <td width="25%" align="center" valign="middle" style="padding-top: 20px;">
+                                    <img src="https://media.tenor.com/bCygqzMVN7gAAAAi/confetti-celebrate.gif" alt="Boom Right" style="width: 80px; height: auto; display: block;">
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div style="padding: 30px 40px;">
+                            <p style="color: #cbd5e1; font-size: 16px; margin-top: 0;">Hello <strong style="color: #ffffff;">Dr.  {{FirstName}}  {{LastName}}</strong>,</p>
+                            <p style="color: #94a3b8; font-size: 15px; line-height: 1.6;">
+                                Congratulations! We are pleased to inform you that your application has been approved and you have been successfully appointed in the {{DepartmentName}} Department at City Care Hospital. Your joining date is {{JoiningDate}}, and the agreed monthly salary is ₹{{SalaryAmount}}. We are confident that your skills and experience will
+                                greatly contribute to our medical team, and we look forward to working with you.
+                            </p>
+
+                            <div style="background-color: #0f172a; border-left: 4px solid #a855f7; border-radius: 8px; padding: 20px; margin: 25px 0;">
+                                <h3 style="margin: 0 0 15px 0; color: #a855f7; font-size: 16px; text-transform: uppercase;">Employment Details</h3>
+                                <table width="100%" cellspacing="0" cellpadding="0" border="0" style="color: #cbd5e1; font-size: 15px; line-height: 2;">
+                                    <tr>
+                                        <td width="40%"><strong>Joining Date:</strong></td>
+                                        <td style="color: #ffffff;">{{JoiningDate}}</td>
+                                        {{Department}}
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Monthly Salary:</strong></td>
+                                        <td style="color: #ffffff;">₹{{SalaryAmount}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div style="background-color: #0f172a; border-left: 4px solid #00f6ff; border-radius: 8px; padding: 20px; margin: 25px 0;">
+                                <h3 style="margin: 0 0 15px 0; color: #00f6ff; font-size: 16px; text-transform: uppercase;">Access Credentials</h3>
+                                <table width="100%" cellspacing="0" cellpadding="0" border="0" style="color: #cbd5e1; font-size: 15px; line-height: 2;">
+                                    <tr>
+                                        <td width="40%"><strong>Email ID:</strong></td>
+                                        <td style="color: #ffffff;">{{Email}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Password:</strong></td>
+                                        <td style="color: #ffffff; background-color: #334155; padding: 4px 8px; border-radius: 4px;"> {{Password}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div style="text-align: center; margin-top: 35px; margin-bottom: 20px;">
+                                <a href="[Your Portal URL]" class="main-btn">Login to Portal</a>
+                            </div>
+                        </div>
+
+                        <div style="background-color: #0f172a; padding: 30px; text-align: center; border-top: 1px solid #334155;">
+
+                            <h2 style="color: #ffffff; margin: 0 0 20px 0; font-size: 22px; letter-spacing: 1px;">City Care Hospital</h2>
+
+                            <div style="margin-bottom: 25px;">
+                                <a href="#" title="Facebook" style="display: inline-block; margin: 0 12px; text-decoration: none;">
+                                    <img src="https://img.icons8.com/fluency/48/facebook-new.png" alt="Facebook" style="width: 36px; height: 36px; vertical-align: middle; border: none;">
+                                </a>
+                                <a href="#" title="Instagram" style="display: inline-block; margin: 0 12px; text-decoration: none;">
+                                    <img src="https://img.icons8.com/fluency/48/instagram-new.png" alt="Instagram" style="width: 36px; height: 36px; vertical-align: middle; border: none;">
+                                </a>
+                                <a href="#" title="LinkedIn" style="display: inline-block; margin: 0 12px; text-decoration: none;">
+                                    <img src="https://img.icons8.com/fluency/48/linkedin.png" alt="LinkedIn" style="width: 36px; height: 36px; vertical-align: middle; border: none;">
+                                </a>
+                                <a href="#" title="Twitter / X" style="display: inline-block; margin: 0 12px; text-decoration: none;">
+                                    <img src="https://img.icons8.com/color/48/twitter--v1.png" alt="Twitter" style="width: 36px; height: 36px; vertical-align: middle; border: none;">
+                                </a>
+                            </div>
+
+                            <p style="margin: 0; color: #64748b; font-size: 13px;">Follow us for more updates and medical news.</p>
+                            <p style="margin: 10px 0 0 0; color: #475569; font-size: 12px;">© 2026 City Care Hospital Management System</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>

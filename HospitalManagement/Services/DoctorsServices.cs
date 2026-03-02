@@ -24,8 +24,15 @@ namespace HospitalManagement.Services
         public int AddDoctor(Doctors Model)
         {
             var data = db.Doctors.Add(Model);
-            db.SaveChanges();
-            return 1;
+       int count=     db.SaveChanges();
+
+            if (count>0)
+            {
+                return 1;
+
+            }
+            return 0;
+
         }
 
         public void Dispose()

@@ -5,23 +5,23 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace HospitalManagement.Pages.Admin.DoctorApplications
 {
-    public class AllRejectDoctorApplicationsModel : PageModel
+    public class AllDoctorApplicationsModel : PageModel
     {
 
         [BindProperty]
 
-        public List<DoctorApplicationInnerJoin> AllRejectDoctorApplications { get; set; }
+        public List<DoctorApplicationInnerJoin> AllDoctorApplications { get; set; }
 
         private readonly IDoctorApplicationservices ObjDoctorApplicationservices;
 
-        public AllRejectDoctorApplicationsModel(IDoctorApplicationservices ObjDoctorApplicationservices)
+        public AllDoctorApplicationsModel(IDoctorApplicationservices ObjDoctorApplicationservices)
         {
             this.ObjDoctorApplicationservices = ObjDoctorApplicationservices;
-        }
 
+        }
         public void OnGet()
-        {
-            AllRejectDoctorApplications = ObjDoctorApplicationservices.AllRejectDoctorApplications();
+        {   
+            AllDoctorApplications= ObjDoctorApplicationservices.AlDoctorApplications();
 
         }
     }

@@ -1,3 +1,5 @@
+﻿using HospitalManagement.EmailServices;
+using HospitalManagement.Entity;
 using HospitalManagement.Entity.Model;
 using HospitalManagement.Entity.Model.Innerjoin;
 using HospitalManagement.Services;
@@ -25,13 +27,20 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
 
         private readonly IDoctorsServices ObjDoctorsServices;
         private readonly IDoctorApplicationservices ObjDoctorApplication;
+        private readonly IWebHostEnvironment WebHostEnvironment;
+        private readonly IDepartmentTblServices ObjDepartmentTblServices;
+        private readonly EntityDbContext db;
 
 
 
-        public SingleDoctorApplicationsModel(IDoctorApplicationservices ObjDoctorApplication, IDoctorsServices ObjDoctorsServices)
+        public SingleDoctorApplicationsModel(IDoctorApplicationservices ObjDoctorApplication, IDoctorsServices ObjDoctorsServices, IWebHostEnvironment WebHostEnvironment, IDepartmentTblServices ObjDepartmentTblServices, EntityDbContext db)
         {
             this.ObjDoctorApplication = ObjDoctorApplication;
             this.ObjDoctorsServices = ObjDoctorsServices;
+            this.WebHostEnvironment = WebHostEnvironment;
+            this.ObjDepartmentTblServices = ObjDepartmentTblServices;
+            this.db = db;
+
         }
 
         public void OnGet(int id)
@@ -64,19 +73,30 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
 
         public IActionResult OnPostReject()
         {
+            var result = ObjDoctorApplication.DoctorApplicationUpdate(DoctorApproveViewModel.DoctorApplicationsId, 2);
+            if (result == 1)
+            {
+                return RedirectToPage("/Admin/DoctorApplications/AllDoctorApplications");
+            }
             return Page();
         }
 
         public void OnPostFinalApprove()
         {
+            int DoctorApplicationresult = 0;
 
-            var Number = DoctorApproveViewModel.DoctorApplicationsId;
+            if (!ModelState.IsValid)
+                return;
 
-            if (ModelState.IsValid)
+            using var transaction = db.Database.BeginTransaction();
+
+            try
             {
+                var Application = ObjDoctorApplication
+                    .SingleData(DoctorApproveViewModel.DoctorApplicationsId);
 
-                var Application = ObjDoctorApplication.SingleData(DoctorApproveViewModel.DoctorApplicationsId);
-
+                if (Application == null)
+                    return;
 
                 Doctors InsertDoctors = new Doctors()
                 {
@@ -89,29 +109,59 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
                     DepartmentId = Application.DepartmentId,
                     SalaryAmount = DoctorApproveViewModel.SalaryAmount,
                     JoiningDate = DoctorApproveViewModel.JoiningDate,
-                    PasswordHash = "hello",
+                    PasswordHash = "hello", 
                     AccountStatus = 1,
                     OfferLetterSent = true,
                     CreatedDate = DateTime.Now,
-                    ProfilePhotoPath=Application.ProfilePhotoPath
-                //FirstName = DoctorApplicationInnerJoin.FirstName,
-                //    LastName = DoctorApplicationInnerJoin.LastName,
-                //    Gender = DoctorApplicationInnerJoin.Gender,
-                //    DateOfBirth = DoctorApplicationInnerJoin.DateOfBirth,
-                //    MobileNo = DoctorApplicationInnerJoin.MobileNo,
-                //    Email = DoctorApplicationInnerJoin.Email,
-                //    DepartmentId = DoctorApplicationInnerJoin.DepartmentId,
-                //    SalaryAmount = DoctorApproveViewModel.SalaryAmount,
-                //    JoiningDate = DoctorApproveViewModel.JoiningDate,
-                //    PasswordHash = "hello",
-                //    AccountStatus = 1,
-                //    OfferLetterSent = true,
-                //    CreatedDate = DateTime.Now
+                    ProfilePhotoPath = Application.ProfilePhotoPath
                 };
 
                 int result = ObjDoctorsServices.AddDoctor(InsertDoctors);
 
+                if (result != 1)
+                {
+                    transaction.Rollback();
+                    return;
+                }
+
+                DoctorApplicationresult =
+                    ObjDoctorApplication.DoctorApplicationUpdate(
+                        DoctorApproveViewModel.DoctorApplicationsId, 1);
+
+                if (DoctorApplicationresult != 1)
+                {
+                    transaction.Rollback();
+                    return;
+                }
+
+                transaction.Commit();
+
+                var DepartmentData =
+                    ObjDepartmentTblServices.SingleDepartment(Application.DepartmentId);
+
+                string path = Path.Combine(WebHostEnvironment.WebRootPath,
+                                           "EmailTemplet",
+                                           "DoctorActivationTemplet.html");
+
+                string MailBody = System.IO.File.ReadAllText(path);
+
+                MailBody = MailBody.Replace("{{FirstName}}", Application.FirstName);
+                MailBody = MailBody.Replace("{{LastName}}", Application.LastName);
+                MailBody = MailBody.Replace("{{Department}}", DepartmentData.DepartmentName);
+                MailBody = MailBody.Replace("{{JoiningDate}}", DoctorApproveViewModel.JoiningDate.ToString());
+                MailBody = MailBody.Replace("{{SalaryAmount}}", DoctorApproveViewModel.SalaryAmount.ToString());
+                MailBody = MailBody.Replace("{{Email}}", Application.Email);
+                MailBody = MailBody.Replace("{{Password}}", "Password");
+
+                DoctorActivationTempletCode
+                    .DoctorActivationTempletCodeSend(Application.Email, MailBody);
+            }
+            catch
+            {
+                transaction.Rollback();
             }
         }
     }
 }
+
+

@@ -55,33 +55,31 @@
                             <td>@item.Email</td>
                             <td>@item.DepartmentName</td>
 
-                            <td>@item.ProfilePhotoPath</td>
-                            <td>@item.ResumePath</td>
+                            <td>
+                                <img src="~/@item.ProfilePhotoPath"
+                                     width="80"
+                                     height="80"
+                                     style="object-fit:cover; border-radius:5px;" />
+                            </td>
+                            <td>
+                                <img src="~/@item.ResumePath"
+                                     width="80"
+                                     height="80"
+                                     style="object-fit:cover; border-radius:5px;" />
+                            </td>
                             <td>@item.RequestDate</td>
 
                             <td>@item.ApplicationStatus</td>
 
 
-                            @*<td>
-            <textarea class="form-control" id="example-textarea">@item.Description</textarea>
-        </td>
-
-        <td>@(item.IsActive==1 ? "Active" : "Deactive")</td>*@
+                        
                             <td><a asp-page="/Admin/DoctorApplications/SingleDoctorApplications" asp-route-id="@item.DoctorApplicationsId" class="btn btn-success btn-sm w-100">View</a></td>
-                            @*<a asp-page="/Admin/Department/AddDepartment" asp-route-id="@item.DepartmentId" class="btn btn-success btn-sm w-100">Edit</a>*@
+                          
 
                             <td>
-                                @*<form method="post" asp-page-handler="Delete">
-                <input type="hidden" name="DepartmentId" value="@item.DepartmentId" />
-                <button type="submit"
-                        class="btn btn-danger btn-sm w-100"
-                        onclick="return confirm('Are you sure you want to delete this department?')">
-                    Delete
-                </button>
-            </form>*@
-                            </td>
+                              </td>
 
-                            @*<td>@item.CreationDate</td>*@
+                          
                         </tr>
                         count++;
                     }

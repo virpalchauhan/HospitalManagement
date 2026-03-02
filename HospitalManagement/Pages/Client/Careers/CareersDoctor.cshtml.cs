@@ -1,7 +1,9 @@
+using HospitalManagement.EmailServices;
 using HospitalManagement.Entity.Model;
 using HospitalManagement.Entity.Model.Enums;
 using HospitalManagement.Services;
 using HospitalManagement.ViewModel;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -98,6 +100,17 @@ namespace HospitalManagement.Pages.Client.Careers
                 {
                     TempData["Msg"] = "Your application has been submitted successfully! Thank you for your interest in joining our hospital. We will review your profile and inform you about the next steps soon.";
                     TempData["ClearForm"] = true;
+
+                    string path = Path.Combine(webHostEnvironment.WebRootPath, "EmailTemplet", "DoctorApplicationSubmittedEmail.html");
+                    string MailBody = System.IO.File.ReadAllText(path);
+                    MailBody = MailBody.Replace("{{FirstName}}", DoctorTableView.FirstName);
+                    MailBody = MailBody.Replace("{{LastName}}", DoctorTableView.LastName);
+                    MailBody=MailBody.Replace("{{DepartmentName}}", ObjDepartmentTbl.SingleDepartment(DoctorTableView.DepartmentId).DepartmentName);
+                    MailBody=MailBody.Replace("{{ApplicationDate}}", System.DateTime.Now.ToString());
+
+
+                    DoctorApplicationSubmittedEmailCode.DoctorApplicationSubmittedEmailTempletCodeSend(DoctorTableView.Email, MailBody);
+
                     return RedirectToPage();
                 }
                 else if(Result==2)

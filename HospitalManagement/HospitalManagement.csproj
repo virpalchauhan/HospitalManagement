@@ -20,4 +20,8 @@
     <Folder Include="wwwroot\Client\ProfilePhoto\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\EmailTemplet\DoctorActivationTemplet.html" />
+  </ItemGroup>
+
 </Project>
