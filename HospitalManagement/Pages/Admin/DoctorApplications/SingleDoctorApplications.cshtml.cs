@@ -1,6 +1,7 @@
 ﻿using HospitalManagement.EmailServices;
 using HospitalManagement.Entity;
 using HospitalManagement.Entity.Model;
+using HospitalManagement.Entity.Model.Enums;
 using HospitalManagement.Entity.Model.Innerjoin;
 using HospitalManagement.Services;
 using HospitalManagement.ViewModel;
@@ -60,33 +61,83 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
                 DoctorApplicationInnerJoin.ResumePath = Data.ResumePath;
                 DoctorApplicationInnerJoin.ProfilePhotoPath = Data.ProfilePhotoPath;
                 DoctorApproveViewModel.DoctorApplicationsId = id;
+                DoctorApplicationInnerJoin.ApplicationStatus = Data.ApplicationStatus;
+
+
             }
 
-        }
-
-        //public IActionResult OnPostApprove(int id)
-        //{
-
-
-        //    return RedirectToPage(new { id = id });
-        //}
+        }   
 
         public IActionResult OnPostReject()
         {
-            var result = ObjDoctorApplication.DoctorApplicationUpdate(DoctorApproveViewModel.DoctorApplicationsId, 2);
-            if (result == 1)
+
+            using var transaction = db.Database.BeginTransaction();
+
+            try
+            {       
+            var result = ObjDoctorApplication.DoctorApplicationUpdate(DoctorApproveViewModel.DoctorApplicationsId, (int)ApplicationStatusType.Reject);
+            if (result != 1)
             {
-                return RedirectToPage("/Admin/DoctorApplications/AllDoctorApplications");
+                  return  RedirectToPage();
             }
-            return Page();
+                var Application = ObjDoctorApplication.SingleData(DoctorApproveViewModel.DoctorApplicationsId);
+
+                if (Application==null)
+                {
+                    return RedirectToPage();
+                }
+
+                var DepartmentData =ObjDepartmentTblServices.SingleDepartment(Application.DepartmentId);
+
+                if (DepartmentData == null)
+                {
+                    return RedirectToPage();
+                }
+
+                //transaction.Commit();
+
+                string path = Path.Combine(WebHostEnvironment.WebRootPath,"EmailTemplet","DoctorApplicationRejectTemplet.html");
+
+                string MailBody = System.IO.File.ReadAllText(path);
+
+                MailBody = MailBody.Replace("{{FirstName}}", Application.FirstName);
+                MailBody = MailBody.Replace("{{LastName}}", Application.LastName);
+                MailBody = MailBody.Replace("{{DepartmentName}}", DepartmentData.DepartmentName);
+                MailBody = MailBody.Replace("{{ApplicationDate}}", Application.RequestDate.ToString("dd MMM yyyy"));
+
+
+              
+                try
+                {
+                    DoctorApplicationRejectTempletCode
+                        .DoctorApplicationRejectTempletCodeSend(Application.Email, MailBody);
+                }
+                catch (Exception ex)
+                {
+                  
+                    Console.WriteLine("Email sending failed: " + ex.Message);
+                }
+
+                TempData["Msg"] = "Doctor Application Rejected";
+                transaction.Commit();
+                return RedirectToPage("AllDoctorApplications");
+
+                
+            }
+            catch (Exception)
+            {
+
+                transaction.Rollback();
+                throw;
+            }
         }
 
-        public void OnPostFinalApprove()
+        public IActionResult OnPostFinalApprove()
         {
             int DoctorApplicationresult = 0;
 
             if (!ModelState.IsValid)
-                return;
+                return RedirectToPage();
 
             using var transaction = db.Database.BeginTransaction();
 
@@ -96,7 +147,7 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
                     .SingleData(DoctorApproveViewModel.DoctorApplicationsId);
 
                 if (Application == null)
-                    return;
+                    return RedirectToPage();
 
                 Doctors InsertDoctors = new Doctors()
                 {
@@ -109,7 +160,7 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
                     DepartmentId = Application.DepartmentId,
                     SalaryAmount = DoctorApproveViewModel.SalaryAmount,
                     JoiningDate = DoctorApproveViewModel.JoiningDate,
-                    PasswordHash = "hello", 
+                    PasswordHash = "hello",
                     AccountStatus = 1,
                     OfferLetterSent = true,
                     CreatedDate = DateTime.Now,
@@ -120,8 +171,7 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
 
                 if (result != 1)
                 {
-                    transaction.Rollback();
-                    return;
+                    throw new Exception("Doctor insert failed");
                 }
 
                 DoctorApplicationresult =
@@ -130,14 +180,18 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
 
                 if (DoctorApplicationresult != 1)
                 {
-                    transaction.Rollback();
-                    return;
+                    throw new Exception("Application status update failed");
                 }
 
                 transaction.Commit();
 
                 var DepartmentData =
                     ObjDepartmentTblServices.SingleDepartment(Application.DepartmentId);
+
+                if (DepartmentData == null)
+                {
+                    throw new Exception("Department not found");
+                }
 
                 string path = Path.Combine(WebHostEnvironment.WebRootPath,
                                            "EmailTemplet",
@@ -153,13 +207,30 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
                 MailBody = MailBody.Replace("{{Email}}", Application.Email);
                 MailBody = MailBody.Replace("{{Password}}", "Password");
 
-                DoctorActivationTempletCode
-                    .DoctorActivationTempletCodeSend(Application.Email, MailBody);
+                if (DoctorActivationTempletCode.DoctorActivationTempletCodeSend(Application.Email, MailBody))
+                {
+                    TempData["Msg"] = "Doctor Application Approw";
+                    return RedirectToPage("AllAcceptDoctorApplications");
+                }
+
+                else
+                {
+                    TempData["Msg"] = "Something Wrong";
+                    return RedirectToPage("AllAcceptDoctorApplications");
+                }
+
+
+
+               
             }
             catch
             {
                 transaction.Rollback();
+                throw;
+
             }
+
+           
         }
     }
 }

@@ -129,7 +129,7 @@
 
                 </div>
             </div>
-            @if (Model.DoctorApproveViewModel.DoctorApplicationsId == 0)
+            @if (Model.DoctorApplicationInnerJoin.ApplicationStatus == 0)
             {
                 <div class="my-3" style="
     text-align: center;
@@ -210,4 +210,10 @@
         document.getElementById("form2").style.display = "block";
     }
 </script>
+@if (TempData["Msg"] is string message)
+{
+    <script>
+        alert('@message');
+    </script>
+}
 

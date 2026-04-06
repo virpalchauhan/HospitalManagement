@@ -72,14 +72,13 @@
                             <td>@item.ApplicationStatus</td>
 
 
-                           
+
                             <td><a asp-page="/Admin/DoctorApplications/SingleDoctorApplications" asp-route-id="@item.DoctorApplicationsId" class="btn btn-success btn-sm w-100">View</a></td>
 
                             <td>
-                              
                             </td>
 
-                          
+
                         </tr>
                         count++;
                     }
@@ -90,3 +89,9 @@
         </div>
     </div>
 </div>
+@if (TempData["Msg"] is string message)
+{
+    <script>
+        alert('@message');
+    </script>
+}

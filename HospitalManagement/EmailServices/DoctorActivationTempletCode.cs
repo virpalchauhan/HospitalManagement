@@ -30,19 +30,13 @@ namespace HospitalManagement.EmailServices
                 SmtpServer.EnableSsl = true;
                 SmtpServer.UseDefaultCredentials = false;
                 SmtpServer.Send(Message);
-
-
                 return true;
-
             }
             catch (Exception)
             {
 
                 throw;
             }
-
-
-
         }
          
     }

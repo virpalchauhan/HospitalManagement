@@ -26,7 +26,7 @@ namespace HospitalManagement.Services
             var data = db.Doctors.Add(Model);
        int count=     db.SaveChanges();
 
-            if (count>0)
+            if (count > 0)
             {
                 return 1;
 

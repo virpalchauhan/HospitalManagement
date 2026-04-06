@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Application Received</title>
+    <title>Application Status Update</title>
 </head>
 
 <body style="margin:0; padding:0; background-color:#0f172a; font-family:Segoe UI, Arial, sans-serif;">
@@ -13,11 +13,11 @@
 
                 <table width="600" cellpadding="0" cellspacing="0" border="0" style="background-color:#1e293b; border-radius:10px; overflow:hidden;">
 
-                  
+                    <!-- Header -->
                     <tr>
                         <td align="center" style="padding:35px 20px 25px 20px; border-bottom:1px solid #334155;">
 
-                            <img src="https://img.icons8.com/fluency/96/ok--v1.png"
+                            <img src="https://img.icons8.com/fluency/96/cancel.png"
                                  width="65"
                                  style="display:block; margin:0 auto 15px auto; border:none;">
 
@@ -25,37 +25,37 @@
                                 City Care
                             </h1>
 
-                            <p style="color:#00f6ff; margin:8px 0 0 0; font-size:14px; font-weight:bold; letter-spacing:2px;">
-                                APPLICATION RECEIVED
+                            <p style="color:#ff4d4f; margin:8px 0 0 0; font-size:14px; font-weight:bold; letter-spacing:2px;">
+                                APPLICATION NOT SELECTED
                             </p>
 
                         </td>
                     </tr>
 
-                  
+                    <!-- Body -->
                     <tr>
                         <td style="padding:30px 40px;">
 
                             <p style="color:#cbd5e1; font-size:16px; margin-top:0;">
-                                Dear <strong style="color:#ffffff;">Dr. {{FirstName}}  {{LastName}}</strong>,
+                                Dear <strong style="color:#ffffff;">Dr. {{FirstName}} {{LastName}}</strong>,
                             </p>
 
                             <p style="color:#94a3b8; font-size:15px; line-height:1.6;">
                                 Thank you for your interest in joining the medical team at City Care Hospital.
-                                We have successfully received your application. Our recruitment team is currently reviewing your profile.
+                                After carefully reviewing your application, we regret to inform you that
+                                your application has not been selected for the {{DepartmentName}} department at this time.
                             </p>
 
-                         
+                            <!-- Application Details -->
                             <table width="100%" cellpadding="0" cellspacing="0" border="0"
-                                   style="background-color:#0f172a; margin:25px 0; padding:20px; border-left:4px solid #00f6ff;">
+                                   style="background-color:#0f172a; margin:25px 0; padding:20px; border-left:4px solid #ff4d4f;">
 
                                 <tr>
-                                    <td colspan="2" style="color:#00f6ff; font-weight:bold; padding-bottom:10px;">
+                                    <td colspan="2" style="color:#ff4d4f; font-weight:bold; padding-bottom:10px;">
                                         APPLICATION DETAILS
                                     </td>
                                 </tr>
 
-                               
                                 <tr>
                                     <td style="color:#cbd5e1; padding:6px 0;"><strong>Department Name:</strong></td>
                                     <td style="color:#ffffff;">{{DepartmentName}}</td>
@@ -68,27 +68,27 @@
 
                             </table>
 
-                          
+                            <!-- Next Step -->
                             <table width="100%" cellpadding="0" cellspacing="0" border="0"
                                    style="background-color:#0f172a; margin:25px 0; padding:20px; border-left:4px solid #a855f7;">
 
                                 <tr>
                                     <td style="color:#a855f7; font-weight:bold; padding-bottom:10px;">
-                                        WHAT'S NEXT?
+                                        FUTURE OPPORTUNITIES
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td style="color:#cbd5e1; font-size:14px; line-height:1.6;">
-                                        If your qualifications match our current requirements, our HR team will contact you within
-                                        <strong>3-5 business days</strong> to schedule an interview.
-                                        We appreciate your patience during this process.
+                                        We sincerely appreciate the time and effort you put into your application.
+                                        We encourage you to apply again in the future if a suitable opportunity becomes available.
+                                        We wish you continued success in your medical career.
                                     </td>
                                 </tr>
 
                             </table>
 
-                         
+                            <!-- Button -->
                             <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:30px;">
                                 <tr>
                                     <td align="center">
@@ -112,7 +112,7 @@
                         </td>
                     </tr>
 
-                
+                    <!-- Footer -->
                     <tr>
                         <td align="center" style="background-color:#0f172a; padding:30px; border-top:1px solid #334155;">
 
@@ -120,7 +120,7 @@
                                 City Care Hospital
                             </h2>
 
-                           
+                            <!-- Social Icons -->
                             <table cellpadding="0" cellspacing="0" border="0" align="center" style="margin-bottom:25px;">
                                 <tr>
 
