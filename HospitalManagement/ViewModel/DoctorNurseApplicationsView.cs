@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 namespace HospitalManagement.ViewModel
 {
 
-   
 
-    public class DoctorApplicationView
+
+    public class DoctorNurseApplicationsView
     {
 
         public int DoctorApplicationsId { get; set; }
@@ -20,7 +20,7 @@ namespace HospitalManagement.ViewModel
         public string? LastName { get; set; }
 
         [Required(ErrorMessage = "Gender is Required.")]
-        
+
         public GenderType Gender { get; set; }
         [Required(ErrorMessage = "Date of Birth is Required.")]
         public DateOnly DateOfBirth { get; set; }
@@ -47,13 +47,14 @@ namespace HospitalManagement.ViewModel
         public string? ResumePath { get; set; }
 
 
-        
+
 
         public DateTime RequestDate { get; set; }
-      
-      
-        public ApplicationStatusType ApplicationStatus { get; set; }
 
-        public bool OfferLetterSent { get; set; }
+
+        public ApplicationStatusType ApplicationStatus { get; set; }
+        public DoctorNurseApplicationsRollType RollType { get; set; }
+
+        //public bool OfferLetterSent { get; set; }
     }
 }

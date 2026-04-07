@@ -10,7 +10,7 @@ namespace HospitalManagement.Entity
 
         public DbSet<DepartmentTbl> DepartmentTbls { get; set; }
 
-        public DbSet<DoctorApplication> doctorApplications { get; set; }
+        public DbSet<DoctorNurseApplication> doctorNurseApplications { get; set; }
 
         public DbSet<Doctors> Doctors { get; set; }
 

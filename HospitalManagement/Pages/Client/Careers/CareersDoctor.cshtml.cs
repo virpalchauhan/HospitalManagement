@@ -26,7 +26,7 @@ namespace HospitalManagement.Pages.Client.Careers
 
         [BindProperty]
 
-        public DoctorApplicationView DoctorTableView { get; set; }
+        public DoctorNurseApplicationsView DoctorNurseApplicationsView { get; set; }
 
         public string ProfilePath { get; set; }
 
@@ -59,42 +59,43 @@ namespace HospitalManagement.Pages.Client.Careers
                 var ResumePath = "";
                 var ProfilePath = "";
 
-                if (DoctorTableView.ProfilePhoto!=null && DoctorTableView.ProfilePhoto.Length>0)
+                if (DoctorNurseApplicationsView.ProfilePhoto!=null && DoctorNurseApplicationsView.ProfilePhoto.Length>0)
                 {
-                    using FileStream fs = new FileStream(Path.Combine(webHostEnvironment.WebRootPath, "Client/ProfilePhoto/", DoctorTableView.ProfilePhoto.FileName), FileMode.Create);
-                    DoctorTableView.ProfilePhoto.CopyTo(fs);
+                    using FileStream fs = new FileStream(Path.Combine(webHostEnvironment.WebRootPath, "Client/ProfilePhoto/", DoctorNurseApplicationsView.ProfilePhoto.FileName), FileMode.Create);
+                    DoctorNurseApplicationsView.ProfilePhoto.CopyTo(fs);
                     fs.Close();
-                    ProfilePath = "Client/ProfilePhoto/" + DoctorTableView.ProfilePhoto.FileName;
+                    ProfilePath = "Client/ProfilePhoto/" + DoctorNurseApplicationsView.ProfilePhoto.FileName;
 
                 }
-                if (DoctorTableView.Resume!=null && DoctorTableView.Resume.Length>0)
+                if (DoctorNurseApplicationsView.Resume!=null && DoctorNurseApplicationsView.Resume.Length>0)
                 {
-                    using FileStream fs = new FileStream(Path.Combine(webHostEnvironment.WebRootPath, "Client/ResumePhoto/", DoctorTableView.Resume.FileName), FileMode.Create);
-                    DoctorTableView.Resume.CopyTo(fs);
+                    using FileStream fs = new FileStream(Path.Combine(webHostEnvironment.WebRootPath, "Client/ResumePhoto/", DoctorNurseApplicationsView.Resume.FileName), FileMode.Create);
+                    DoctorNurseApplicationsView.Resume.CopyTo(fs);
                     fs.Close();
-                    ResumePath = "Client/ResumePhoto/" + DoctorTableView.Resume.FileName;
+                    ResumePath = "Client/ResumePhoto/" + DoctorNurseApplicationsView.Resume.FileName;
                 }
 
 
 
-                DoctorApplication InsertDoctorData = new DoctorApplication()
+                DoctorNurseApplication InsertDoctorData = new DoctorNurseApplication()
                 {
-                    FirstName = DoctorTableView.FirstName,
-                    LastName = DoctorTableView.LastName,
-                    Gender = DoctorTableView.Gender,
-                    DateOfBirth = DoctorTableView.DateOfBirth,
-                    MobileNo = DoctorTableView.MobileNo,
-                    Email = DoctorTableView.Email,
-                    DepartmentId = DoctorTableView.DepartmentId,
+                    FirstName = DoctorNurseApplicationsView.FirstName,
+                    LastName = DoctorNurseApplicationsView.LastName,
+                    Gender = DoctorNurseApplicationsView.Gender,
+                    DateOfBirth = DoctorNurseApplicationsView.DateOfBirth,
+                    MobileNo = DoctorNurseApplicationsView.MobileNo,
+                    Email = DoctorNurseApplicationsView.Email,
+                    DepartmentId = DoctorNurseApplicationsView.DepartmentId,
                     ProfilePhotoPath = ProfilePath,
                     ResumePath = ResumePath,                  
                     RequestDate = System.DateTime.Now,
                     ApplicationStatus = 0,
-                  
+                    RollType= DoctorNurseApplicationsRollType.Doctor
+
 
 
                 };
-                int Result = ObjDoctorTable.AddDoctor(InsertDoctorData);
+                int Result = ObjDoctorTable.AddDoctorNurseApplications(InsertDoctorData);
 
                 if (Result==1)
                 {
@@ -103,13 +104,13 @@ namespace HospitalManagement.Pages.Client.Careers
 
                     string path = Path.Combine(webHostEnvironment.WebRootPath, "EmailTemplet", "DoctorApplicationSubmittedEmail.html");
                     string MailBody = System.IO.File.ReadAllText(path);
-                    MailBody = MailBody.Replace("{{FirstName}}", DoctorTableView.FirstName);
-                    MailBody = MailBody.Replace("{{LastName}}", DoctorTableView.LastName);
-                    MailBody=MailBody.Replace("{{DepartmentName}}", ObjDepartmentTbl.SingleDepartment(DoctorTableView.DepartmentId).DepartmentName);
+                    MailBody = MailBody.Replace("{{FirstName}}", DoctorNurseApplicationsView.FirstName);
+                    MailBody = MailBody.Replace("{{LastName}}", DoctorNurseApplicationsView.LastName);
+                    MailBody=MailBody.Replace("{{DepartmentName}}", ObjDepartmentTbl.SingleDepartment(DoctorNurseApplicationsView.DepartmentId).DepartmentName);
                     MailBody=MailBody.Replace("{{ApplicationDate}}", System.DateTime.Now.ToString());
 
 
-                    DoctorApplicationSubmittedEmailCode.DoctorApplicationSubmittedEmailTempletCodeSend(DoctorTableView.Email, MailBody);
+                    DoctorApplicationSubmittedEmailCode.DoctorApplicationSubmittedEmailTempletCodeSend(DoctorNurseApplicationsView.Email, MailBody);
 
                     return RedirectToPage();
                 }

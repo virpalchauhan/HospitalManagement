@@ -108,7 +108,7 @@
                                  onclick="openModal(this.src)" width="470" height="500" />
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-4">
                         <div class="d-flex flex-column gap-2 mb-3">
 
 
@@ -117,12 +117,21 @@
                                    aria-label="Disabled input example" disabled readonly>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-4">
                         <div class="d-flex flex-column gap-2 mb-3">
 
 
                             <label> Application Status</label>
                             <input class="form-control" asp-for="DoctorApplicationInnerJoin.ApplicationStatus"
+                                   aria-label="Disabled input example" disabled readonly>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="d-flex flex-column gap-2 mb-3">
+
+
+                            <label> Roll Type</label>
+                            <input class="form-control" asp-for="DoctorApplicationInnerJoin.RollType"
                                    aria-label="Disabled input example" disabled readonly>
                         </div>
                     </div>

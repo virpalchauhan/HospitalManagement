@@ -15,7 +15,7 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
         //[BindProperty]
 
 
-        public DoctorApplicationView DoctorApplicationView { get; set; } = new DoctorApplicationView();
+        public DoctorNurseApplicationsView DoctorApplicationView { get; set; } = new DoctorNurseApplicationsView();
 
         //[BindProperty]
 
@@ -62,6 +62,7 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
                 DoctorApplicationInnerJoin.ProfilePhotoPath = Data.ProfilePhotoPath;
                 DoctorApproveViewModel.DoctorApplicationsId = id;
                 DoctorApplicationInnerJoin.ApplicationStatus = Data.ApplicationStatus;
+                DoctorApplicationInnerJoin.RollType = Data.RollType;
 
 
             }

@@ -14,7 +14,8 @@ namespace HospitalManagement.Pages
 
         public IActionResult OnGet()
         {
-            return RedirectToPage("Admin/DoctorApplications/AllPendingDoctorApplications");
+            //return RedirectToPage("Client/Careers/CareersNurse");
+            return RedirectToPage("Admin/DoctorApplications/AllDoctorApplications");
         }
     }
 }

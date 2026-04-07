@@ -164,35 +164,35 @@
                         <div class="row">
                             <div class="form-group col-md-6 mb-4">
                                 <label class="mb-2" style="color:white;">First Name</label>
-                                <input asp-for="DoctorTableView.FirstName" class="form-control" placeholder="Enter Your First Name">
-                                <span asp-validation-for="DoctorTableView.FirstName" class="text-danger"></span>
+                                <input asp-for="DoctorNurseApplicationsView.FirstName" class="form-control" placeholder="Enter Your First Name">
+                                <span asp-validation-for="DoctorNurseApplicationsView.FirstName" class="text-danger"></span>
 
                             </div>
 
                             <div class="form-group col-md-6 mb-4">
                                 <label class="mb-2" style="color:white;">Last Name</label>
-                                <input asp-for="DoctorTableView.LastName" class="form-control" placeholder="Enter Your Last Name">
-                                <span asp-validation-for="DoctorTableView.LastName" class="text-danger"></span>
+                                <input asp-for="DoctorNurseApplicationsView.LastName" class="form-control" placeholder="Enter Your Last Name">
+                                <span asp-validation-for="DoctorNurseApplicationsView.LastName" class="text-danger"></span>
 
                             </div>
 
                             <div class="form-group col-md-6 mb-4 position-relative">
                                 <label class="mb-2" style="color:white;">Gender</label>
-                                <select asp-for="DoctorTableView.Gender"
+                                <select asp-for="DoctorNurseApplicationsView.Gender"
                                         asp-items="Html.GetEnumSelectList<GenderType>()"
                                         class="form-control custom-select">
                                     <option value="">Select Gender</option>
                                 </select>
-                                <span asp-validation-for="DoctorTableView.Gender" class="text-danger"></span>
+                                <span asp-validation-for="DoctorNurseApplicationsView.Gender" class="text-danger"></span>
                             </div>
 
                             <div class="form-group col-md-6 mb-4">
                                 <label class="mb-2" style="color:white;">Date of Birth</label>
-                                <input asp-for="DoctorTableView.DateOfBirth"
+                                <input asp-for="DoctorNurseApplicationsView.DateOfBirth"
                                        type="date"
                                        class="form-control custom-date"
                                        max="@DateTime.Today.ToString("yyyy-MM-dd")" />
-                                <span asp-validation-for="DoctorTableView.DateOfBirth" class="text-danger"></span>
+                                <span asp-validation-for="DoctorNurseApplicationsView.DateOfBirth" class="text-danger"></span>
                             </div>
 
 
@@ -200,32 +200,32 @@
 
                             <div class="form-group col-md-6 mb-4">
                                 <label class="mb-2" style="color:white;">Email</label>
-                                <input type="email" class="form-control" asp-for="DoctorTableView.Email" placeholder="Enter Your Email">
-                                <span asp-validation-for="DoctorTableView.Email" class="text-danger"></span>
+                                <input type="email" class="form-control" asp-for="DoctorNurseApplicationsView.Email" placeholder="Enter Your Email">
+                                <span asp-validation-for="DoctorNurseApplicationsView.Email" class="text-danger"></span>
                             </div>
 
                             <div class="form-group col-md-6 mb-4">
                                 <label class="mb-2" style="color:white;">Mobile Number</label>
-                                <input class="form-control" asp-for="DoctorTableView.MobileNo" placeholder="Enter Your Mobile Number">
-                                <span asp-validation-for="DoctorTableView.MobileNo" class="text-danger"></span>
+                                <input class="form-control" asp-for="DoctorNurseApplicationsView.MobileNo" placeholder="Enter Your Mobile Number">
+                                <span asp-validation-for="DoctorNurseApplicationsView.MobileNo" class="text-danger"></span>
                             </div>
 
                             <div class="form-group col-md-6 mb-4">
                                 <label style="color:white;">Upload Profile Photo</label>
-                                <input asp-for="DoctorTableView.ProfilePhoto" class="form-control custom-file" required>
-                                <span asp-validation-for="DoctorTableView.ProfilePhoto" class="text-danger"></span>
+                                <input asp-for="DoctorNurseApplicationsView.ProfilePhoto" class="form-control custom-file" required>
+                                <span asp-validation-for="DoctorNurseApplicationsView.ProfilePhoto" class="text-danger"></span>
                             </div>
 
                             <div class="form-group col-md-6 mb-4">
                                 <label style="color:white;">Upload Resume</label>
-                                <input asp-for="DoctorTableView.Resume" class="form-control custom-file" required>
-                                <span asp-validation-for="DoctorTableView.Resume" class="text-danger"></span>
+                                <input asp-for="DoctorNurseApplicationsView.Resume" class="form-control custom-file" required>
+                                <span asp-validation-for="DoctorNurseApplicationsView.Resume" class="text-danger"></span>
                             </div>
 
                             <div class="form-group col-md-12 mb-4 position-relative">
                                 <label class="mb-2" style="color:white;">Department</label>
 
-                                <select asp-for="DoctorTableView.DepartmentId"
+                                <select asp-for="DoctorNurseApplicationsView.DepartmentId"
                                         asp-items="Model.DepartmentList"
                                         class="form-control custom-select">
 
@@ -233,14 +233,14 @@
 
                                 </select>
 
-                                <span asp-validation-for="DoctorTableView.DepartmentId"
+                                <span asp-validation-for="DoctorNurseApplicationsView.DepartmentId"
                                       class="text-danger"></span>
                             </div>
 
 
                             <div class="col-lg-12">
                                 <div class="contact-form-btn">
-                                    <button type="submit" class="btn-default">book now</button>
+                                    <button type="submit" class="btn-default">Apply Now</button>
 
                                 </div>
                             </div>

@@ -40,7 +40,10 @@ namespace HospitalManagement.Entity.Model.Innerjoin
 
         public ApplicationStatusType ApplicationStatus { get; set; }
 
-        public string DepartmentName { get; set; }
+        public string? DepartmentName { get; set; }
+
+
+       public DoctorNurseApplicationsRollType RollType { get; set; }
 
 
     }
