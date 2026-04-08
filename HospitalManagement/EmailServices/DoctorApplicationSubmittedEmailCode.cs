@@ -14,7 +14,7 @@ namespace HospitalManagement.EmailServices
                 NetworkCredential LoginInfo = new NetworkCredential(GmailAccountEmail, GmailAccountPassword);
 
                 MailMessage Message = new MailMessage();
-                Message.From = new MailAddress(GmailAccountEmail, "Test Eamil");
+                Message.From = new MailAddress(GmailAccountEmail, "Doctor Account Activation");
                 Message.To.Add(new MailAddress(Recipient));
                 Message.Subject = "Doctor Account Activation";
                 Message.Body = MailBody;

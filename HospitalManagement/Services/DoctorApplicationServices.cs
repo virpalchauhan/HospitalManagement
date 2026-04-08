@@ -200,7 +200,6 @@ namespace HospitalManagement.Services
             var Data = (from d in db.doctorNurseApplications
                         join dept in db.DepartmentTbls
                         on d.DepartmentId equals dept.DepartmentId
-                        where d.RollType == DoctorNurseApplicationsRollType.Doctor
                         select new DoctorApplicationInnerJoin
                         {
 

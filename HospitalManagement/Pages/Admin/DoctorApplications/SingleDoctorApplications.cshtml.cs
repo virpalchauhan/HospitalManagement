@@ -7,6 +7,8 @@ using HospitalManagement.Services;
 using HospitalManagement.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace HospitalManagement.Pages.Admin.DoctorApplications
 {
@@ -42,6 +44,25 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
             this.ObjDepartmentTblServices = ObjDepartmentTblServices;
             this.db = db;
 
+        }
+
+        public string GenerateSecurePassword(int length = 10)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$!";
+            var result = new StringBuilder();
+            var bytes = new byte[length];
+
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(bytes);
+            }
+
+            foreach (var b in bytes)
+            {
+                result.Append(chars[b % chars.Length]);
+            }
+
+            return result.ToString();
         }
 
         public void OnGet(int id)
@@ -135,6 +156,8 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
 
         public IActionResult OnPostFinalApprove()
         {
+
+            string TempPassword = GenerateSecurePassword();
             int DoctorApplicationresult = 0;
 
             if (!ModelState.IsValid)
@@ -161,7 +184,7 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
                     DepartmentId = Application.DepartmentId,
                     SalaryAmount = DoctorApproveViewModel.SalaryAmount,
                     JoiningDate = DoctorApproveViewModel.JoiningDate,
-                    PasswordHash = "hello",
+                    PasswordHash = TempPassword,
                     AccountStatus = 1,
                     OfferLetterSent = true,
                     CreatedDate = DateTime.Now,
@@ -206,7 +229,7 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
                 MailBody = MailBody.Replace("{{JoiningDate}}", DoctorApproveViewModel.JoiningDate.ToString());
                 MailBody = MailBody.Replace("{{SalaryAmount}}", DoctorApproveViewModel.SalaryAmount.ToString());
                 MailBody = MailBody.Replace("{{Email}}", Application.Email);
-                MailBody = MailBody.Replace("{{Password}}", "Password");
+                MailBody = MailBody.Replace("{{Password}}", TempPassword);
 
                 if (DoctorActivationTempletCode.DoctorActivationTempletCodeSend(Application.Email, MailBody))
                 {

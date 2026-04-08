@@ -97,7 +97,7 @@
                         <div style="padding: 30px 40px;">
                             <p style="color: #cbd5e1; font-size: 16px; margin-top: 0;">Hello <strong style="color: #ffffff;">Dr.  {{FirstName}}  {{LastName}}</strong>,</p>
                             <p style="color: #94a3b8; font-size: 15px; line-height: 1.6;">
-                                Congratulations! We are pleased to inform you that your application has been approved and you have been successfully appointed in the {{DepartmentName}} Department at City Care Hospital. Your joining date is {{JoiningDate}}, and the agreed monthly salary is ₹{{SalaryAmount}}. We are confident that your skills and experience will
+                                Congratulations! We are pleased to inform you that your application has been approved and you have been successfully appointed in the {{Department}} Department at City Care Hospital. Your joining date is {{JoiningDate}}, and the agreed monthly salary is ₹{{SalaryAmount}}. We are confident that your skills and experience will
                                 greatly contribute to our medical team, and we look forward to working with you.
                             </p>
 
@@ -107,7 +107,12 @@
                                     <tr>
                                         <td width="40%"><strong>Joining Date:</strong></td>
                                         <td style="color: #ffffff;">{{JoiningDate}}</td>
-                                        {{Department}}
+                                      
+                                    </tr>
+                                    <tr>
+                                        <td width="40%"><strong>Department</strong></td>
+                                        <td style="color: #ffffff;"> {{Department}}</td>
+                                       
                                     </tr>
                                     <tr>
                                         <td><strong>Monthly Salary:</strong></td>
@@ -120,12 +125,16 @@
                                 <h3 style="margin: 0 0 15px 0; color: #00f6ff; font-size: 16px; text-transform: uppercase;">Access Credentials</h3>
                                 <table width="100%" cellspacing="0" cellpadding="0" border="0" style="color: #cbd5e1; font-size: 15px; line-height: 2;">
                                     <tr>
-                                        <td width="40%"><strong>Email ID:</strong></td>
-                                        <td style="color: #ffffff;">{{Email}}</td>
+                                        <td width="20%"><strong>Email ID :</strong></td>
+                                        <td style="color: #ffffff;">
+                                            <a style="color:#ffffff !important; text-decoration:none !important;">
+                                                {{Email}}
+                                            </a>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Password:</strong></td>
-                                        <td style="color: #ffffff; background-color: #334155; padding: 4px 8px; border-radius: 4px;"> {{Password}}</td>
+                                        <td><strong>Password :</strong></td>
+                                        <td style="color: #ffffff;"> {{Password}}</td>
                                     </tr>
                                 </table>
                             </div>

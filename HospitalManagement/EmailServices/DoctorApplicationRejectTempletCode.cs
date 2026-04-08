@@ -19,7 +19,7 @@ namespace HospitalManagement.EmailServices
             NetworkCredential LoginInfo = new NetworkCredential(GmailAccountEmail, GmailAccountPassword);
 
             MailMessage Message = new MailMessage();
-            Message.From = new MailAddress(GmailAccountEmail, "Test Eamil");
+            Message.From = new MailAddress(GmailAccountEmail, "Doctor Application Rejection");
             Message.To.Add(new MailAddress(Recipient));
             Message.Subject = "Doctor Application Rejection";
             Message.Body = MailBody;
