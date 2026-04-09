@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HospitalManagement.Entity.Model
 {
-    [Table("Doctors")]
-    public class Doctors
+    [Table("DoctorsAndNurse")]
+    public class DoctorsAndNurse
     {
         [Key]
         public int DoctorId { get; set; }
@@ -49,7 +49,7 @@ namespace HospitalManagement.Entity.Model
 
         public DateTime CreatedDate { get; set; }
 
-     
-       
+        public DoctorNurseApplicationsRollType RollType { get; set; }
+
     }
 }

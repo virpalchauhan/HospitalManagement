@@ -10,18 +10,18 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
 
         [BindProperty]
 
-        public List<DoctorApplicationInnerJoin> AllAcceptDoctorApplications { get; set; }
+        public List<DoctorNurseApplicationInnerJoin> AllAcceptDoctorApplications { get; set; }
 
-        private readonly IDoctorApplicationservices ObjDoctorApplicationservices;
+        private readonly IDoctorNurseApplicationServices ObjDoctorNurseApplicationServices;
 
-        public AllAcceptDoctorApplicationsModel(IDoctorApplicationservices ObjDoctorApplicationservices)
+        public AllAcceptDoctorApplicationsModel(IDoctorNurseApplicationServices ObjDoctorNurseApplicationServices)
         {
-            this.ObjDoctorApplicationservices = ObjDoctorApplicationservices;
+            this.ObjDoctorNurseApplicationServices = ObjDoctorNurseApplicationServices;
         }
 
         public void OnGet()
         {
-            AllAcceptDoctorApplications= ObjDoctorApplicationservices.AllAcceptDoctorApplications();
+            AllAcceptDoctorApplications= ObjDoctorNurseApplicationServices.AllAcceptDoctorApplications();
 
         }
     }

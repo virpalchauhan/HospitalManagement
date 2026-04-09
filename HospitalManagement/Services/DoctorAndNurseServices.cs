@@ -4,26 +4,26 @@ using HospitalManagement.Entity.Model;
 namespace HospitalManagement.Services
 {
 
-    public interface IDoctorsServices
+    public interface IDoctorAndNurseServices
     {
-        int AddDoctor(Doctors Model);
+        int AddDoctor(DoctorsAndNurse Model);
 
 
     }
 
 
-    public class DoctorsServices : IDoctorsServices, IDisposable
+    public class DoctorAndNurseServices : IDoctorAndNurseServices, IDisposable
     {
         private readonly EntityDbContext db;
 
-        public DoctorsServices(EntityDbContext db)
+        public DoctorAndNurseServices(EntityDbContext db)
         {
             this.db = db;
         }
 
-        public int AddDoctor(Doctors Model)
+        public int AddDoctor(DoctorsAndNurse Model)
         {
-            var data = db.Doctors.Add(Model);
+            var data = db.DoctorsAndNurses.Add(Model);
        int count=     db.SaveChanges();
 
             if (count > 0)

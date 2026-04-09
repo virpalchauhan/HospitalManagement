@@ -14,13 +14,13 @@ namespace HospitalManagement.Pages.Client.Careers
 
 
         private readonly IWebHostEnvironment webHostEnvironment;
-        private readonly IDoctorApplicationservices ObjDoctorTable;
+        private readonly IDoctorNurseApplicationServices ObjDoctorNurseApplicationServices;
         private readonly IDepartmentTblServices ObjDepartmentTbl;
 
-        public CareersNurseModel(IWebHostEnvironment webHostEnvironment, IDoctorApplicationservices ObjDoctorTable, IDepartmentTblServices ObjDepartmentTbl)
+        public CareersNurseModel(IWebHostEnvironment webHostEnvironment, IDoctorNurseApplicationServices ObjDoctorNurseApplicationServices, IDepartmentTblServices ObjDepartmentTbl)
         {
             this.webHostEnvironment = webHostEnvironment;
-            this.ObjDoctorTable = ObjDoctorTable;
+            this.ObjDoctorNurseApplicationServices = ObjDoctorNurseApplicationServices;
             this.ObjDepartmentTbl = ObjDepartmentTbl;
         }
 
@@ -92,7 +92,7 @@ namespace HospitalManagement.Pages.Client.Careers
 
                 };
 
-                int Result = ObjDoctorTable.AddDoctorNurseApplications(InsertDoctorData);
+                int Result = ObjDoctorNurseApplicationServices.AddDoctorNurseApplications(InsertDoctorData);
 
 
                 if (Result==1)

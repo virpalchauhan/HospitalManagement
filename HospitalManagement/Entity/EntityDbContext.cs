@@ -12,7 +12,7 @@ namespace HospitalManagement.Entity
 
         public DbSet<DoctorNurseApplication> doctorNurseApplications { get; set; }
 
-        public DbSet<Doctors> Doctors { get; set; }
+        public DbSet<DoctorsAndNurse> DoctorsAndNurses { get; set; }
 
 
 

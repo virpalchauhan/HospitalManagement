@@ -22,24 +22,24 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
         //[BindProperty]
 
 
-        public DoctorApplicationInnerJoin DoctorApplicationInnerJoin { get; set; } = new DoctorApplicationInnerJoin();
+        public DoctorNurseApplicationInnerJoin DoctorApplicationInnerJoin { get; set; } = new DoctorNurseApplicationInnerJoin();
 
         [BindProperty]
 
         public DoctorApproveViewModel DoctorApproveViewModel { get; set; } = new DoctorApproveViewModel();
 
-        private readonly IDoctorsServices ObjDoctorsServices;
-        private readonly IDoctorApplicationservices ObjDoctorApplication;
+        private readonly IDoctorAndNurseServices ObjDoctorAndNurseServices;
+        private readonly IDoctorNurseApplicationServices ObjDoctorNurseApplicationServices;
         private readonly IWebHostEnvironment WebHostEnvironment;
         private readonly IDepartmentTblServices ObjDepartmentTblServices;
         private readonly EntityDbContext db;
 
 
 
-        public SingleDoctorApplicationsModel(IDoctorApplicationservices ObjDoctorApplication, IDoctorsServices ObjDoctorsServices, IWebHostEnvironment WebHostEnvironment, IDepartmentTblServices ObjDepartmentTblServices, EntityDbContext db)
+        public SingleDoctorApplicationsModel(IDoctorNurseApplicationServices ObjDoctorNurseApplicationServices, IDoctorAndNurseServices ObjDoctorAndNurseServices, IWebHostEnvironment WebHostEnvironment, IDepartmentTblServices ObjDepartmentTblServices, EntityDbContext db)
         {
-            this.ObjDoctorApplication = ObjDoctorApplication;
-            this.ObjDoctorsServices = ObjDoctorsServices;
+            this.ObjDoctorNurseApplicationServices = ObjDoctorNurseApplicationServices;
+            this.ObjDoctorAndNurseServices = ObjDoctorAndNurseServices;
             this.WebHostEnvironment = WebHostEnvironment;
             this.ObjDepartmentTblServices = ObjDepartmentTblServices;
             this.db = db;
@@ -68,7 +68,7 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
         public void OnGet(int id)
         {
 
-            var Data = ObjDoctorApplication.SingleData(id);
+            var Data = ObjDoctorNurseApplicationServices.SingleData(id);
 
             if (Data != null)
             {
@@ -97,12 +97,12 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
 
             try
             {       
-            var result = ObjDoctorApplication.DoctorApplicationUpdate(DoctorApproveViewModel.DoctorApplicationsId, (int)ApplicationStatusType.Reject);
+            var result = ObjDoctorNurseApplicationServices.DoctorApplicationUpdate(DoctorApproveViewModel.DoctorApplicationsId, (int)ApplicationStatusType.Reject);
             if (result != 1)
             {
                   return  RedirectToPage();
             }
-                var Application = ObjDoctorApplication.SingleData(DoctorApproveViewModel.DoctorApplicationsId);
+                var Application = ObjDoctorNurseApplicationServices.SingleData(DoctorApproveViewModel.DoctorApplicationsId);
 
                 if (Application==null)
                 {
@@ -167,13 +167,13 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
 
             try
             {
-                var Application = ObjDoctorApplication
+                var Application = ObjDoctorNurseApplicationServices
                     .SingleData(DoctorApproveViewModel.DoctorApplicationsId);
 
                 if (Application == null)
                     return RedirectToPage();
 
-                Doctors InsertDoctors = new Doctors()
+                DoctorsAndNurse InsertDoctors = new DoctorsAndNurse()
                 {
                     FirstName = Application.FirstName,
                     LastName = Application.LastName,
@@ -188,10 +188,11 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
                     AccountStatus = 1,
                     OfferLetterSent = true,
                     CreatedDate = DateTime.Now,
-                    ProfilePhotoPath = Application.ProfilePhotoPath
+                    ProfilePhotoPath = Application.ProfilePhotoPath,
+                    RollType=Application.RollType
                 };
 
-                int result = ObjDoctorsServices.AddDoctor(InsertDoctors);
+                int result = ObjDoctorAndNurseServices.AddDoctor(InsertDoctors);
 
                 if (result != 1)
                 {
@@ -199,7 +200,7 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
                 }
 
                 DoctorApplicationresult =
-                    ObjDoctorApplication.DoctorApplicationUpdate(
+                    ObjDoctorNurseApplicationServices.DoctorApplicationUpdate(
                         DoctorApproveViewModel.DoctorApplicationsId, 1);
 
                 if (DoctorApplicationresult != 1)

@@ -8,18 +8,18 @@ namespace HospitalManagement.Services
 {
 
 
-    public interface IDoctorApplicationservices
+    public interface IDoctorNurseApplicationServices
     {
 
         int AddDoctorNurseApplications(DoctorNurseApplication Model);
 
 
-        List<DoctorApplicationInnerJoin> AllPendingDoctorApplications();
-        List<DoctorApplicationInnerJoin> AllRejectDoctorApplications();
-        List<DoctorApplicationInnerJoin> AllAcceptDoctorApplications();
-        List<DoctorApplicationInnerJoin> AlDoctorApplications();
+        List<DoctorNurseApplicationInnerJoin> AllPendingDoctorApplications();
+        List<DoctorNurseApplicationInnerJoin> AllRejectDoctorApplications();
+        List<DoctorNurseApplicationInnerJoin> AllAcceptDoctorApplications();
+        List<DoctorNurseApplicationInnerJoin> AlDoctorApplications();
 
-        DoctorApplicationInnerJoin SingleData(int Id);
+        DoctorNurseApplicationInnerJoin SingleData(int Id);
 
         int DoctorApplicationUpdate(int id, byte ApplicationsStatusId);
 
@@ -28,11 +28,11 @@ namespace HospitalManagement.Services
 
 
     }
-    public class DoctorApplicationServices : IDoctorApplicationservices, IDisposable
+    public class DoctorNurseApplicationServices : IDoctorNurseApplicationServices, IDisposable
     {
 
         private readonly EntityDbContext db;
-        public DoctorApplicationServices(EntityDbContext db)
+        public DoctorNurseApplicationServices(EntityDbContext db)
         {
             this.db = db;
 
@@ -54,13 +54,13 @@ namespace HospitalManagement.Services
             return 0;
         }
 
-        public List<DoctorApplicationInnerJoin> AlDoctorApplications()
+        public List<DoctorNurseApplicationInnerJoin> AlDoctorApplications()
         {
             var Data = (from d in db.doctorNurseApplications
                         join dept in db.DepartmentTbls
                         on d.DepartmentId equals dept.DepartmentId
                        
-                        select new DoctorApplicationInnerJoin
+                        select new DoctorNurseApplicationInnerJoin
                         {
 
                             FirstName = d.FirstName,
@@ -81,14 +81,14 @@ namespace HospitalManagement.Services
             return Data;
         }
 
-        public List<DoctorApplicationInnerJoin> AllAcceptDoctorApplications()
+        public List<DoctorNurseApplicationInnerJoin> AllAcceptDoctorApplications()
         {
             var Data = (from d in db.doctorNurseApplications
                         join dept in db.DepartmentTbls
                         on d.DepartmentId equals dept.DepartmentId
                         where d.ApplicationStatus == ApplicationStatusType.Accept
                        
-                        select new DoctorApplicationInnerJoin
+                        select new DoctorNurseApplicationInnerJoin
                         {
 
                             FirstName = d.FirstName,
@@ -109,7 +109,7 @@ namespace HospitalManagement.Services
             return Data;
         }
 
-        public List<DoctorApplicationInnerJoin> AllPendingDoctorApplications()
+        public List<DoctorNurseApplicationInnerJoin> AllPendingDoctorApplications()
         {
             //return db.doctorApplications.Where(m => m.ApplicationStatus == 0).ToList();
 
@@ -119,7 +119,7 @@ namespace HospitalManagement.Services
                         on d.DepartmentId equals dept.DepartmentId
                         where d.ApplicationStatus == ApplicationStatusType.Pending 
                       
-                        select new DoctorApplicationInnerJoin
+                        select new DoctorNurseApplicationInnerJoin
                         {
 
                             FirstName = d.FirstName,
@@ -140,14 +140,14 @@ namespace HospitalManagement.Services
             return Data;
         }
 
-        public List<DoctorApplicationInnerJoin> AllRejectDoctorApplications()
+        public List<DoctorNurseApplicationInnerJoin> AllRejectDoctorApplications()
         {
             var Data = (from d in db.doctorNurseApplications
                         join dept in db.DepartmentTbls
                         on d.DepartmentId equals dept.DepartmentId
                         where d.ApplicationStatus == ApplicationStatusType.Reject
                        
-                        select new DoctorApplicationInnerJoin
+                        select new DoctorNurseApplicationInnerJoin
                         {
 
                             FirstName = d.FirstName,
@@ -195,12 +195,12 @@ namespace HospitalManagement.Services
             return 0;
         }
 
-        public DoctorApplicationInnerJoin SingleData(int Id)
+        public DoctorNurseApplicationInnerJoin SingleData(int Id)
         {
             var Data = (from d in db.doctorNurseApplications
                         join dept in db.DepartmentTbls
                         on d.DepartmentId equals dept.DepartmentId
-                        select new DoctorApplicationInnerJoin
+                        select new DoctorNurseApplicationInnerJoin
                         {
 
                             FirstName = d.FirstName,

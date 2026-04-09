@@ -2,7 +2,7 @@
 
 namespace HospitalManagement.Entity.Model.Innerjoin
 {
-    public class DoctorApplicationInnerJoin
+    public class DoctorNurseApplicationInnerJoin
     {
         public int DoctorApplicationsId { get; set; }
 
