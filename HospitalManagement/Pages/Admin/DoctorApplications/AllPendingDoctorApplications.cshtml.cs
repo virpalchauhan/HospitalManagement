@@ -17,7 +17,7 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
 
         private readonly IDoctorNurseApplicationServices ObjDoctorNurseApplicationServices;
 
-        public AllPendingDoctorApplicationsModel(DoctorNurseApplicationServices ObjDoctorNurseApplicationServices)
+        public AllPendingDoctorApplicationsModel(IDoctorNurseApplicationServices ObjDoctorNurseApplicationServices)
         {
             this.ObjDoctorNurseApplicationServices = ObjDoctorNurseApplicationServices;
         }

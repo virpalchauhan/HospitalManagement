@@ -6,7 +6,7 @@ namespace HospitalManagement.Services
 
     public interface IAccountServices
     {
-        int Login(DoctorsAndNurse Model);
+        DoctorsAndNurse Login(DoctorsAndNurse Model);
     }
 
 
@@ -26,15 +26,11 @@ namespace HospitalManagement.Services
             GC.SuppressFinalize(this);
         }
 
-        public int Login(DoctorsAndNurse Model)
+        public DoctorsAndNurse Login(DoctorsAndNurse Model)
         {
-            var data = db.DoctorsAndNurses.Where(m => m.Email == Model.Email && m.PasswordHash == Model.PasswordHash).Take(1).FirstOrDefault();
+            var data=  db.DoctorsAndNurses.Where(m => m.Email == Model.Email && m.PasswordHash == Model.PasswordHash).FirstOrDefault();
 
-            if (data!=null)
-            {
-                return data.DoctorId;
-            }
-            return 0;
+            return data;
         }
     }
 }

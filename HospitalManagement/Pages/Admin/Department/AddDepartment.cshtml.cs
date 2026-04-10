@@ -1,6 +1,7 @@
 using HospitalManagement.Entity.Model;
 using HospitalManagement.Services;
 using HospitalManagement.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -19,7 +20,7 @@ namespace HospitalManagement.Pages.Admin.Department
         [BindProperty]
         public string? DepartmentName { get; set; }
 
-
+       
 
         public AddDepartmentModel(IDepartmentTblServices DepartmentTblObj)
         {
@@ -30,7 +31,7 @@ namespace HospitalManagement.Pages.Admin.Department
 
         public void OnGet(int id)
         {
-
+           
 
             if (id > 0)
             {
