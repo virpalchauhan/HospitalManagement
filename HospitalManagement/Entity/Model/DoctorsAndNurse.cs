@@ -8,7 +8,7 @@ namespace HospitalManagement.Entity.Model
     public class DoctorsAndNurse
     {
         [Key]
-        public int DoctorId { get; set; }
+        public int DoctorNurceId { get; set; }
 
        
         public string? FirstName { get; set; }

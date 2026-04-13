@@ -8,13 +8,13 @@ namespace HospitalManagement.Pages.Admin
     public class IndexModel : PageModel
     {
 
-        public string UserId { get; set; }
-        public string Role { get; set; }
+        public string DoctorNurceId { get; set; }
+        public string RollType { get; set; }
 
         public void OnGet()
         {
-            UserId = User.FindFirst("UserId")?.Value;
-            Role = User.FindFirst("Role")?.Value;
+            DoctorNurceId = User.FindFirst("DoctorNurceId")?.Value;
+            RollType = User.FindFirst("RollType")?.Value;
         }
     }
 }

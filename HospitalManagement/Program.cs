@@ -1,4 +1,5 @@
 ﻿using HospitalManagement.Entity;
+using HospitalManagement.Filters;
 using HospitalManagement.Helper;
 using HospitalManagement.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -47,6 +48,11 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.ConfigureFilter(new AuthPageFilter());
+});
+
 // 🗄️ DATABASE
 builder.Services.AddDbContext<EntityDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DbCon")));
@@ -57,6 +63,7 @@ builder.Services.AddScoped<IDoctorNurseApplicationServices, DoctorNurseApplicati
 builder.Services.AddScoped<IDoctorAndNurseServices, DoctorAndNurseServices>();
 builder.Services.AddScoped<IAccountServices, AccountServices>();
 builder.Services.AddScoped<IJwtTokenHelper, JwtTokenHelper>();
+builder.Services.AddScoped<AuthPageFilter>();
 
 // 🧠 SESSION
 builder.Services.AddDistributedMemoryCache();

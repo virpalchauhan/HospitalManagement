@@ -1,9 +1,10 @@
-using HospitalManagement.Entity.Model;
+﻿using HospitalManagement.Entity.Model;
 using HospitalManagement.Services;
 using HospitalManagement.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using HospitalManagement.Helper;
+using Azure.Core;
 
 namespace HospitalManagement.Pages.Admin.Account
 {
@@ -28,6 +29,14 @@ namespace HospitalManagement.Pages.Admin.Account
 
         public void OnGet()
         {
+
+            var token = Request.Cookies["AuthToken"];
+
+            if (!string.IsNullOrEmpty(token))
+            {
+               
+                Response.Redirect("/Admin/index");
+            }
         }
 
 
@@ -46,15 +55,22 @@ namespace HospitalManagement.Pages.Admin.Account
 
               
 
-                var Token = ObjIJwtTokenHelper.JWTGenerateToken(Result.DoctorId.ToString(), Result.RollType.ToString());
+                var Token = ObjIJwtTokenHelper.JWTGenerateToken(Result.DoctorNurceId.ToString(), Result.RollType.ToString());
 
-                if (Result.DoctorId == 0)
+                if (Result.DoctorNurceId == 0)
                 {
                     TempData["Msg"] = "Email and Password Dont match";
                 }
-                else if (Result.DoctorId >= 1)
+                else if (Result.DoctorNurceId >= 1)
                 {
-                    Response.Cookies.Append("AuthToken", Token);
+                    Response.Cookies.Append("AuthToken", Token, new CookieOptions
+                    {
+                        HttpOnly = true,
+                        Secure = false, 
+                        Expires = DateTime.Now.AddMinutes(60),
+                        SameSite = SameSiteMode.Lax
+                    });
+
                     return RedirectToPage("/Admin/index");
                 }
 

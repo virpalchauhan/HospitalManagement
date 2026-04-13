@@ -1,4 +1,5 @@
 using HospitalManagement.Entity.Model;
+using HospitalManagement.Filters;
 using HospitalManagement.Services;
 using HospitalManagement.ViewModel;
 using Microsoft.AspNetCore.Authorization;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace HospitalManagement.Pages.Admin.Department
 {
+    [Authorize]
     public class AddDepartmentModel : PageModel
     {
 

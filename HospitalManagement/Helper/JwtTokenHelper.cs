@@ -23,7 +23,7 @@ namespace HospitalManagement.Helper
         }
 
 
-        public string JWTGenerateToken(string userId, string role)
+        public string JWTGenerateToken(string DoctorNurceId, string RollType)
         {
            var SecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(ObjConfiguration["JwtSettings:Key"]));
             var Credentials = new SigningCredentials(SecurityKey, SecurityAlgorithms.HmacSha256);
@@ -31,8 +31,8 @@ namespace HospitalManagement.Helper
 
             var Claims= new[]
             {
-                new System.Security.Claims.Claim("UserId", userId),
-                new System.Security.Claims.Claim("Role", role)
+                new System.Security.Claims.Claim("DoctorNurceId", DoctorNurceId),
+                new System.Security.Claims.Claim("RollType", RollType)
             };
 
             var token = new JwtSecurityToken(
