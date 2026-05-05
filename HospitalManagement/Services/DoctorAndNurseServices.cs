@@ -8,6 +8,12 @@ namespace HospitalManagement.Services
     {
         int AddDoctor(DoctorsAndNurse Model);
 
+      
+
+        DoctorsAndNurse GetByEmail(string Email);
+
+      
+
 
     }
 
@@ -35,10 +41,22 @@ namespace HospitalManagement.Services
 
         }
 
+      
+
+        public DoctorsAndNurse GetByEmail(string Email)
+        {
+           return db.DoctorsAndNurses.FirstOrDefault(x => x.Email == Email);
+        }
+
+      
+       
+        
         public void Dispose()
         {
-           db.Dispose();
+            db.Dispose();
             GC.SuppressFinalize(this);
         }
+
+      
     }
 }

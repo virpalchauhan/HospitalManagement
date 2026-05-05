@@ -10,37 +10,37 @@ namespace HospitalManagement.Entity.Model
         [Key]
         public int DoctorNurceId { get; set; }
 
-       
+
         public string? FirstName { get; set; }
 
-      
+
         public string? LastName { get; set; }
 
-      
+
         public GenderType Gender { get; set; }
 
-       
+
         public DateOnly DateOfBirth { get; set; }
 
-      
+
         public string? MobileNo { get; set; }
 
-     
+
         public string? Email { get; set; }
 
-     
+
         public int DepartmentId { get; set; }
 
-       
+
         public string? ProfilePhotoPath { get; set; }
 
-       
+
         public decimal SalaryAmount { get; set; }
 
-       
+
         public DateTime? JoiningDate { get; set; }
 
-      
+
         public string? PasswordHash { get; set; }
 
         public byte AccountStatus { get; set; }
@@ -50,6 +50,15 @@ namespace HospitalManagement.Entity.Model
         public DateTime CreatedDate { get; set; }
 
         public DoctorNurseApplicationsRollType RollType { get; set; }
+
+        public string? OTP { get; set; }
+
+        public DateTime? OTPExpiry { get; set; }
+
+
+        public int? OTPAttempts { get; set; }
+        public DateTime? LockoutEndTime { get; set; }
+        public DateTime? LastFailedAttempt { get; set; }
 
     }
 }

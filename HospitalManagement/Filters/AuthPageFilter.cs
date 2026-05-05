@@ -14,65 +14,58 @@ namespace HospitalManagement.Filters
 
         public void OnPageHandlerExecuting(PageHandlerExecutingContext context)
         {
-            var httpContext = context.HttpContext;
+            //    var httpContext = context.HttpContext;
 
-            var path = httpContext.Request.Path;
-
-
-
-            //string[] PageList = new string[] { 
-            
-            //"/Admin/Account/Login",
+            //    var path = httpContext.Request.Path;
 
 
-            //};
 
-           
-            if (path.StartsWithSegments("/Admin/Account/Login"))
-            {
-                return;
-            }
+            //    string[] PageList = new string[] {
 
-            // ✅ Cookie se token lo (IMPORTANT FIX)
-            var token = httpContext.Request.Cookies["AuthToken"];
+            //    "/Admin/Account/ForgotPassword",
 
-            // ❌ Token nahi mila → redirect
-            if (string.IsNullOrEmpty(token))
-            {
-                context.Result = new RedirectToPageResult("/Admin/Account/Login");
-                return;
-            }
 
-            var handler = new JwtSecurityTokenHandler();
+            //    };
 
-            try
-            {
-                var jwtToken = handler.ReadJwtToken(token);
 
-                // 🔹 Claims read
-                var userId = jwtToken.Claims
-                    .FirstOrDefault(x => x.Type == "DoctorNurceId")?.Value;
+            //    if (path.StartsWithSegments("/Admin/Account/Login"))
+            //    {
+            //        return;
+            //    }
 
-                var role = jwtToken.Claims
-                    .FirstOrDefault(x => x.Type == "RollType")?.Value;
 
-                // ❌ Invalid user → redirect
-                if (string.IsNullOrEmpty(userId))
-                {
-                    context.Result = new RedirectToPageResult("/Admin/Account/Login");
-                    return;
-                }
+            //    var token = httpContext.Request.Cookies["AuthToken"];
 
-                // 🔥 Optional Role check
-                // if (role != "Admin")
-                // {
-                //     context.Result = new RedirectToPageResult("/AccessDenied");
-                // }
-            }
-            catch
-            {
-                context.Result = new RedirectToPageResult("/Admin/Account/Login");
-            }
+            //    if (string.IsNullOrEmpty(token))
+            //    {
+            //        context.Result = new RedirectToPageResult("/Admin/Account/Login");
+            //        return;
+            //    }
+
+            //    var handler = new JwtSecurityTokenHandler();
+
+            //    try
+            //    {
+            //        var jwtToken = handler.ReadJwtToken(token);
+
+            //        var userId = jwtToken.Claims
+            //            .FirstOrDefault(x => x.Type == "DoctorNurceId")?.Value;
+
+            //        var role = jwtToken.Claims
+            //            .FirstOrDefault(x => x.Type == "RollType")?.Value;
+
+            //        if (string.IsNullOrEmpty(userId))
+            //        {
+            //            context.Result = new RedirectToPageResult("/Admin/Account/Login");
+            //            return;
+            //        }
+
+
+            //    }
+            //    catch
+            //    {
+            //        context.Result = new RedirectToPageResult("/Admin/Account/Login");
+            //    }
         }
 
         public void OnPageHandlerSelected(PageHandlerSelectedContext context)

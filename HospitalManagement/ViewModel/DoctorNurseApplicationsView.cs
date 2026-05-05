@@ -55,6 +55,16 @@ namespace HospitalManagement.ViewModel
         public ApplicationStatusType ApplicationStatus { get; set; }
         public DoctorNurseApplicationsRollType RollType { get; set; }
 
+        public string? OTP { get; set; }
+
+        public DateTime OTPExpiry { get; set; }
+
+        public int? OTPAttempts { get; set; }
+
+        public DateTime? LockoutEndTime { get; set; }
+
+        public DateTime? LastFailedAttempt { get; set; }
+
         //public bool OfferLetterSent { get; set; }
     }
 }
