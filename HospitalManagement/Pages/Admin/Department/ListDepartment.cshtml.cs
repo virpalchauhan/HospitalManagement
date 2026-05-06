@@ -38,5 +38,7 @@ namespace HospitalManagement.Pages.Admin.Department
                 return RedirectToPage();
             }
         }
+
+       
     }
 }

@@ -14,6 +14,8 @@ namespace HospitalManagement.Entity
 
         public DbSet<DoctorsAndNurse> DoctorsAndNurses { get; set; }
 
+        public DbSet<SocialMediaMaster> SocialMediaMasters { get; set; }
+
 
 
     }

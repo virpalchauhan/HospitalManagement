@@ -135,9 +135,9 @@ namespace HospitalManagement.Pages.Admin.Account
         {
 
             var ResetEmail = HttpContext.Session.GetString("ResetEmail");
-           
 
-            if (!TryValidateModel(OtpViewModel, nameof(OtpViewModel)))
+            ModelState.Clear();
+            if (TryValidateModel(OtpViewModel, nameof(OtpViewModel)))
             {
                 
                 //TempData["Step"] = "Otp";
@@ -177,8 +177,8 @@ namespace HospitalManagement.Pages.Admin.Account
                 else if (UserData.OTP==otp)
                 {
                     TempData["Step"] = "Reset";
-                   
 
+                    return RedirectToPage();
 
                 }
 
@@ -192,9 +192,10 @@ namespace HospitalManagement.Pages.Admin.Account
             return Page();
         }
 
-        public IActionResult ResetPassword()
+        public IActionResult OnPostResetPassword()
         {
-            if (!TryValidateModel(ForgotNewPassword, nameof(ForgotNewPassword)))
+            ModelState.Clear();
+            if (TryValidateModel(ForgotNewPassword, nameof(ForgotNewPassword)))
             {
                 var ResetEmail = HttpContext.Session.GetString("ResetEmail");
 
@@ -203,11 +204,13 @@ namespace HospitalManagement.Pages.Admin.Account
 
                 DoctorsAndNurse UpdateForgotPassword = new DoctorsAndNurse()
                 {
-                    OTP = null,
-                    OTPAttempts = 0,
-                    LockoutEndTime = null,
+                   
+                   
+                    
                     DoctorNurceId = UserData.DoctorNurceId,
                     PasswordHash = ForgotNewPassword.ConfirmPassword
+                  
+                    
                 };
 
                 int data = ObjAccountServices.SetPasswordForUser(UpdateForgotPassword);

@@ -79,7 +79,7 @@
                                     <span asp-validation-for="LoginViewModel.PasswordHash" class="text-danger"></span>
                                 </div>
 
-                              
+
                                 <div class="d-grid">
                                     <button class="btn btn-dark btn-lg fw-medium" type="submit">Sign In</button>
                                 </div>
@@ -87,9 +87,9 @@
                         </div>
                     </div>
                     @*<p class="text-center mt-4 text-white text-opacity-50">
-                        Don't have an account?
-                        <a href="auth-signup.html" class="text-decoration-none text-white fw-bold">Sign Up</a>
-                    </p>*@
+                            Don't have an account?
+                            <a href="auth-signup.html" class="text-decoration-none text-white fw-bold">Sign Up</a>
+                        </p>*@
                 </div>
             </div>
         </div>
@@ -108,7 +108,14 @@
     <!-- App Javascript -->
     <script src="/Admin/assets/js/app.js"></script>
 
+    @if (TempData["Msg"] != null)
+    {
+        <script>
+     alert("@TempData["Msg"]");
 
+        </script>
+
+    }
 </body>
 
 

@@ -1,5 +1,5 @@
 ﻿@page
-@model HospitalManagement.Pages.Admin.Department.ListDepartmentModel
+@model HospitalManagement.Pages.Admin.SocialMedia.ListSocialMediaModel
 @{
 
     Layout = "/Pages/Admin/_AdminLayout.cshtml";
@@ -22,8 +22,8 @@
                 <thead class="table-light">
                     <tr>
                         <th scope="col">No</th>
-                        <th scope="col">DepartmentName</th>
-                        <th scope="col">Description</th>
+                        <th scope="col">PlatformName</th>
+                        <th scope="col">SocialMediaLink</th>
                         <th scope="col">IsActive</th>
                         <th scope="col">Edit</th>
                         <th scope="col">Delete</th>
@@ -31,7 +31,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.DepartmentTblList)
+                    @foreach (var item in Model.SocialMediaMaster)
                     {
                         <tr>
                             <td>
@@ -42,28 +42,28 @@
                                     </div>
                                 </div>
                             </td>
-                            <td>@item.DepartmentName</td>
+                            <td>@item.PlatformName</td>
 
 
                             <td>
-                                <textarea class="form-control" id="example-textarea">@item.Description</textarea>
+                                <a target="_blank"  href=@item.SocialMediaLink>@item.SocialMediaLink</a>
                             </td>
 
-                            <td>@(item.IsActive==1 ? "Active" : "Deactive")</td>
-                            <td><a asp-page="/Admin/Department/AddDepartment"  asp-route-SocialMediaIdd="@item.DepartmentId" class="btn btn-success btn-sm w-100">Edit</a></td>
+                            <td>@(item.IsActive==true ? "Active" : "Deactive")</td>
+                            <td><a asp-page="/Admin/SocialMedia/AddSocialMedia"  asp-route-SocialMediaIdd="@item.SocialMediaId" class="btn btn-success btn-sm w-100">Edit</a></td>
 
                             <td>
                                 <form method="post" asp-page-handler="Delete">
-                                    <input type="hidden" name="SocialMediaIdd" value="@item.DepartmentId" />
+                                    <input type="hidden" name="SocialMediaIdd" value="@item.SocialMediaId" />
                                     <button type="submit"
                                             class="btn btn-danger btn-sm w-100"
-                                            onclick="return confirm('Are you sure you want to delete this department?')">
+                                            onclick="return confirm('Are you sure you want to delete this Social Media?')">
                                         Delete
                                     </button>
                                 </form>
                             </td>
 
-                            <td>@item.CreationDate</td>
+                            <td>@item.CreatedDate</td>
                         </tr>
                         count++;
                     }

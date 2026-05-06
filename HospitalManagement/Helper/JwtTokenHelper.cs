@@ -11,8 +11,6 @@ namespace HospitalManagement.Helper
     {
         string JWTGenerateToken(string userId, string role);
     }
-
-
     public class JwtTokenHelper: IJwtTokenHelper
     {
         private readonly IConfiguration ObjConfiguration;

@@ -1,0 +1,79 @@
+﻿@page
+@model HospitalManagement.Pages.Admin.SocialMedia.AddSocialMediaModel
+@{
+
+    Layout = "/Pages/Admin/_AdminLayout.cshtml";
+
+}
+
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="mb-0">Add Social Media</h2>
+                </div>
+
+                <div class="card-body">
+
+                    <form id="deptForm" method="post">
+
+
+
+
+
+                        <div class="mb-3">
+                            <label for="example-palaceholder" class="form-label">Platform Name</label>
+                            <input asp-for="SocialMediaMasterViewModel.PlatformName" type="text" id="example-palaceholder" class="form-control" placeholder="Enter PlatformName Name">
+                            <span asp-validation-for="SocialMediaMasterViewModel.PlatformName" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="example-palaceholder" class="form-label">
+                                Social Media Link
+                            </label>
+                            <input asp-for="SocialMediaMasterViewModel.SocialMediaLink" class="form-control" id="example-textarea"  placeholder="Enter Social Media Link">
+                            <span asp-validation-for="SocialMediaMasterViewModel.SocialMediaLink" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Status</label>
+
+                            <select asp-for="SocialMediaMasterViewModel.IsActive"
+                                    class="form-select">
+
+                                <option value="">-- Select Status --</option>
+                                <option value="true">Active</option>
+                                <option value="false">Deactive</option>
+
+                            </select>
+
+                            <span asp-validation-for="SocialMediaMasterViewModel.IsActive"
+                                  class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-success rounded-pill">Save Social Media</button>
+                    </form>
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+
+    </div>
+</div>
+@if (TempData["Msg"] != null)
+{
+    <script>
+        alert("@TempData["Msg"]");
+           @if (TempData["ClearForm"] != null)
+        {
+            <text>
+                document.getElementById("deptForm").reset();
+            </text>
+        }
+    </script>
+}

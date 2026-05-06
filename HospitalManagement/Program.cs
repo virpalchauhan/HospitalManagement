@@ -63,6 +63,7 @@ builder.Services.AddScoped<IDoctorNurseApplicationServices, DoctorNurseApplicati
 builder.Services.AddScoped<IDoctorAndNurseServices, DoctorAndNurseServices>();
 builder.Services.AddScoped<IAccountServices, AccountServices>();
 builder.Services.AddScoped<IJwtTokenHelper, JwtTokenHelper>();
+builder.Services.AddScoped<ISocialMediaMastersServices, SocialMediaMastersServices>();
 builder.Services.AddScoped<AuthPageFilter>();
 
 // 🧠 SESSION

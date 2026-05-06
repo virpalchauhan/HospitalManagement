@@ -38,6 +38,11 @@ namespace HospitalManagement.Services
             if (Data != null)
             {
                 Data.PasswordHash = Model.PasswordHash;
+                Data.OTP = null;
+                Data.OTPAttempts = 0;
+                Data.LockoutEndTime =null;
+                Data.OTPExpiry = null;
+                Data.LastFailedAttempt = null;
                 db.DoctorsAndNurses.Update(Data);
                 int count = db.SaveChanges();
                 if (count > 0)
