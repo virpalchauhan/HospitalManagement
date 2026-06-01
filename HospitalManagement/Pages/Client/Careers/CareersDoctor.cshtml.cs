@@ -18,6 +18,7 @@ namespace HospitalManagement.Pages.Client.Careers
         private readonly IDepartmentTblServices ObjDepartmentTbl;
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly IDoctorNurseApplicationServices ObjDoctorNurseApplicationServices;
+        private readonly DoctorApplicationSubmittedEmailCode _DoctorNurseApplicationSubmittedEmailCode;
 
 
         [BindProperty]
@@ -33,11 +34,12 @@ namespace HospitalManagement.Pages.Client.Careers
 
 
 
-        public CareersDoctorModel(IWebHostEnvironment webHostEnvironment, IDepartmentTblServices ObjDepartmentTbl, IDoctorNurseApplicationServices ObjDoctorNurseApplicationServices)
+        public CareersDoctorModel(IWebHostEnvironment webHostEnvironment, IDepartmentTblServices ObjDepartmentTbl, IDoctorNurseApplicationServices ObjDoctorNurseApplicationServices, DoctorApplicationSubmittedEmailCode _DoctorNurseApplicationSubmittedEmailCode)
         {
             this.webHostEnvironment = webHostEnvironment;
             this.ObjDepartmentTbl = ObjDepartmentTbl;
             this.ObjDoctorNurseApplicationServices = ObjDoctorNurseApplicationServices;
+            this._DoctorNurseApplicationSubmittedEmailCode = _DoctorNurseApplicationSubmittedEmailCode;
         }
         public void OnGet()
         {
@@ -99,7 +101,8 @@ namespace HospitalManagement.Pages.Client.Careers
 
                 if (Result==1)
                 {
-                    TempData["Msg"] = "Your application has been submitted successfully! Thank you for your interest in joining our hospital. We will review your profile and inform you about the next steps soon.";
+                    TempData["MsgSuccess"] =
+                        "Your Application Has Been Submitted Successfully! Thank You For Your Interest In Joining Our Hospital. We Will Review Your Profile And Inform You About The Next Steps Soon.";
                     TempData["ClearForm"] = true;
 
                     string path = Path.Combine(webHostEnvironment.WebRootPath, "EmailTemplet", "DoctorApplicationSubmittedEmail.html");
@@ -110,19 +113,21 @@ namespace HospitalManagement.Pages.Client.Careers
                     MailBody=MailBody.Replace("{{ApplicationDate}}", System.DateTime.Now.ToString());
 
 
-                    DoctorApplicationSubmittedEmailCode.DoctorApplicationSubmittedEmailTempletCodeSend(DoctorNurseApplicationsView.Email, MailBody);
+                    _DoctorNurseApplicationSubmittedEmailCode.DoctorApplicationSubmittedEmailTempletCodeSend(DoctorNurseApplicationsView.Email, MailBody);
 
                     return RedirectToPage();
                 }
                 else if(Result==2)
                 {
-                    TempData["Msg"] = "You have already applied using this email address.";
+                    TempData["MsgNormal"] =
+    "You Have Already Applied Using This Email Address.";
                     TempData["ClearForm"] = true;
                     return RedirectToPage();
                 }
 
 
-                TempData["Msg"] = "SomeThing Wrong.";
+                TempData["MsgDanger"] =
+     "Something Went Wrong.";
                 TempData["ClearForm"] = true;
                 return RedirectToPage();
 

@@ -1,7 +1,9 @@
-﻿using HospitalManagement.Entity;
+﻿using HospitalManagement.EmailServices;
+using HospitalManagement.Entity;
 using HospitalManagement.Filters;
 using HospitalManagement.Helper;
 using HospitalManagement.Services;
+using HospitalManagement.Services.Client;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -65,6 +67,14 @@ builder.Services.AddScoped<IAccountServices, AccountServices>();
 builder.Services.AddScoped<IJwtTokenHelper, JwtTokenHelper>();
 builder.Services.AddScoped<ISocialMediaMastersServices, SocialMediaMastersServices>();
 builder.Services.AddScoped<AuthPageFilter>();
+builder.Services.AddScoped<IPatientServices, PatientServices>();
+builder.Services.AddScoped<IPendingRegistrationPatientsServices, PendingRegistrationPatientsServices > ();
+builder.Services.AddScoped<DoctorActivationTempletCode>();
+builder.Services.AddScoped<DoctorApplicationRejectTempletCode>();
+builder.Services.AddScoped<DoctorApplicationSubmittedEmailCode>();
+builder.Services.AddScoped<ForgotPasswordTempletCode>();
+builder.Services.AddScoped<PasswordChangedTempletCode>();
+builder.Services.AddScoped<RegistrationOTPVerificationCode>();
 
 // 🧠 SESSION
 builder.Services.AddDistributedMemoryCache();

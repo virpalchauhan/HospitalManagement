@@ -55,14 +55,15 @@ namespace HospitalManagement.Pages.Admin.Account
 
               
 
-                var Token = ObjIJwtTokenHelper.JWTGenerateToken(Result.DoctorNurceId.ToString(), Result.RollType.ToString());
+               
 
                 if (Result.DoctorNurceId == 0)
                 {
-                    TempData["Msg"] = "Email and Password Dont match";
+                    TempData["MsgDanger"] = "Email and Password Dont match";
                 }
                 else if (Result.DoctorNurceId >= 1)
                 {
+                    var Token = ObjIJwtTokenHelper.JWTGenerateToken(Result.DoctorNurceId.ToString(), Result.RollType.ToString());
                     Response.Cookies.Append("AuthToken", Token, new CookieOptions
                     {
                         HttpOnly = true,

@@ -1,0 +1,213 @@
+﻿@page
+@model HospitalManagement.Pages.Admin.Account.ProfileModel
+@{
+    Layout = "/Pages/Admin/_AdminLayout.cshtml";
+}
+<style>
+    .custom-disabled {
+        cursor: not-allowed;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="card">
+
+            <div class="card-header">
+                <h2 class="mb-0">Edit Profile</h2>
+            </div>
+
+            <div class="card-body">
+
+                <form method="post" enctype="multipart/form-data">
+
+                    <input type="hidden" asp-for="DoctorNurseEditProfileViewModel.DoctorNurceId" />
+
+                    <div class="row">
+
+                        <!-- First Name -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">First Name</label>
+
+                            <input asp-for="DoctorNurseEditProfileViewModel.FirstName"
+                                   type="text"
+                                   class="form-control"
+                                   placeholder="Enter First Name">
+
+                            <span asp-validation-for="DoctorNurseEditProfileViewModel.FirstName"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <!-- Last Name -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Last Name</label>
+
+                            <input asp-for="DoctorNurseEditProfileViewModel.LastName"
+                                   type="text"
+                                   class="form-control"
+                                   placeholder="Enter Last Name">
+
+                            <span asp-validation-for="DoctorNurseEditProfileViewModel.LastName"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <!-- Gender -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Gender</label>
+
+                            <select asp-for="DoctorNurseEditProfileViewModel.Gender"
+                                    class="form-select">
+
+                                <option value="">Select Gender</option>
+
+                                <option value="1">Male</option>
+                                <option value="2">Female</option>
+                                <option value="3">Other</option>
+
+                            </select>
+
+                            <span asp-validation-for="DoctorNurseEditProfileViewModel.Gender"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <!-- Date Of Birth -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Date Of Birth</label>
+
+                            <input asp-for="DoctorNurseEditProfileViewModel.DateOfBirth"
+                                   type="date" max="@DateTime.Today.ToString("yyyy-MM-dd")" 
+                                   class="form-control">
+
+                            <span asp-validation-for="DoctorNurseEditProfileViewModel.DateOfBirth"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <!-- Mobile -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Mobile Number</label>
+
+                            <input asp-for="DoctorNurseEditProfileViewModel.MobileNo"
+                                   type="text"
+                                   disabled class="form-control custom-disabled"
+                                   placeholder="Enter Mobile Number">
+
+                            <span asp-validation-for="DoctorNurseEditProfileViewModel.MobileNo"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Email</label>
+
+                            <input disabled asp-for="DoctorNurseEditProfileViewModel.Email"
+                                   type="email"
+                                   class="form-control custom-disabled"
+                                   placeholder="Enter Email">
+
+                            <span asp-validation-for="DoctorNurseEditProfileViewModel.Email"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <!-- Department -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Department</label>
+                            <input disabled asp-for="DoctorNurseEditProfileViewModel.DepartmentName"
+                                   type="email"
+                                   class="form-control custom-disabled"
+                                   placeholder="Enter Email">
+
+                        </div>
+
+                        <!-- Salary -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Salary</label>
+
+                            <input asp-for="DoctorNurseEditProfileViewModel.SalaryAmount"
+                                   type="text"
+                                   disabled class="form-control custom-disabled"
+                                   placeholder="Enter Salary">
+
+
+                        </div>
+
+                        <!-- Joining Date -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Joining Date</label>
+
+                            <input asp-for="DoctorNurseEditProfileViewModel.JoiningDate"
+                                   type="date"
+                                   disabled class="form-control custom-disabled">
+
+
+                        </div>
+
+                        <!-- Account Status -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Account Status</label>
+
+                            <select asp-for="DoctorNurseEditProfileViewModel.AccountStatus"
+                                    disabled class="form-select custom-disabled">
+
+                                <option value="">Select Status</option>
+
+                                <option value="1">Active</option>
+                                <option value="2">Deactive</option>
+
+                            </select>
+
+                            <span asp-validation-for="DoctorNurseEditProfileViewModel.AccountStatus"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <!-- Profile Photo -->
+                        <div class="col-md-12 mb-3">
+
+                            <label class="form-label">Profile Photo</label>
+
+                            <input type="file" asp-for="ProfilePhoto"
+                                   
+                                   class="form-control">
+
+                        </div>
+
+                        <!-- Old Image -->
+                        <div class="col-md-12 mb-3">
+
+                            @if (!string.IsNullOrEmpty(Model.DoctorNurseEditProfileViewModel.ProfilePhotoPath))
+                            {
+                                <img src="@Url.Content("~/" + Model.DoctorNurseEditProfileViewModel.ProfilePhotoPath)"
+                                     width="500" height="500"
+                                     class="img-thumbnail rounded" />
+                            }
+
+                        </div>
+                        <!-- Hidden Old Image Path -->
+                        <input type="hidden"
+                               asp-for="DoctorNurseEditProfileViewModel.ProfilePhotoPath" />
+                        <!-- Button -->
+                        <div class="col-md-12">
+
+                            <button type="submit"
+                                    class="btn btn-primary rounded-pill">
+                                Update Profile
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@if (TempData["Msg"] != null)
+{
+    <script>
+        alert("@TempData["Msg"]");
+    </script>
+}

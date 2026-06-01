@@ -10,6 +10,9 @@ namespace HospitalManagement.Helper
     public interface IJwtTokenHelper
     {
         string JWTGenerateToken(string userId, string role);
+
+        string JWTGenerateTokenForPatient(string patientId);
+
     }
     public class JwtTokenHelper: IJwtTokenHelper
     {
@@ -45,5 +48,30 @@ namespace HospitalManagement.Helper
 
         }
 
+        public string JWTGenerateTokenForPatient(string patientId)
+        {
+            var SecurityKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(ObjConfiguration["JwtSettings:Key"]));
+
+            var Credentials = new SigningCredentials(
+                SecurityKey,
+                SecurityAlgorithms.HmacSha256);
+
+            var Claims = new[]
+            {
+        new Claim("PatientId", patientId)
+    };
+
+            var token = new JwtSecurityToken(
+                issuer: ObjConfiguration["JwtSettings:Issuer"],
+                audience: ObjConfiguration["JwtSettings:Audience"],
+                claims: Claims,
+                expires: DateTime.Now.AddMinutes(
+                    Convert.ToDouble(ObjConfiguration["JwtSettings:ExpireMinutes"])),
+                signingCredentials: Credentials
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
     }
 }

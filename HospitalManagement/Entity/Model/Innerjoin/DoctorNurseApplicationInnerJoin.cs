@@ -45,6 +45,16 @@ namespace HospitalManagement.Entity.Model.Innerjoin
 
        public DoctorNurseApplicationsRollType RollType { get; set; }
 
+        public decimal? SalaryAmount { get; set; }
+
+        public DateTime? JoiningDate { get; set; }
+
+        public DoctorNurseStatusType? AccountStatus { get; set; }
+
+        public DoctorNurseOfferletterSendType? OfferLetterSent { get; set; }
+
+        public DateTime? CreatedDate { get; set; }
+
 
     }
 }

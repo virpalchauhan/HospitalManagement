@@ -28,13 +28,17 @@ namespace HospitalManagement.Pages.Admin.Department
         {
             int Delete = DepartmentTblObj.Delete(DepartmentId);
 
-            if (Delete==1)
+            if (Delete == 1)
             {
-                TempData["Msg"] = "Department deleted successfully.";
+                TempData["MsgSuccess"] =
+                    "Department Deleted Successfully";
+
                 return RedirectToPage();
             }
             else
             {
+                TempData["MsgNormal"] ="Department Not Found";
+
                 return RedirectToPage();
             }
         }

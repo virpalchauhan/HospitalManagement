@@ -33,16 +33,20 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
         private readonly IWebHostEnvironment WebHostEnvironment;
         private readonly IDepartmentTblServices ObjDepartmentTblServices;
         private readonly EntityDbContext db;
+        private readonly DoctorActivationTempletCode _DoctorActivationTempletCode;
+        private readonly DoctorApplicationRejectTempletCode _DoctorApplicationRejectTempletCode;
 
 
 
-        public SingleDoctorApplicationsModel(IDoctorNurseApplicationServices ObjDoctorNurseApplicationServices, IDoctorAndNurseServices ObjDoctorAndNurseServices, IWebHostEnvironment WebHostEnvironment, IDepartmentTblServices ObjDepartmentTblServices, EntityDbContext db)
+        public SingleDoctorApplicationsModel(IDoctorNurseApplicationServices ObjDoctorNurseApplicationServices, IDoctorAndNurseServices ObjDoctorAndNurseServices, IWebHostEnvironment WebHostEnvironment, IDepartmentTblServices ObjDepartmentTblServices, EntityDbContext db,DoctorActivationTempletCode _DoctorActivationTempletCode, DoctorApplicationRejectTempletCode _DoctorApplicationRejectTempletCode)
         {
             this.ObjDoctorNurseApplicationServices = ObjDoctorNurseApplicationServices;
             this.ObjDoctorAndNurseServices = ObjDoctorAndNurseServices;
             this.WebHostEnvironment = WebHostEnvironment;
             this.ObjDepartmentTblServices = ObjDepartmentTblServices;
             this.db = db;
+            this._DoctorActivationTempletCode = _DoctorActivationTempletCode;
+            this._DoctorApplicationRejectTempletCode = _DoctorApplicationRejectTempletCode;
 
         }
 
@@ -131,8 +135,7 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
               
                 try
                 {
-                    DoctorApplicationRejectTempletCode
-                        .DoctorApplicationRejectTempletCodeSend(Application.Email, MailBody);
+                    _DoctorApplicationRejectTempletCode.DoctorApplicationRejectTempletCodeSend(Application.Email, MailBody);
                 }
                 catch (Exception ex)
                 {
@@ -140,7 +143,7 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
                     Console.WriteLine("Email sending failed: " + ex.Message);
                 }
 
-                TempData["Msg"] = "Doctor Application Rejected";
+                TempData["MsgDanger"] = "Doctor Application Rejected";
                 transaction.Commit();
                 return RedirectToPage("AllDoctorApplications");
 
@@ -183,20 +186,23 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
                     Email = Application.Email,
                     DepartmentId = Application.DepartmentId,
                     SalaryAmount = DoctorApproveViewModel.SalaryAmount,
-                    JoiningDate = DoctorApproveViewModel.JoiningDate,
+                    JoiningDate = DoctorApproveViewModel.JoiningDate.Value,
                     PasswordHash = TempPassword,
-                    AccountStatus = 1,
-                    OfferLetterSent = true,
+                    AccountStatus = DoctorNurseStatusType.Active,
+                    OfferLetterSent = DoctorNurseOfferletterSendType.Sent,
                     CreatedDate = DateTime.Now,
                     ProfilePhotoPath = Application.ProfilePhotoPath,
-                    RollType=Application.RollType
+                    RollType=Application.RollType,
+                    ResumePath=Application.ResumePath
                 };
 
                 int result = ObjDoctorAndNurseServices.AddDoctor(InsertDoctors);
 
                 if (result != 1)
                 {
-                    throw new Exception("Doctor insert failed");
+                    TempData["MsgDanger"] =
+        "Doctor Insert Failed";
+                    return RedirectToPage();
                 }
 
                 DoctorApplicationresult =
@@ -205,7 +211,9 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
 
                 if (DoctorApplicationresult != 1)
                 {
-                    throw new Exception("Application status update failed");
+                    TempData["MsgDanger"] =
+    "Unable To Update Application Status. Please Try Again.";
+                    return RedirectToPage();
                 }
 
                 transaction.Commit();
@@ -215,7 +223,10 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
 
                 if (DepartmentData == null)
                 {
-                    throw new Exception("Department not found");
+                    TempData["MsgNormal"] =
+         "Department Not Found";
+
+                    return RedirectToPage();
                 }
 
                 string path = Path.Combine(WebHostEnvironment.WebRootPath,
@@ -232,15 +243,19 @@ namespace HospitalManagement.Pages.Admin.DoctorApplications
                 MailBody = MailBody.Replace("{{Email}}", Application.Email);
                 MailBody = MailBody.Replace("{{Password}}", TempPassword);
 
-                if (DoctorActivationTempletCode.DoctorActivationTempletCodeSend(Application.Email, MailBody))
+                if (_DoctorActivationTempletCode.DoctorActivationTempletCodeSend(Application.Email, MailBody))
                 {
-                    TempData["Msg"] = "Doctor Application Approw";
+                    TempData["MsgSuccess"] =
+        "Doctor Application Approved";
+
                     return RedirectToPage("AllAcceptDoctorApplications");
                 }
 
                 else
                 {
-                    TempData["Msg"] = "Something Wrong";
+                    TempData["MsgDanger"] =
+        "Something Went Wrong";
+
                     return RedirectToPage("AllAcceptDoctorApplications");
                 }
 

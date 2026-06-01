@@ -107,12 +107,12 @@ namespace HospitalManagement.Services
                 updateData.Description = model.Description;
                 updateData.IsActive = model.IsActive;
 
-                int count = db.SaveChanges();
+                    int count = db.SaveChanges();
 
-                if (count > 0)
-                {
-                    return 1;  
-                }
+                    if (count > 0)
+                    {
+                        return 1;  
+                    }
             }
 
             return 0; 

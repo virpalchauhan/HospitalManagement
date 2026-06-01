@@ -75,14 +75,16 @@ namespace HospitalManagement.Pages.Admin.Department
 
                     if (UpdateValue == 1)
                     {
-                        TempData["Msg"] = "Department Update successfully";
+                        TempData["MsgSuccess"] = "Department Updated Successfully";
                         TempData["ClearForm"] = true;
+
                         return RedirectToPage();
                     }
                     else if (UpdateValue == 2)
                     {
-                        TempData["Msg"] = "Department already exists.";
+                        TempData["MsgDanger"] = "Department Already Exists";
                         TempData["ClearForm"] = true;
+
                         return RedirectToPage();
                     }
                 }
@@ -97,16 +99,18 @@ namespace HospitalManagement.Pages.Admin.Department
 
             int ResultValue = DepartmentTblObj.AddDepartment(AddDepartmentTbl);
 
-                if (ResultValue==1)
+                if (ResultValue == 1)
                 {
-                    TempData["Msg"] = "Department added successfully";
+                    TempData["MsgSuccess"] = "Department Added Successfully";
                     TempData["ClearForm"] = true;
+
                     return RedirectToPage();
                 }
-                else if (ResultValue==2)
+                else if (ResultValue == 2)
                 {
-                    TempData["Msg"] = "Department already exists.";
+                    TempData["MsgDanger"] = "Department Already Exists";
                     TempData["ClearForm"] = true;
+
                     return RedirectToPage();
                 }
 

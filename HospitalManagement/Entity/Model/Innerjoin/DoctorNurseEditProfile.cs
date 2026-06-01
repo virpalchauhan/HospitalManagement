@@ -1,37 +1,60 @@
 ﻿using HospitalManagement.Entity.Model.Enums;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace HospitalManagement.Entity.Model
+namespace HospitalManagement.Entity.Model.Innerjoin
 {
-    [Table("DoctorNurseApplication")]
-    public class DoctorNurseApplication
+    public class DoctorNurseEditProfile
     {
-        [Key]
-        public int DoctorApplicationsId { get; set; }
+        public int DoctorNurceId { get; set; }
+
+
 
         public string? FirstName { get; set; }
 
         public string? LastName { get; set; }
 
+
         public GenderType Gender { get; set; }
+
 
         public DateOnly DateOfBirth { get; set; }
 
+
         public string? MobileNo { get; set; }
+
 
         public string? Email { get; set; }
 
         public int DepartmentId { get; set; }
 
+
+
         public string? ProfilePhotoPath { get; set; }
+
 
         public string? ResumePath { get; set; }
 
+
+
         public DateTime RequestDate { get; set; }
+
 
         public ApplicationStatusType ApplicationStatus { get; set; }
 
+        public string? DepartmentName { get; set; }
+
+
         public DoctorNurseApplicationsRollType RollType { get; set; }
+
+        public decimal? SalaryAmount { get; set; }
+
+        public DateTime? JoiningDate { get; set; }
+
+        public DoctorNurseStatusType? AccountStatus { get; set; }
+
+        public DoctorNurseOfferletterSendType? OfferLetterSent { get; set; }
+
+        public DateTime? CreatedDate { get; set; }
+
+        
     }
 }

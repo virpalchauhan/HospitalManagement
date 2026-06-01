@@ -1,25 +1,18 @@
-﻿using System.Net.Mail;
-using System.Net;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Net;
+using System.Net.Mail;
+
 namespace HospitalManagement.EmailServices
 {
-    public class DoctorActivationTempletCode
+    public class PasswordChangedTempletCode
     {
-
         private readonly IConfiguration _configuration;
 
-        public DoctorActivationTempletCode(IConfiguration _configuration)
+        public PasswordChangedTempletCode(IConfiguration _configuration)
         {
             this._configuration = _configuration;
         }
-
-
-
-        public  bool DoctorActivationTempletCodeSend(string Recipient,string MailBody)
+        public  bool PasswordChangedTempletCodeSend(string Recipient, string MailBody)
         {
-
 
             string GmailAccountEmail = _configuration["EmailSettings:Email"];
             string GmailAccountPassword = _configuration["EmailSettings:Password"];
@@ -29,22 +22,22 @@ namespace HospitalManagement.EmailServices
 
             try
             {
-
-
                 
                 NetworkCredential LoginInfo = new NetworkCredential(GmailAccountEmail, GmailAccountPassword);
 
+
                 MailMessage Message = new MailMessage();
-                Message.From = new MailAddress(GmailAccountEmail, "Doctor Account Activation");
+                Message.From = new MailAddress(GmailAccountEmail, "Password Changed Successfully");
                 Message.To.Add(new MailAddress(Recipient));
-                Message.Subject = "Doctor Account Activation";
+                Message.Subject = "Password Changed Successfully";
                 Message.Body = MailBody;
                 Message.IsBodyHtml = true;
-                SmtpClient SmtpServer = new SmtpClient(SmtpServerAddress, Convert.ToInt32( SmtpServerPort));
+                SmtpClient SmtpServer = new SmtpClient(SmtpServerAddress, Convert.ToInt32(SmtpServerPort));
                 SmtpServer.Credentials = LoginInfo;
                 SmtpServer.EnableSsl = true;
                 SmtpServer.UseDefaultCredentials = false;
                 SmtpServer.Send(Message);
+
                 return true;
             }
             catch (Exception)
@@ -53,6 +46,7 @@ namespace HospitalManagement.EmailServices
                 throw;
             }
         }
-         
-    }
+
+
+        }
 }

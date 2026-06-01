@@ -3,10 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HospitalManagement.ViewModel
 {
-
-
-
-    public class DoctorNurseApplicationsView
+    public class DoctorNurseEditProfileViewModel
     {
 
         public int DoctorNurceId { get; set; }
@@ -38,7 +35,7 @@ namespace HospitalManagement.ViewModel
 
         public int DepartmentId { get; set; }
 
-        [Required(ErrorMessage = "Profile Photo is Required.")]
+       
         public IFormFile? ProfilePhoto { get; set; }
 
         public string? ProfilePhotoPath { get; set; }
@@ -71,8 +68,12 @@ namespace HospitalManagement.ViewModel
 
         public DateTime? LastFailedAttempt { get; set; }
 
-        public  DoctorNurseOfferletterSendType? OfferLetterSent { get; set; }
+        public DoctorNurseOfferletterSendType? OfferLetterSent { get; set; }
 
         public string? DepartmentName { get; set; }
+
+
+
+
     }
 }

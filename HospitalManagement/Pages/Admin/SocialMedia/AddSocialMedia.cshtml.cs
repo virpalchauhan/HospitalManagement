@@ -62,9 +62,23 @@ namespace HospitalManagement.Pages.Admin.SocialMedia
                         CreatedDate = System.DateTime.Now
                     };
 
-                    var OutputResult = ObjSocialMediaMastersServices.AddSocialMedia(InsertSocialMedia);
+                    var Result = ObjSocialMediaMastersServices.AddSocialMedia(InsertSocialMedia);
 
-                    TempData["Msg"] = OutputResult;
+                    if (Result == 1)
+                    {
+                        TempData["MsgSuccess"] =
+                            "Social Media Platform Added Successfully";
+                    }
+                    else if (Result == 2)
+                    {
+                        TempData["MsgNormal"] =
+                            "This Social Media Platform Already Exists";
+                    }
+                    else
+                    {
+                        TempData["MsgDanger"] =
+                            "Failed To Add Social Media Platform";
+                    }
                     TempData["ClearForm"] = true;
                     return RedirectToPage();
                 }
@@ -79,7 +93,26 @@ namespace HospitalManagement.Pages.Admin.SocialMedia
 
                 var OutputUpdateResult = ObjSocialMediaMastersServices.UpdateSocialMedia(UpdateSocialMedia);
 
-                TempData["Msg"] = OutputUpdateResult;
+                if (OutputUpdateResult == 1)
+                {
+                    TempData["MsgSuccess"] =
+                        "Social Media Platform Updated Successfully";
+                }
+                else if (OutputUpdateResult == 2)
+                {
+                    TempData["MsgNormal"] =
+                        "This Social Media Platform Already Exists";
+                }
+                else if (OutputUpdateResult == 0)
+                {
+                    TempData["MsgNormal"] =
+                        "Record Not Found";
+                }
+                else
+                {
+                    TempData["MsgDanger"] =
+                        "Failed To Update Social Media Platform";
+                }
                 TempData["ClearForm"] = true;
                 return RedirectToPage();
 

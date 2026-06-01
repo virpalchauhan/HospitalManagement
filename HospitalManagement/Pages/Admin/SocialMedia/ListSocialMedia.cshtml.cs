@@ -30,10 +30,24 @@ namespace HospitalManagement.Pages.Admin.SocialMedia
 
         public IActionResult OnPost(int SocialMediaId)
         {
-            string Delete = ObjSocialMediaMastersServices.DeleteSocialMedia(SocialMediaId);
-           
-                TempData["Msg"] = Delete;
-                return RedirectToPage();
+            int Result = ObjSocialMediaMastersServices.DeleteSocialMedia(SocialMediaId);
+
+            if (Result == 1)
+            {
+                TempData["MsgSuccess"] =
+                    "Social Media Platform Deleted Successfully";
+            }
+            else if (Result == 0)
+            {
+                TempData["MsgNormal"] =
+                    "Record Not Found";
+            }
+            else
+            {
+                TempData["MsgDanger"] =
+                    "Failed To Delete Social Media Platform";
+            }
+            return RedirectToPage();
             
            
         }

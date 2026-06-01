@@ -6,6 +6,7 @@ using HospitalManagement.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Net.NetworkInformation;
 
 namespace HospitalManagement.Pages.Client.Careers
 {
@@ -16,12 +17,14 @@ namespace HospitalManagement.Pages.Client.Careers
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly IDoctorNurseApplicationServices ObjDoctorNurseApplicationServices;
         private readonly IDepartmentTblServices ObjDepartmentTbl;
+        private readonly DoctorApplicationSubmittedEmailCode _DoctorApplicationSubmittedEmailCode;
 
-        public CareersNurseModel(IWebHostEnvironment webHostEnvironment, IDoctorNurseApplicationServices ObjDoctorNurseApplicationServices, IDepartmentTblServices ObjDepartmentTbl)
+        public CareersNurseModel(IWebHostEnvironment webHostEnvironment, IDoctorNurseApplicationServices ObjDoctorNurseApplicationServices, IDepartmentTblServices ObjDepartmentTbl, DoctorApplicationSubmittedEmailCode _DoctorApplicationSubmittedEmailCode)
         {
             this.webHostEnvironment = webHostEnvironment;
             this.ObjDoctorNurseApplicationServices = ObjDoctorNurseApplicationServices;
             this.ObjDepartmentTbl = ObjDepartmentTbl;
+            this._DoctorApplicationSubmittedEmailCode = _DoctorApplicationSubmittedEmailCode;
         }
 
 
@@ -97,7 +100,8 @@ namespace HospitalManagement.Pages.Client.Careers
 
                 if (Result==1)
                 {
-                    TempData["Msg"] = "Your application has been submitted successfully! Thank you for your interest in joining our hospital. We will review your profile and inform you about the next steps soon.";
+                    TempData["MsgSuccess"] =
+     "Your Application Has Been Submitted Successfully! Thank You For Your Interest In Joining Our Hospital. We Will Review Your Profile And Inform You About The Next Steps Soon.";
                     TempData["ClearForm"] = true;
 
 
@@ -109,19 +113,21 @@ namespace HospitalManagement.Pages.Client.Careers
                     MailBody = MailBody.Replace("{{ApplicationDate}}", System.DateTime.Now.ToString());
 
 
-                    DoctorApplicationSubmittedEmailCode.DoctorApplicationSubmittedEmailTempletCodeSend(DoctorNurseApplicationsView.Email, MailBody);
+                    _DoctorApplicationSubmittedEmailCode.DoctorApplicationSubmittedEmailTempletCodeSend(DoctorNurseApplicationsView.Email, MailBody);
 
                     return RedirectToPage();
                 }
                 else if (Result == 2)
                 {
-                    TempData["Msg"] = "You have already applied using this email address.";
+                    TempData["MsgNormal"] =
+     "You Have Already Applied Using This Email Address.";
                     TempData["ClearForm"] = true;
                     return RedirectToPage();
                 }
 
 
-                TempData["Msg"] = "SomeThing Wrong.";
+                TempData["MsgDanger"] =
+     "Something Went Wrong.";
                 TempData["ClearForm"] = true;
                 return RedirectToPage();
 

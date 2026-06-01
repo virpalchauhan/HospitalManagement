@@ -8,13 +8,13 @@ namespace HospitalManagement.Services
             public  interface ISocialMediaMastersServices
     {
 
-        string AddSocialMedia(SocialMediaMaster Model);
+        int AddSocialMedia(SocialMediaMaster Model);
 
         List<SocialMediaMaster> AllSocialMediaMasterData();
 
-        string DeleteSocialMedia(int SocialMediaId);
+        int DeleteSocialMedia(int SocialMediaId);
 
-        string UpdateSocialMedia(SocialMediaMaster Model);
+        int UpdateSocialMedia(SocialMediaMaster Model);
 
         SocialMediaMaster GetSocialMediaById(int SocialMediaId);
 
@@ -31,20 +31,27 @@ namespace HospitalManagement.Services
             this.db = db;
         }
 
-        public string AddSocialMedia(SocialMediaMaster Model)
+        public int AddSocialMedia(SocialMediaMaster Model)
         {
-           bool SocialMediaExists = db.SocialMediaMasters.Any(m=>m.PlatformName==Model.PlatformName);
+            bool SocialMediaExists =
+                db.SocialMediaMasters
+                .Any(m => m.PlatformName == Model.PlatformName);
+
             if (SocialMediaExists)
             {
-                return "This Social Media Platform already exists.";
+                return 2;
             }
+
             db.SocialMediaMasters.Add(Model);
+
             int Count = db.SaveChanges();
+
             if (Count > 0)
             {
-                return "Social Media Platform added successfully.";
+                return 1;
             }
-            return "Failed to add Social Media Platform.";
+
+            return 0;
         }
 
         public List<SocialMediaMaster> AllSocialMediaMasterData()
@@ -52,21 +59,27 @@ namespace HospitalManagement.Services
            return db.SocialMediaMasters.ToList();
         }
 
-        public string DeleteSocialMedia(int SocialMediaId)
+        public int DeleteSocialMedia(int SocialMediaId)
         {
-            var Data = db.SocialMediaMasters.Find(SocialMediaId);
+            var Data =
+                db.SocialMediaMasters
+                .Find(SocialMediaId);
 
             if (Data != null)
             {
                 db.SocialMediaMasters.Remove(Data);
+
                 int Count = db.SaveChanges();
+
                 if (Count > 0)
                 {
-                    return "Social Media Platform deleted successfully.";
+                    return 1;
                 }
-                return "Failed to delete Social Media Platform.";
+
+                return 2;
             }
-            return "Failed to delete Social Media Platform.";
+
+            return 0;
         }
 
         public void Dispose()
@@ -82,20 +95,24 @@ namespace HospitalManagement.Services
                      
         }
 
-        public string UpdateSocialMedia(SocialMediaMaster Model)
+        public int UpdateSocialMedia(SocialMediaMaster Model)
         {
-            var Data = db.SocialMediaMasters.Find(Model.SocialMediaId);
+            var Data =
+                db.SocialMediaMasters
+                .Find(Model.SocialMediaId);
 
             if (Data != null)
             {
                 // Duplicate Name Check
-                bool SocialMediaExists = db.SocialMediaMasters
+
+                bool SocialMediaExists =
+                    db.SocialMediaMasters
                     .Any(m => m.PlatformName == Model.PlatformName
                            && m.SocialMediaId != Model.SocialMediaId);
 
                 if (SocialMediaExists)
                 {
-                    return "This Social Media Platform already exists.";
+                    return 2;
                 }
 
                 Data.PlatformName = Model.PlatformName;
@@ -106,13 +123,13 @@ namespace HospitalManagement.Services
 
                 if (Count > 0)
                 {
-                    return "Social Media Platform updated successfully.";
+                    return 1;
                 }
 
-                return "Failed to update Social Media Platform.";
+                return 3;
             }
 
-            return "Record not found.";
+            return 0;
         }
     }
 }

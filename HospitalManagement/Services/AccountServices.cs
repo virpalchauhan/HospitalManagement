@@ -9,7 +9,7 @@ namespace HospitalManagement.Services
         DoctorsAndNurse Login(DoctorsAndNurse Model);
 
         DoctorsAndNurse ForgotPassword(string email);
-        int SetOtpForUser(int DoctorApplicationsId, string Otp, DateTime OtpExpiry);
+        int SetOtpForUser(int DoctorApplicationsId, string Otp, DateTime OtpExpiry, DateTime LastOtpSentTime);
 
         int SetPasswordForUser(DoctorsAndNurse Model);
 
@@ -18,6 +18,15 @@ namespace HospitalManagement.Services
         int UpdateLockoutEndTime(int DoctorApplicationsId, int attempts, DateTime? LockoutEndTime);
 
         int UpdateOnlyOtpAttemts(int DoctorApplicationsId, int attempts);
+
+
+        bool FindAccountForChangePassword(string Password ,int DoctorNurceId);
+
+        int ChangePassword(string NewPassword, int DoctorNurceId);
+
+        DoctorsAndNurse GetDoctorNurceById(int DoctorNurceId);
+
+
     }
 
 
@@ -60,7 +69,7 @@ namespace HospitalManagement.Services
             GC.SuppressFinalize(this);
         }
 
-        public int SetOtpForUser(int DoctorApplicationsId, string Otp, DateTime OtpExpiry)
+        public int SetOtpForUser(int DoctorApplicationsId, string Otp, DateTime OtpExpiry,DateTime LastOtpSentTime)
         {
             var UserData = db.DoctorsAndNurses.FirstOrDefault(x => x.DoctorNurceId == DoctorApplicationsId);
 
@@ -72,6 +81,7 @@ namespace HospitalManagement.Services
 
             UserData.OTP = Otp;
             UserData.OTPExpiry = OtpExpiry;
+                UserData.LastOtpSentTime = LastOtpSentTime;
             db.DoctorsAndNurses.Update(UserData);
             int count = db.SaveChanges();
             if (count > 0)
@@ -159,6 +169,48 @@ namespace HospitalManagement.Services
                 return 1;
             }
             return 0;
+        }
+
+        public bool FindAccountForChangePassword(string Password, int DoctorNurceId)
+        {
+            var Data = db.DoctorsAndNurses.FirstOrDefault(x => x.DoctorNurceId == DoctorNurceId && x.PasswordHash == Password);
+
+            if (Data==null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public int ChangePassword(string NewPassword, int DoctorNurceId)
+        {
+            var Data =
+                db.DoctorsAndNurses
+                .FirstOrDefault(x => x.DoctorNurceId == DoctorNurceId);
+
+            if (Data == null)
+            {
+                return 0;
+            }
+
+            Data.PasswordHash = NewPassword;
+
+            db.DoctorsAndNurses.Update(Data);
+
+            int Count = db.SaveChanges();
+
+            if (Count > 0)
+            {
+                return 1;
+            }
+
+            return 2;
+        }
+
+        public DoctorsAndNurse GetDoctorNurceById(int DoctorNurceId)
+        {
+            return db.DoctorsAndNurses.FirstOrDefault(x => x.DoctorNurceId == DoctorNurceId);
         }
     }
 }

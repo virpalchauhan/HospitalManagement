@@ -16,6 +16,11 @@ namespace HospitalManagement.Entity
 
         public DbSet<SocialMediaMaster> SocialMediaMasters { get; set; }
 
+        public DbSet<Patient> patient { get; set; }
+
+
+        public DbSet<PendingRegistrationPatients> pendingRegistrationPatients { get; set; }
+
 
 
     }

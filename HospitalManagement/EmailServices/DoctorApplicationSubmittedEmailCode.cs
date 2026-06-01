@@ -4,13 +4,25 @@ namespace HospitalManagement.EmailServices
 {
     public class DoctorApplicationSubmittedEmailCode
     {
-        public static bool DoctorApplicationSubmittedEmailTempletCodeSend(string Recipient, string MailBody)
+
+        private readonly IConfiguration _configuration;
+
+        public DoctorApplicationSubmittedEmailCode(IConfiguration _configuration)
         {
+            this._configuration = _configuration;
+        }
+        public  bool DoctorApplicationSubmittedEmailTempletCodeSend(string Recipient, string MailBody)
+        {
+
+            string GmailAccountEmail = _configuration["EmailSettings:Email"];
+            string GmailAccountPassword = _configuration["EmailSettings:Password"];
+            string SmtpServerAddress = _configuration["EmailSettings:SmtpServer"];
+            string SmtpServerPort = _configuration["EmailSettings:SmtpPort"];
+
             try
             {
 
-                string GmailAccountEmail = "virpalsinhchauhan007@gmail.com";
-                string GmailAccountPassword = "pydeblghacbtutnp";
+               
                 NetworkCredential LoginInfo = new NetworkCredential(GmailAccountEmail, GmailAccountPassword);
 
                 MailMessage Message = new MailMessage();
@@ -19,7 +31,7 @@ namespace HospitalManagement.EmailServices
                 Message.Subject = "Doctor Account Activation";
                 Message.Body = MailBody;
                 Message.IsBodyHtml = true;
-                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com", 587);
+                SmtpClient SmtpServer = new SmtpClient(SmtpServerAddress, Convert.ToInt32(SmtpServerPort));
                 SmtpServer.Credentials = LoginInfo;
                 SmtpServer.EnableSsl = true;
                 SmtpServer.UseDefaultCredentials = false;
