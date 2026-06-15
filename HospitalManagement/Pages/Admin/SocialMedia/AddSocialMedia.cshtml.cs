@@ -52,7 +52,7 @@ namespace HospitalManagement.Pages.Admin.SocialMedia
             if (ModelState.IsValid)
             {
 
-                if (SocialMediaIdd < 0)
+                if (SocialMediaIdd <= 0)
                 {
                     SocialMediaMaster InsertSocialMedia = new SocialMediaMaster()
                     {

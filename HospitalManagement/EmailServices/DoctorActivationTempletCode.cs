@@ -7,16 +7,12 @@ namespace HospitalManagement.EmailServices
 {
     public class DoctorActivationTempletCode
     {
-
         private readonly IConfiguration _configuration;
 
         public DoctorActivationTempletCode(IConfiguration _configuration)
         {
             this._configuration = _configuration;
         }
-
-
-
         public  bool DoctorActivationTempletCodeSend(string Recipient,string MailBody)
         {
 
@@ -26,12 +22,8 @@ namespace HospitalManagement.EmailServices
             string SmtpServerAddress = _configuration["EmailSettings:SmtpServer"];
             string SmtpServerPort = _configuration["EmailSettings:SmtpPort"];
 
-
             try
-            {
-
-
-                
+            {               
                 NetworkCredential LoginInfo = new NetworkCredential(GmailAccountEmail, GmailAccountPassword);
 
                 MailMessage Message = new MailMessage();

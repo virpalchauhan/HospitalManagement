@@ -11,7 +11,7 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 🔐 JWT CONFIG
+
 var key = Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"]);
 
 builder.Services.AddAuthentication(options =>
@@ -75,6 +75,7 @@ builder.Services.AddScoped<DoctorApplicationSubmittedEmailCode>();
 builder.Services.AddScoped<ForgotPasswordTempletCode>();
 builder.Services.AddScoped<PasswordChangedTempletCode>();
 builder.Services.AddScoped<RegistrationOTPVerificationCode>();
+builder.Services.AddHttpContextAccessor();
 
 // 🧠 SESSION
 builder.Services.AddDistributedMemoryCache();

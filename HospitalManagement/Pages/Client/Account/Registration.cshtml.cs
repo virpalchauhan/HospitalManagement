@@ -38,6 +38,7 @@ namespace HospitalManagement.Pages.Client.Account
             this._patientServices = _patientServices;
             this._PendingRegistrationPatientsServices = _PendingRegistrationPatientsServices;
             this._RegistrationOTPVerificationCode = _RegistrationOTPVerificationCode;
+            this._JwtTokenHelper = _JwtTokenHelper;
         }
 
         [BindProperty]
@@ -357,7 +358,7 @@ namespace HospitalManagement.Pages.Client.Account
 
                 if (ResultData == 1)
                 {
-                    _PendingRegistrationPatientsServices.DeletePendingRegistrationPatient(SendOtpViewModel.Email);
+                    _PendingRegistrationPatientsServices.DeletePendingRegistrationPatient(RegistrationPatientViewModel.Email);
                     Patient LoginData = new Patient
                     {
                         Email = RegistrationPatientViewModel.Email,
@@ -393,7 +394,7 @@ namespace HospitalManagement.Pages.Client.Account
                 }
                 else if (ResultData == 2)
                 {
-                    TempData["MsgNormal"] =
+                    TempData["c"] =
     "Email Already Exists. Please Use A Different Email.";
                     return RedirectToPage();
                 }

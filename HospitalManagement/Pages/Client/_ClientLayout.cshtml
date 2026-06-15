@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    var token = HttpContextAccessor.HttpContext?.Request.Cookies["AuthToken"];
+}
+
+<!DOCTYPE html>
 
 <html lang="zxx">
 <head>
@@ -31,9 +37,157 @@
     <link rel="stylesheet" href="/Client/css/magnific-popup.css">
     <!-- Main custom Css -->
     <link href="/Client/css/custom.css" rel="stylesheet" media="screen">
+    <style>
+
+                /* =========================
+           ICON MENU
+        ========================= */
+
+                .icon-menu {
+                    position: relative;
+                }
+
+                    .icon-menu > .nav-link {
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                        white-space: nowrap;
+                    }
+
+                        /* Hide text initially */
+                        .icon-menu > .nav-link .menu-text {
+                            width: 0;
+                            opacity: 0;
+                            overflow: hidden;
+                            display: inline-block;
+                            transition: all 0.3s ease;
+                        }
+
+                    /* Show text on hover */
+                    .icon-menu:hover > .nav-link .menu-text {
+                        width: auto;
+                        opacity: 1;
+                    }
+
+
+                /* =========================
+           PROFILE DROPDOWN
+        ========================= */
+
+                .profile-dropdown {
+                    position: relative;
+                }
+
+                /* Dropdown Box */
+                .dropdown-menu-custom {
+                    position: absolute;
+                    top: calc(100% + 10px);
+                    right: 0;
+                    min-width: 220px;
+                    background: #ffffff;
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+                    border-radius: 12px;
+                    opacity: 0;
+                    visibility: hidden;
+                    transform: translateY(15px);
+                    transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s ease;
+                    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12), 0 4px 10px rgba(0, 0, 0, 0.08);
+                    z-index: 99999;
+                    overflow: hidden;
+                }
+
+                    /* Hover Gap Fix */
+                    .dropdown-menu-custom::before {
+                        content: "";
+                        position: absolute;
+                        top: -12px;
+                        left: 0;
+                        width: 100%;
+                        height: 12px;
+                    }
+
+                /* Show Dropdown */
+                .profile-dropdown:hover .dropdown-menu-custom {
+                    opacity: 1;
+                    visibility: visible;
+                    transform: translateY(0);
+                }
+
+
+                /* =========================
+           DROPDOWN ITEMS
+        ========================= */
+
+                .dropdown-menu-custom li {
+                    width: 100%;
+                    margin: 0;
+                    padding: 0;
+                }
+
+                    .dropdown-menu-custom li a {
+                        display: block !important;
+                        width: 100% !important;
+                        padding: 14px 20px !important;
+                        color: #333 !important;
+                        text-decoration: none !important;
+                        font-size: 15px;
+                        font-weight: 500;
+                        background: transparent !important;
+                        border: none !important;
+                        border-radius: 0 !important;
+                        box-shadow: none !important;
+                        opacity: 1 !important;
+                        visibility: visible !important;
+                        overflow: visible !important;
+                        max-width: none !important;
+                        line-height: normal !important;
+                        transition: all 0.25s ease;
+                    }
+
+                    /* First Item */
+                    .dropdown-menu-custom li:first-child a {
+                        border-top-left-radius: 12px !important;
+                        border-top-right-radius: 12px !important;
+                    }
+
+                    /* Last Item */
+                    .dropdown-menu-custom li:last-child a {
+                        border-bottom-left-radius: 12px !important;
+                        border-bottom-right-radius: 12px !important;
+                    }
+
+                    /* Hover Effect */
+                    .dropdown-menu-custom li a:hover {
+                        background: #f5f7fa !important;
+                        color: #000 !important;
+                        padding-left: 26px !important;
+                    }
+
+                    /* Active Effect */
+                    .dropdown-menu-custom li a:active {
+                        background: #eceff3 !important;
+                    }
+
+                    /* Fix Template Override */
+                    .dropdown-menu-custom li,
+                    .dropdown-menu-custom li a {
+                        min-height: 50px;
+                        height: auto !important;
+                    }
+
+                .profile-dropdown .dropdown-menu-custom li a {
+                    border-radius: 0 !important;
+                    overflow: visible !important;
+                }
+    </style>
+
 </head>
 <body>
-    <header class="main-header" style="height: 104px;">
+
+    <!-- Header Start -->
+    <header class="main-header">
         <div class="header-sticky">
             <nav class="navbar navbar-expand-lg">
                 <div class="container">
@@ -51,62 +205,50 @@
                                 <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                                 <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
                                 <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
-                                <li class="nav-item submenu">
-                                    <a class="nav-link" href="#">Pages</a>
-                                    <ul>
-                                        <li class="nav-item"><a class="nav-link" href="services-single.html">Service Single</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="blog-single.html">Blog Single</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="team.html">Our Team</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="team-single.html">Team details</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="faqs.html">FAQs</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="404.html">404</a></li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
-                                <li class="nav-item submenu">
-                                    <a class="nav-link" href="#">Career</a>
-                                    <ul>
-                                        <li class="nav-item"><a class="nav-link" href="/Client/Careers/CareersDoctor">Doctor</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="/Client/Careers/CareersNurse">Nurse</a></li>
 
-                                    </ul>
+                                <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+                                <li class="nav-item highlighted-menu icon-menu">
+                                    <a class="nav-link" href="appointment.html">
+                                        <i class="fa-solid fa-calendar-days"></i>
+                                        <span class="menu-text">Book Appointment</span>
+                                    </a>
                                 </li>
-                                <li class="nav-item highlighted-menu"><a class="nav-link" href="appointment.html">Book Appointment <i class="fa-solid fa-calendar-days"></i></a></li>
+
+                                @if (!string.IsNullOrEmpty(token))
+                                {
+                                    <li class="nav-item highlighted-menu profile-dropdown icon-menu">
+                                        <a class="nav-link" href="#">
+                                            <i class="fa-solid fa-user"></i>
+                                            <span class="menu-text">Profile</span>
+                                        </a>
+
+                                        <ul class="dropdown-menu-custom">
+                                            <li><a href="profile.html">Profile</a></li>
+                                            <li><a href="change-password.html">Change Password</a></li>
+                                            <li><a href="/Client/Account/Login">Logout</a></li>
+                                        </ul>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="nav-item highlighted-menu icon-menu">
+                                        <a class="nav-link" href="/Client/Account/Login">
+                                            <i class="fa-solid fa-right-to-bracket"></i>
+                                            <span class="menu-text">Login</span>
+                                        </a>
+                                    </li>
+                                }
                             </ul>
                         </div>
                     </div>
                     <!-- Main Menu End -->
-                    <div class="navbar-toggle"><a href="#" aria-haspopup="true" role="button" tabindex="0" class="slicknav_btn slicknav_collapsed" style="outline: none;"><span class="slicknav_menutxt"></span><span class="slicknav_icon slicknav_no-text"><span class="slicknav_icon-bar"></span><span class="slicknav_icon-bar"></span><span class="slicknav_icon-bar"></span></span></a></div>
+                    <div class="navbar-toggle"></div>
                 </div>
             </nav>
-            <div class="responsive-menu">
-                <div class="slicknav_menu">
-                    <ul class="slicknav_nav slicknav_hidden" style="display: none;" aria-hidden="true" role="menu">
-                        <li class="nav-item"><a class="nav-link" href="index.html" role="menuitem" tabindex="-1">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="about.html" role="menuitem" tabindex="-1">About Us</a></li>
-                        <li class="nav-item"><a class="nav-link" href="services.html" role="menuitem" tabindex="-1">Services</a></li>
-                        <li class="nav-item submenu slicknav_collapsed slicknav_parent">
-                            <a href="#" role="menuitem" aria-haspopup="true" tabindex="-1" class="slicknav_item slicknav_row" style="outline: none;">
-                                <a class="nav-link" href="#" tabindex="-1">Pages</a>
-                                <span class="slicknav_arrow">►</span>
-                            </a><ul role="menu" class="slicknav_hidden" style="display: none;" aria-hidden="true">
-                                <li class="nav-item"><a class="nav-link" href="services-single.html" role="menuitem" tabindex="-1">Service Single</a></li>
-                                <li class="nav-item"><a class="nav-link" href="blog.html" role="menuitem" tabindex="-1">Blog</a></li>
-                                <li class="nav-item"><a class="nav-link" href="blog-single.html" role="menuitem" tabindex="-1">Blog Single</a></li>
-                                <li class="nav-item"><a class="nav-link" href="team.html" role="menuitem" tabindex="-1">Our Team</a></li>
-                                <li class="nav-item"><a class="nav-link" href="team-single.html" role="menuitem" tabindex="-1">Team details</a></li>
-                                <li class="nav-item"><a class="nav-link" href="faqs.html" role="menuitem" tabindex="-1">FAQs</a></li>
-                                <li class="nav-item"><a class="nav-link" href="404.html" role="menuitem" tabindex="-1">404</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="contact.html" role="menuitem" tabindex="-1">Contact Us</a></li>
-                        <li class="nav-item highlighted-menu"><a class="nav-link" href="appointment.html" role="menuitem" tabindex="-1">Book Appointment <i class="fa-solid fa-calendar-days"></i></a></li>
-                    </ul>
-                </div>
-            </div>
+            <div class="responsive-menu"></div>
         </div>
     </header>
+    <!-- Header End -->
 
 
 
@@ -437,25 +579,25 @@
 
             toast.innerHTML = `
 
-                                    <div class="custom-toast-content">
+                                                    <div class="custom-toast-content">
 
-                                        <div class="toast-message">
+                                                        <div class="toast-message">
 
-                                            ${message}
+                                                            ${message}
 
-                                        </div>
+                                                        </div>
 
-                                        <div class="close-btn">
+                                                        <div class="close-btn">
 
-                                            &times;
+                                                            &times;
 
-                                        </div>
+                                                        </div>
 
-                                    </div>
+                                                    </div>
 
-                                    <div class="progress"></div>
+                                                    <div class="progress"></div>
 
-                                `;
+                                                `;
 
 
 

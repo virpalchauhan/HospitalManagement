@@ -1,4 +1,5 @@
 using HospitalManagement.Entity.Model;
+using HospitalManagement.Helper;
 using HospitalManagement.Services.Client;
 using HospitalManagement.ViewModel;
 using Microsoft.AspNetCore.Mvc;
@@ -10,14 +11,16 @@ namespace HospitalManagement.Pages.Client.Account
     {
 
         private readonly IPatientServices _patientServices;
+        private readonly IJwtTokenHelper _JwtTokenHelper;
 
 
         [BindProperty]
         public LoginViewModel LoginViewModel { get; set; }
 
-        public LoginModel(IPatientServices _patientServices)
+        public LoginModel(IPatientServices _patientServices, IJwtTokenHelper _JwtTokenHelper)
         {
             this._patientServices = _patientServices;
+            this._JwtTokenHelper = _JwtTokenHelper;
         }
 
 
@@ -28,7 +31,7 @@ namespace HospitalManagement.Pages.Client.Account
 
         }
 
-        public void OnPost()
+        public IActionResult OnPost()
         {
             if (ModelState.IsValid)
             {
@@ -40,7 +43,27 @@ namespace HospitalManagement.Pages.Client.Account
 
                 var LoginResult = _patientServices.Login(LoginPatient);
 
+                if (LoginResult != null)
+                {
+                    var Token = _JwtTokenHelper.JWTGenerateTokenForPatient(LoginResult.PatientId.ToString());
+                    Response.Cookies.Append("AuthToken", Token, new CookieOptions
+                    {
+                        HttpOnly = true,
+                        Secure = false,
+                        Expires = DateTime.Now.AddMinutes(60),
+                        SameSite = SameSiteMode.Lax
+                    });
+
+                    return RedirectToPage("/Client/Home");
+                }
+                TempData["MsgDanger"] =
+    "Email or Password Dont match";
+                return RedirectToPage();
+
+
             }
+            TempData["MsgNormal"] ="Something Wrong";
+            return RedirectToPage();
         }
     }
 }
