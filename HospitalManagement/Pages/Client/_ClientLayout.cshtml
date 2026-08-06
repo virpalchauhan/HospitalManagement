@@ -1,7 +1,7 @@
 ﻿@inject IHttpContextAccessor HttpContextAccessor
 
 @{
-    var token = HttpContextAccessor.HttpContext?.Request.Cookies["AuthToken"];
+    var token = HttpContextAccessor.HttpContext?.Request.Cookies["PatientAuthToken"];
 }
 
 <!DOCTYPE html>
@@ -194,7 +194,7 @@
                     <!-- Logo Start -->
                     <div class="header-logo">
                         <a class="navbar-brand" href="index.html">
-                            <img src="images/logo.svg" alt="">
+                            <img src="images/logo.svg">
                         </a>
                     </div>
                     <!-- Logo End -->
@@ -202,7 +202,7 @@
                     <div class="collapse navbar-collapse main-menu">
                         <div class="nav-menu-wrapper">
                             <ul class="navbar-nav mr-auto" id="menu">
-                                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/Client/home">Home</a></li>
                                 <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
                                 <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
 
@@ -223,7 +223,7 @@
                                         </a>
 
                                         <ul class="dropdown-menu-custom">
-                                            <li><a href="profile.html">Profile</a></li>
+                                            <li><a href="/Client/Account/Profile">Profile</a></li>
                                             <li><a href="change-password.html">Change Password</a></li>
                                             <li><a href="/Client/Account/Login">Logout</a></li>
                                         </ul>

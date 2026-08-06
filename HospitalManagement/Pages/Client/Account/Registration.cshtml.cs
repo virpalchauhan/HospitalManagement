@@ -371,7 +371,7 @@ namespace HospitalManagement.Pages.Client.Account
                     if (Login!=null)
                     {
                         var Token = _JwtTokenHelper.JWTGenerateTokenForPatient(Login.PatientId.ToString());
-                        Response.Cookies.Append("AuthToken", Token, new CookieOptions
+                        Response.Cookies.Append("PatientAuthToken", Token, new CookieOptions
                         {
                             HttpOnly = true,
                             Secure = false,
@@ -394,7 +394,7 @@ namespace HospitalManagement.Pages.Client.Account
                 }
                 else if (ResultData == 2)
                 {
-                    TempData["c"] =
+                    TempData["MsgNormal"] =
     "Email Already Exists. Please Use A Different Email.";
                     return RedirectToPage();
                 }

@@ -14,8 +14,8 @@ namespace HospitalManagement.Pages
 
         public IActionResult OnGet()
         {
-            return RedirectToPage("Client/Account/Registration");
-            //return RedirectToPage("Admin/SocialMedia/ListSocialMedia");
+            return RedirectToPage("Client/Account/Login");
+            //return RedirectToPage("Admin/Appointment/AllAppointment");
         }
     }
 }

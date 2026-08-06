@@ -12,6 +12,10 @@ namespace HospitalManagement.Services.Client
         Patient Login(Patient Model);
 
         bool UserExist(string Email);
+        Patient GetByid(int PatientId);
+
+        int UpdateProfile(Patient Model);
+
 
     }
 
@@ -28,6 +32,11 @@ namespace HospitalManagement.Services.Client
         {
            GC.SuppressFinalize(this);
             _EntityDbContext.Dispose();
+        }
+
+        public Patient GetByid(int PatientId)
+        {
+           return _EntityDbContext.patient.Where(M => M.PatientId == PatientId).FirstOrDefault();
         }
 
         public Patient Login(Patient Model)
@@ -54,6 +63,32 @@ namespace HospitalManagement.Services.Client
             {
                 return 0;
             }
+        }
+
+        public int UpdateProfile(Patient Model)
+        {
+            var Data = _EntityDbContext.patient.Where(m => m.PatientId == Model.PatientId).FirstOrDefault();
+            if (Data != null)
+            {
+                Data.FirstName = Model.FirstName;
+                Data.LastName = Model.LastName;
+                Data.Gender = Model.Gender;
+                Data.DateOfBirth = Model.DateOfBirth;
+                Data.MobileNo = Model.MobileNo;
+                Data.Address = Model.Address;
+                Data.City = Model.City;
+                Data.StateName = Model.StateName;
+                Data.Pincode = Model.Pincode;
+                Data.BloodGroup = Model.BloodGroup;
+                Data.ProfilePhotoPath = Model.ProfilePhotoPath;
+
+
+                int count = _EntityDbContext.SaveChanges();
+
+                return 1;
+
+            }
+            return 0;
         }
 
         public bool UserExist(string Email)

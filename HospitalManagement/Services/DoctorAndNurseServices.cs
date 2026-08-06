@@ -19,6 +19,8 @@ namespace HospitalManagement.Services
 
         int UpdateProfile(DoctorsAndNurse Model);
 
+        List<DoctorsAndNurse> GetDoctorsByDepartment(int departmentId);
+
 
 
 
@@ -126,6 +128,18 @@ namespace HospitalManagement.Services
             }
 
             return 0;
+        }
+
+        public List<DoctorsAndNurse> GetDoctorsByDepartment(int departmentId)
+        {
+            return db.DoctorsAndNurses.Where(m => m.DepartmentId == departmentId && m.RollType ==DoctorNurseApplicationsRollType.Doctor).ToList();
+
+
+           
+
+
+            
+
         }
     }
 

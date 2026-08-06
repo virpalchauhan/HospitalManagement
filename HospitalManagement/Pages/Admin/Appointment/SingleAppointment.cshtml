@@ -1,0 +1,168 @@
+﻿@page
+@model HospitalManagement.Pages.Admin.Appointment.SingleAppointmentModel
+@{
+
+    Layout = "/Pages/Admin/_AdminLayout.cshtml";
+
+}
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        padding-top: 50px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.9);
+    }
+
+    .modal-content {
+        margin: auto;
+        display: block;
+        max-width: 90%;
+        max-height: 90%;
+    }
+
+    .zoom-image {
+        cursor: pointer;
+    }
+</style>
+<div id="form1">
+    <form method="post" enctype="multipart/form-data">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Patient Appointment Deteils</h5>
+            </div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="d-flex flex-column gap-2 mb-3">
+
+
+                            <label> Patient Name</label>
+                            <input class="form-control" asp-for="AppointmentPatientDepartmentInnerJoinSingleData.PatientName"
+                                   aria-label="Disabled input example" disabled readonly>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="d-flex flex-column gap-2 mb-3">
+
+
+                            <label> Department Name</label>
+                            <input class="form-control" asp-for="AppointmentPatientDepartmentInnerJoinSingleData.DepartmentName"
+                                   aria-label="Disabled input example" disabled readonly>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="d-flex flex-column gap-2 mb-3">
+
+
+                            <label>Suggested Appointment Date</label>
+                            <input class="form-control" asp-for="AppointmentPatientDepartmentInnerJoinSingleData.SuggestedDate"
+                                   aria-label="Disabled input example" disabled readonly>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="d-flex flex-column gap-2 mb-3">
+
+
+                            <label>Suggested Appointment Time</label>
+                            <input class="form-control" asp-for="AppointmentPatientDepartmentInnerJoinSingleData.SuggestedTime"
+                                   aria-label="Disabled input example" disabled readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="d-flex flex-column gap-2 mb-3">
+                            <label>Appointment Time</label>
+
+                            <input class="form-control"
+                                   type="time"
+                                   asp-for="DoctorAppointmentApprovViewModel.AppointmentTime"
+                                   id="AppointmentTime" />
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="d-flex flex-column gap-2 mb-3">
+                            <label>Appointment Date</label>
+
+                            <input class="form-control"
+                                   type="date"
+                                   asp-for="DoctorAppointmentApprovViewModel.AppointmentDate"
+                                   id="AppointmentDate"
+                                   min="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                        </div>
+                    </div>
+
+                    <div class="my-3" style="
+    text-align: center;
+">
+                        <button class="btn btn-primary" type="submit">Submit</button>
+
+                    </div>
+
+
+                </div>
+            </div>
+       
+
+        </div>
+       
+    </form>
+</div>
+
+
+
+@if (TempData["Msg"] is string message)
+{
+    <script>
+        alert('@message');
+    </script>
+}
+<script>
+
+    $(document).ready(function () {
+
+        var now = new Date();
+
+        // Current Date
+        var today = now.toISOString().split('T')[0];
+
+        $("#AppointmentDate").val(today);
+
+        // Current Time
+        var hours = String(now.getHours()).padStart(2, '0');
+        var minutes = String(now.getMinutes()).padStart(2, '0');
+
+        var currentTime = hours + ":" + minutes;
+
+        $("#AppointmentTime").val(currentTime);
+
+        // Past date disable
+        $("#AppointmentDate").attr("min", today);
+
+        // Today => Past time disable
+        $("#AppointmentTime").attr("min", currentTime);
+
+        $("#AppointmentDate").change(function () {
+
+            if ($(this).val() == today) {
+
+                $("#AppointmentTime").attr("min", currentTime);
+
+            }
+            else {
+
+                $("#AppointmentTime").removeAttr("min");
+
+            }
+
+        });
+
+    });
+
+</script>

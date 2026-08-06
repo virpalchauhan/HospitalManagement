@@ -22,6 +22,9 @@ namespace HospitalManagement.Entity
         public DbSet<PendingRegistrationPatients> pendingRegistrationPatients { get; set; }
 
 
+        public DbSet<AppointmentTable> AppointmentTables { get; set; }
+
+
 
     }
 }

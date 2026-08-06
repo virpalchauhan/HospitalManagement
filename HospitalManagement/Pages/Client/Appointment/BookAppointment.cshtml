@@ -1,0 +1,379 @@
+﻿@page
+@model HospitalManagement.Pages.Client.Appointment.BookAppointmentModel
+@{
+    Layout = "/Pages/Client/_ClientLayout.cshtml";
+
+}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    select.form-control {
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        border-radius: 0;
+        color: #fff;
+        box-shadow: none;
+    }
+
+        select.form-control:focus {
+            outline: none;
+            box-shadow: none;
+            border-bottom: 1px solid #fff;
+        }
+
+        select.form-control option {
+            color: #000; /* dropdown ke andar text black rahe */
+        }
+
+    select.form-control {
+        appearance: auto;
+        -webkit-appearance: auto;
+        -moz-appearance: auto;
+    }
+
+
+    .custom-date {
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        border-radius: 0;
+        color: #fff;
+    }
+
+        .custom-date:focus {
+            outline: none;
+            box-shadow: none;
+            border-bottom: 1px solid #fff;
+        }
+
+        /* Calendar icon white karne ke liye (Chrome based browsers) */
+        .custom-date::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
+        }
+
+    .custom-file {
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        border-radius: 0;
+        color: #fff;
+    }
+
+        .custom-file:focus {
+            outline: none;
+            box-shadow: none;
+            border-bottom: 1px solid #fff;
+        }
+
+        .appointment-note {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+    border-radius: 5px;
+    padding: 8px 0;
+    margin-top: 15px;
+}
+
+.appointment-note span {
+    display: inline-block;
+    padding-left: 100%;
+    animation: scrollNote 15s linear infinite;
+}
+
+@@keyframes scrollNote {
+    from {
+        transform: translateX(0%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+</style>
+<div class="subpage-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Sub page Header start -->
+                <div class="subpage-header-box">
+                    <h1 class="text-anime-style-3" style="perspective: 400px;">
+                        <div class="split-line" style="display: block; text-align: center; position: relative;">
+
+                            <!-- Book -->
+                            <div style="position:relative;display:inline-block;">
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">B</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">o</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">o</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">k</div>
+                            </div>
+
+                            &nbsp;
+
+                            <!-- Appointment -->
+                            <div style="position:relative;display:inline-block;">
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">A</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">p</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">p</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">o</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">i</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">n</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">t</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">m</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">e</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">n</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">t</div>
+                            </div>
+
+                        </div>
+                    </h1>
+                    @*<ol class="breadcrumb wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+                        <li><a href="#">Home</a></li>
+                        <li>Careers Doctor</li>
+                    </ol>*@
+                </div>
+                <!-- Sub page Header End -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-contact-form">
+    <div class="container">
+        <div class="row section-row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h3 class="wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">fill the form</h3>
+                    <h2 class="text-anime-style-3" style="perspective: 400px;">
+                        <div class="split-line" style="display: block; text-align: center; position: relative;">
+
+                            <!-- BookAppointment -->
+                            <div style="position:relative;display:inline-block;">
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">B</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">o</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">o</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">k</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">A</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">p</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">p</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">o</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">i</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">n</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">t</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">m</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">e</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">n</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">t</div>
+                            </div>
+
+                            &nbsp;
+
+                            <!-- Form -->
+                            <div style="position:relative;display:inline-block;">
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">F</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">o</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">r</div>
+                                <div style="position: relative; display: inline-block; transform: translate(0px, 0px); opacity: 1;">m</div>
+                            </div>
+
+                        </div>
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Contact Form start -->
+                <div class="contact-us-form wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+                    <form  method="post" enctype="multipart/form-data">
+                        <div class="row">
+
+
+                            <div class="form-group col-md-6 mb-4 position-relative">
+                                <label class="mb-2" style="color:white;">Department</label>
+
+                                <select asp-for="PatientAppointment.DepartmentId" id="DepartmentId"
+                                        asp-items="Model.DepartmentList"
+                                        class="form-control custom-select">
+
+                                    <option value="0">-- Select Department --</option>
+
+                                </select>
+                                <span asp-validation-for="PatientAppointment.DepartmentId" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-md-6 mb-4">
+                                <label class="mb-2" style="color:white;">Select Doctor</label>
+                                <select asp-for="PatientAppointment.DoctorId" class="form-control custom-select"  id="DoctorId">
+                                   
+                                </select>
+                                <span asp-validation-for="PatientAppointment.DoctorId" class="text-danger"></span>
+
+                            </div>
+
+                            <div class="form-group col-md-6 mb-4">
+                                <label class="mb-2 text-white">Suggested Appointment Date</label>
+
+                                <input class="form-control"
+                                       type="date"
+                                       asp-for="PatientAppointment.SuggestedDate"
+                                       id="AppointmentDate"
+                                       min="@DateTime.Now.ToString("yyyy-MM-dd")" />
+
+                                <span asp-validation-for="PatientAppointment.SuggestedDate" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-md-6 mb-4">
+                                <label class="mb-2 text-white">Suggested Appointment Time</label>
+
+                                <input class="form-control"
+                                       type="time"
+                                       asp-for="PatientAppointment.SuggestedTime"
+                                       id="AppointmentTime" />
+
+                                <span asp-validation-for="PatientAppointment.SuggestedTime" class="text-danger"></span>
+                            </div>
+
+
+                            <div class="form-group col-md-12 mb-4">
+                                <label class="mb-2" style="color:white;">Reason </label>
+                                <textarea  class="form-control"  asp-for="PatientAppointment.Reason " placeholder="Enter Reason "></textarea>
+                                <span asp-validation-for="PatientAppointment.Reason" class="text-danger"></span>
+                            </div>
+
+
+
+                            
+                            <div class="col-lg-12">
+                                <div class="contact-form-btn">
+                                    <button type="submit" class="btn-default">Book Appointment</button>
+
+                                </div>
+                            </div>
+
+                            <div class="appointment-note">
+                                <span>
+                                    <strong>Note:</strong> Please book appointments only for registered patients.
+                                    If the patient is not registered, kindly complete the patient registration process first.
+                                </span>
+                            </div>
+
+                        </div>
+            </form>
+        </div>
+                            <!-- Contact Form end -->
+                        </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+@if (TempData["Msg"] != null)
+{
+    <script>
+        alert("@TempData["Msg"]");
+           @if (TempData["ClearForm"] != null)
+        {
+            <text>
+                document.getElementById("deptForm").reset();
+            </text>
+        }
+    </script>
+
+}
+
+<script>
+
+    debugger;
+    $(document).ready(function () {
+
+        $("#DepartmentId").change(function () {
+          
+
+            var departmentId = $(this).val();
+
+            if (departmentId == "0") {
+
+                $("#DoctorId").html('<option value="0">-- Select Doctor --</option>');
+                return;
+            }
+
+            $.ajax({
+
+                url: "/Client/Appointment/BookAppointment?handler=DoctorByDepartment",
+
+                type: "GET",
+
+                data: {
+                    departmentId: departmentId
+                },
+
+                success: function (response) {
+
+                    $("#DoctorId").empty();
+
+                    $("#DoctorId").append('<option value="0">-- Select Doctor --</option>');
+
+                    $.each(response, function (index, item) {
+
+                        $("#DoctorId").append(
+                            '<option value="' + item.doctorId + '">' +
+                            item.doctorName +
+                            '</option>'
+                        );
+
+                    });
+
+                },
+
+                error: function (xhr) {
+
+                    console.log(xhr);
+
+                }
+
+            });
+
+        });
+
+    });
+
+
+    //For Past Time Dont Allow
+
+
+    $(document).ready(function () {
+
+        $("#AppointmentDate").change(function () {
+
+            var selectedDate = $(this).val();
+
+            var today = new Date().toISOString().split('T')[0];
+
+            if (selectedDate == today) {
+
+                var now = new Date();
+
+                var hours = String(now.getHours()).padStart(2, '0');
+                var minutes = String(now.getMinutes()).padStart(2, '0');
+
+                var currentTime = hours + ":" + minutes;
+
+                $("#AppointmentTime").attr("min", currentTime);
+
+            }
+            else {
+
+                $("#AppointmentTime").removeAttr("min");
+
+            }
+
+        });
+
+    });
+
+
+</script>
+

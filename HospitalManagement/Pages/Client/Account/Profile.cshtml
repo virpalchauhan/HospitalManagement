@@ -1,0 +1,596 @@
+﻿@page
+@model HospitalManagement.Pages.Client.Account.ProfileModel
+@using HospitalManagement.Entity.Model.Enums;
+@{
+    Layout = "/Pages/Client/_ClientLayout.cshtml";
+
+}
+<!-- Registration Form start -->
+<div class="page-contact-form">
+    <div class="container">
+        <div class="row section-row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h3 class="wow fadeInUp">manage account</h3>
+                    <h2 class="text-anime-style-3">Update Profile</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+
+                <!-- Registration Form start -->
+                <div class="contact-us-form wow fadeInUp" data-wow-delay="0.5s">
+
+                    <form method="post" enctype="multipart/form-data">
+
+                        <input type="hidden" asp-for="PatientUpdateProfileModelView.PatientId" />
+
+                        <div class="row">
+
+                            <!-- First Name -->
+                            <div class="form-group col-md-6 mb-4">
+                                <label class="mb-2" style="color:white;">
+                                    First Name
+                                </label>
+
+                                <input asp-for="PatientUpdateProfileModelView.FirstName"
+                                       class="form-control"
+                                       placeholder="Enter First Name">
+
+                                <span asp-validation-for="PatientUpdateProfileModelView.FirstName"
+                                      class="text-danger"></span>
+                            </div>
+
+                            <!-- Last Name -->
+                            <div class="form-group col-md-6 mb-4">
+                                <label class="mb-2" style="color:white;">
+                                    Last Name
+                                </label>
+
+                                <input asp-for="PatientUpdateProfileModelView.LastName"
+                                       class="form-control"
+                                       placeholder="Enter Last Name">
+
+                                <span asp-validation-for="PatientUpdateProfileModelView.LastName"
+                                      class="text-danger"></span>
+                            </div>
+
+                            <!-- Gender -->
+                            <div class="form-group col-md-6 mb-4">
+                                <label class="mb-2" style="color:white;">
+                                    Gender
+                                </label>
+
+                                <select asp-for="PatientUpdateProfileModelView.Gender"
+                                        asp-items="Html.GetEnumSelectList<GenderType>()"
+                                        class="form-control">
+                                    <option value="">Select Gender</option>
+                                </select>
+
+                                <span asp-validation-for="PatientUpdateProfileModelView.Gender"
+                                      class="text-danger"></span>
+                            </div>
+
+                            <!-- Date Of Birth -->
+                            <div class="form-group col-md-6 mb-4">
+                                <label class="mb-2" style="color:white;">
+                                    Date Of Birth
+                                </label>
+
+                                <input asp-for="PatientUpdateProfileModelView.DateOfBirth"
+                                       type="date"
+                                       class="form-control"
+                                       max="@DateTime.Now.ToString("yyyy-MM-dd")">
+
+                                <span asp-validation-for="PatientUpdateProfileModelView.DateOfBirth"
+                                      class="text-danger"></span>
+                            </div>
+
+                            <!-- Mobile Number -->
+                            <div class="form-group col-md-6 mb-4">
+                                <label class="mb-2" style="color:white;">
+                                    Mobile Number
+                                </label>
+
+                                <input asp-for="PatientUpdateProfileModelView.MobileNo"
+                                       class="form-control"
+                                       placeholder="Enter Mobile Number">
+
+                                <span asp-validation-for="PatientUpdateProfileModelView.MobileNo"
+                                      class="text-danger"></span>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="form-group col-md-6 mb-4">
+                                <label class="mb-2" style="color:white;">
+                                    Email
+                                </label>
+
+                                <input asp-for="PatientUpdateProfileModelView.Email"
+                                       class="form-control"
+                                       readonly>
+
+                                <span asp-validation-for="PatientUpdateProfileModelView.Email"
+                                      class="text-danger"></span>
+                            </div>
+
+                            <!-- Address -->
+                            <div class="form-group col-md-12 mb-4">
+                                <label class="mb-2" style="color:white;">
+                                    Address
+                                </label>
+
+                                <textarea asp-for="PatientUpdateProfileModelView.Address"
+                                          class="form-control"
+                                          rows="3"
+                                          placeholder="Enter Address"></textarea>
+
+                                <span asp-validation-for="PatientUpdateProfileModelView.Address"
+                                      class="text-danger"></span>
+                            </div>
+
+                            <!-- City -->
+                            <div class="form-group col-md-4 mb-4">
+                                <label class="mb-2" style="color:white;">
+                                    City
+                                </label>
+
+                                <input asp-for="PatientUpdateProfileModelView.City"
+                                       class="form-control"
+                                       placeholder="Enter City">
+
+                                <span asp-validation-for="PatientUpdateProfileModelView.City"
+                                      class="text-danger"></span>
+                            </div>
+
+                            <!-- State Name -->
+                            <div class="form-group col-md-4 mb-4">
+                                <label class="mb-2" style="color:white;">
+                                    State Name
+                                </label>
+
+                                <input asp-for="PatientUpdateProfileModelView.StateName"
+                                       class="form-control"
+                                       placeholder="Enter State Name">
+
+                                <span asp-validation-for="PatientUpdateProfileModelView.StateName"
+                                      class="text-danger"></span>
+                            </div>
+
+                            <!-- Pincode -->
+                            <div class="form-group col-md-4 mb-4">
+                                <label class="mb-2" style="color:white;">
+                                    Pincode
+                                </label>
+
+                                <input asp-for="PatientUpdateProfileModelView.Pincode"
+                                       class="form-control"
+                                       placeholder="Enter Pincode">
+
+                                <span asp-validation-for="PatientUpdateProfileModelView.Pincode"
+                                      class="text-danger"></span>
+                            </div>
+
+                            <!-- Blood Group -->
+                            <div class="form-group col-md-6 mb-4">
+                                <label class="mb-2" style="color:white;">
+                                    Blood Group
+                                </label>
+
+                                <select asp-for="PatientUpdateProfileModelView.BloodGroup"
+                                        asp-items="Html.GetEnumSelectList<BloodGroupType>()"
+                                        class="form-control">
+                                    <option value="">Select Blood Group</option>
+                                </select>
+
+                                <span asp-validation-for="PatientUpdateProfileModelView.BloodGroup"
+                                      class="text-danger"></span>
+                            </div>
+
+                            <!-- Profile Photo -->
+                            <div class="form-group col-md-6 mb-4">
+                                <label class="mb-2" style="color:white;">
+                                    Profile Photo
+                                </label>
+
+                                <input asp-for="ProfilePhoto"
+                                       type="file"
+                                       class="form-control">
+
+                               
+                            </div>
+
+                            <input asp-for="PatientUpdateProfileModelView.ProfilePhotoPath"  />
+
+                            <!-- Old Image -->
+                            <div class="col-md-12 mb-3">
+
+                                @if (!string.IsNullOrEmpty(Model.PatientUpdateProfileModelView.ProfilePhotoPath))
+                                {
+                                    <img src="@Url.Content("~/" + Model.PatientUpdateProfileModelView.ProfilePhotoPath )"
+                                         width="500" height="500"
+                                         class="img-thumbnail rounded" />
+                                }
+
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="col-lg-12">
+                                <div class="contact-form-btn">
+                                    <button asp-page-handler="UpdateProfile"
+                                            type="submit"
+                                            class="btn-default">
+                                        Update Profile
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </form>
+
+
+
+
+
+                </div>
+
+                <!-- Registration Form end -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Toast Container -->
+
+<div class="custom-toast-container"
+     id="toastContainer">
+</div>
+
+
+
+<style>
+    select.form-control {
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        border-radius: 0;
+        color: #fff;
+        box-shadow: none;
+    }
+
+        select.form-control:focus {
+            outline: none;
+            box-shadow: none;
+            border-bottom: 1px solid #fff;
+        }
+
+        select.form-control option {
+            color: #000; /* dropdown ke andar text black rahe */
+        }
+
+    select.form-control {
+        appearance: auto;
+        -webkit-appearance: auto;
+        -moz-appearance: auto;
+    }
+
+
+    .custom-date {
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        border-radius: 0;
+        color: #fff;
+    }
+
+        .custom-date:focus {
+            outline: none;
+            box-shadow: none;
+            border-bottom: 1px solid #fff;
+        }
+
+        /* Calendar icon white karne ke liye (Chrome based browsers) */
+        .custom-date::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
+        }
+
+    .custom-file {
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        border-radius: 0;
+        color: #fff;
+    }
+
+        .custom-file:focus {
+            outline: none;
+            box-shadow: none;
+            border-bottom: 1px solid #fff;
+        }
+
+    .readonly-input {
+        cursor: not-allowed;
+        background-color: #e9ecef;
+    }
+    .custom-toast-container {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 999999;
+    }
+
+
+
+    .custom-toast {
+        width: 450px;
+        min-height: 70px;
+        background: white;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        opacity: 1;
+        animation: toastSlideIn 0.4s ease;
+    }
+
+
+
+        .custom-toast.hide {
+            animation: toastSlideOut 0.4s ease forwards;
+        }
+
+
+
+    .custom-toast-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+    }
+
+
+
+    .toast-message {
+        font-size: 15px;
+        color: #333;
+        padding-right: 10px;
+        word-break: break-word;
+    }
+
+
+
+    .close-btn {
+        cursor: pointer;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+
+
+    /* Progress Line */
+
+    .progress {
+        height: 5px;
+        width: 0%;
+        animation: progressBar 6s linear forwards;
+    }
+
+
+
+    /* Success */
+
+    .success {
+        border-left: 6px solid #28a745;
+    }
+
+        .success .progress {
+            background: #28a745;
+        }
+
+
+
+    /* Danger */
+
+    .danger {
+        border-left: 6px solid #dc3545;
+    }
+
+        .danger .progress {
+            background: #dc3545;
+        }
+
+
+
+    /* Progress Animation */
+
+    @@keyframes progressBar {
+
+        from {
+            width: 0%;
+        }
+
+        to {
+            width: 100%;
+        }
+    }
+
+
+
+    /* Enter Animation */
+
+    @@keyframes toastSlideIn {
+
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+
+
+    /* Exit Animation */
+
+    @@keyframes toastSlideOut {
+
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        to {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+    }
+
+    .normal {
+        border-left: 6px solid #007bff;
+    }
+
+        .normal .progress {
+            background: #007bff;
+        }
+</style>
+
+<script>
+
+    function showToast(type, message) {
+
+        const container =
+            document.getElementById("toastContainer");
+
+
+
+        const toast =
+            document.createElement("div");
+
+
+
+        toast.classList.add("custom-toast");
+
+        toast.classList.add(type);
+
+
+
+        toast.innerHTML = `
+
+                                 <div class="custom-toast-content">
+
+                                     <div class="toast-message">
+
+                                         ${message}
+
+                                     </div>
+
+                                     <div class="close-btn">
+
+                                         &times;
+
+                                     </div>
+
+                                 </div>
+
+                                 <div class="progress"></div>
+
+                             `;
+
+
+
+        container.appendChild(toast);
+
+
+
+        // Auto Remove After 6 Seconds
+
+        const autoRemove =
+            setTimeout(() => {
+
+                removeToast(toast);
+
+            }, 6000);
+
+
+
+        // Manual Remove
+
+        toast.querySelector(".close-btn")
+            .addEventListener("click", function () {
+
+                clearTimeout(autoRemove);
+
+                removeToast(toast);
+
+            });
+
+    }
+
+
+
+    function removeToast(toast) {
+
+        toast.classList.add("hide");
+
+
+
+        setTimeout(() => {
+
+            toast.remove();
+
+        }, 400);
+
+    }
+
+</script>
+
+
+@if (TempData["MsgSuccess"] != null)
+{
+    <script>
+
+ showToast(
+     "success",
+     '@TempData.Peek("MsgSuccess")'
+ );
+
+    </script>
+}
+
+
+
+@if (TempData["MsgDanger"] != null)
+{
+    <script>
+
+ showToast(
+     "danger",
+     '@TempData.Peek("MsgDanger")'
+ );
+
+    </script>
+}
+
+@if (TempData["MsgNormal"] != null)
+{
+    <script>
+
+     showToast(
+         "normal",
+         '@TempData.Peek("MsgNormal")'
+     );
+
+    </script>
+}

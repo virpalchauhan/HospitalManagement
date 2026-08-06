@@ -30,7 +30,11 @@ namespace HospitalManagement.Pages.Admin.Account
         public void OnGet()
         {
 
-            var token = Request.Cookies["AuthToken"];
+
+
+
+
+            var token = Request.Cookies["AdminAuthToken"];
 
             if (!string.IsNullOrEmpty(token))
             {
@@ -57,14 +61,14 @@ namespace HospitalManagement.Pages.Admin.Account
 
                
 
-                if (Result.DoctorNurceId == 0)
+                if (Result == null)
                 {
                     TempData["MsgDanger"] = "Email and Password Dont match";
                 }
                 else if (Result.DoctorNurceId >= 1)
                 {
                     var Token = ObjIJwtTokenHelper.JWTGenerateToken(Result.DoctorNurceId.ToString(), Result.RollType.ToString());
-                    Response.Cookies.Append("AuthToken", Token, new CookieOptions
+                    Response.Cookies.Append("AdminAuthToken", Token, new CookieOptions
                     {
                         HttpOnly = true,
                         Secure = false, 

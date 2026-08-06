@@ -109,7 +109,9 @@ namespace HospitalManagement.Services
         {
             var data=  db.DoctorsAndNurses.Where(m => m.Email == Model.Email && m.PasswordHash == Model.PasswordHash).FirstOrDefault();
 
-            return data;
+            
+                return data;
+           
         }
 
         public int UpdateOTPAttempts(int DoctorApplicationsId, int attempts, DateTime? LastFailedAttempt)

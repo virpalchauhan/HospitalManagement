@@ -26,8 +26,14 @@ namespace HospitalManagement.Pages.Client.Account
 
         public void OnGet()
         {
-            
 
+            var token = Request.Cookies["PatientAuthToken"];
+
+            if (!string.IsNullOrEmpty(token))
+            {
+
+                Response.Redirect("/Client/Home");
+            }
 
         }
 
@@ -46,7 +52,7 @@ namespace HospitalManagement.Pages.Client.Account
                 if (LoginResult != null)
                 {
                     var Token = _JwtTokenHelper.JWTGenerateTokenForPatient(LoginResult.PatientId.ToString());
-                    Response.Cookies.Append("AuthToken", Token, new CookieOptions
+                    Response.Cookies.Append("PatientAuthToken", Token, new CookieOptions
                     {
                         HttpOnly = true,
                         Secure = false,

@@ -38,11 +38,13 @@ builder.Services.AddAuthentication(options =>
     {
         OnMessageReceived = context =>
         {
-            var token = context.Request.Cookies["AuthToken"];
-
-            if (!string.IsNullOrEmpty(token))
+            if (context.Request.Path.StartsWithSegments("/Client"))
             {
-                context.Token = token;
+                context.Token = context.Request.Cookies["PatientAuthToken"];
+            }
+            else if (context.Request.Path.StartsWithSegments("/Admin"))
+            {
+                context.Token = context.Request.Cookies["AdminAuthToken"];
             }
 
             return Task.CompletedTask;
@@ -75,6 +77,7 @@ builder.Services.AddScoped<DoctorApplicationSubmittedEmailCode>();
 builder.Services.AddScoped<ForgotPasswordTempletCode>();
 builder.Services.AddScoped<PasswordChangedTempletCode>();
 builder.Services.AddScoped<RegistrationOTPVerificationCode>();
+builder.Services.AddScoped<IAppointmentTableServices, AppointmentTableServices>();
 builder.Services.AddHttpContextAccessor();
 
 // 🧠 SESSION
