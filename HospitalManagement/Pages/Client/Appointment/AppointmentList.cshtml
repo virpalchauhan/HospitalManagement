@@ -1,0 +1,73 @@
+﻿@page
+@model HospitalManagement.Pages.Client.Appointment.AppointmentListModel
+@{
+    Layout = "/Pages/Client/_ClientLayout.cshtml";
+    int Count = 1;
+
+}
+<div class="card">
+    <div class="card-header">
+        <h2>
+            My Appointments
+        </h2>
+    </div>
+
+    <div class="card-body">
+
+        <div class="table-responsive">
+            <table class="table table-hover table-centered">
+
+                <thead class="table-light">
+                    <tr>
+                        <th>No</th>
+                        <th>Doctor</th>
+                        <th>Department</th>
+                        <th>Status</th>
+                        <th>Appointment Book Date</th>
+                        <th>View</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model.AppointmentPatientDepartmentInnerJoinList)
+                    {
+                        <tr>
+
+                            <td>@Count</td>
+
+                            <td>
+                                @item.DoctorName
+                            </td>
+
+                            <td>
+                                @item.DepartmentName
+                            </td>
+
+                            <td>
+                                @item.AppointmentBookDate
+                            </td>
+                            <td>
+                                @item.Status
+                            </td>
+
+
+                            <td>
+                                <a asp-page="/Client/Appointment/SingleAppointment" asp-route-AppointmentId="@item.AppointmentId" class="btn btn-success btn-sm w-100">View</a>
+                            </td>
+
+                        </tr>
+                        Count++;
+                    }
+                    <!-- Demo Data 1 -->
+
+
+
+
+
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+</div>

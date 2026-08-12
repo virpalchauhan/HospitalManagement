@@ -31,7 +31,7 @@ namespace HospitalManagement.Entity.Model
 
         public TimeOnly? SuggestedTime { get; set; }
 
-        public byte? PatientResponse { get; set; }
+        public PatientResponseType? PatientResponse { get; set; }
 
         public DateTime? AppointmentBookDate { get; set; }
         

@@ -1,0 +1,367 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Confirmed</title>
+</head>
+
+<body style="margin:0; padding:0; background-color:#f4f7fb; font-family:Arial, Helvetica, sans-serif;">
+
+    <!-- Main Background -->
+    <table width="100%"
+           cellpadding="0"
+           cellspacing="0"
+           border="0"
+           style="background-color:#f4f7fb; margin:0; padding:40px 15px;">
+
+        <tr>
+            <td align="center">
+
+                <!-- Main Card -->
+                <table width="650"
+                       cellpadding="0"
+                       cellspacing="0"
+                       border="0"
+                       style="width:100%; max-width:650px; background-color:#ffffff; border-radius:10px; overflow:hidden;">
+
+                    <!-- ================= HEADER ================= -->
+                    <tr>
+                        <td align="center"
+                            style="background-color:#198754; padding:32px 20px;">
+
+                            <h1 style="
+                                margin:0 0 8px 0;
+                                padding:0;
+                                color:#ffffff;
+                                font-size:27px;
+                                line-height:36px;
+                                font-weight:bold;
+                                font-family:Arial, Helvetica, sans-serif;
+                            ">
+                                Appointment Confirmed
+                            </h1>
+
+                            <p style="
+                                margin:0;
+                                padding:0;
+                                color:#ffffff;
+                                font-size:15px;
+                                line-height:24px;
+                                font-family:Arial, Helvetica, sans-serif;
+                            ">
+                                Hospital Management System
+                            </p>
+
+                        </td>
+                    </tr>
+
+
+                    <!-- ================= BODY ================= -->
+                    <tr>
+                        <td style="padding:35px 35px 30px 35px;">
+
+                            <!-- Greeting -->
+                            <h2 style="
+                                margin:0 0 12px 0;
+                                padding:0;
+                                color:#212529;
+                                font-size:20px;
+                                line-height:28px;
+                                font-family:Arial, Helvetica, sans-serif;
+                            ">
+                                Hello <strong>{PatientName}</strong>,
+                            </h2>
+
+
+                            <p style="
+                                margin:0 0 24px 0;
+                                padding:0;
+                                color:#6c757d;
+                                font-size:15px;
+                                line-height:24px;
+                                font-family:Arial, Helvetica, sans-serif;
+                            ">
+                                Your appointment has been successfully confirmed by the doctor.
+                                Please find your appointment details below.
+                            </p>
+
+
+                            <!-- ================= STATUS ================= -->
+                            <table width="100%"
+                                   cellpadding="0"
+                                   cellspacing="0"
+                                   border="0"
+                                   style="margin-bottom:28px;">
+
+                                <tr>
+                                    <td style="
+                                        background-color:#d1e7dd;
+                                        border:1px solid #badbcc;
+                                        border-radius:6px;
+                                        padding:15px 18px;
+                                        color:#0f5132;
+                                        font-size:15px;
+                                        font-family:Arial, Helvetica, sans-serif;
+                                    ">
+
+                                        <strong>Appointment Status:</strong>
+                                        <span style="margin-left:5px;">
+                                            Confirmed
+                                        </span>
+
+                                    </td>
+                                </tr>
+
+                            </table>
+
+
+                            <!-- ================= DETAILS CARD ================= -->
+                            <table width="100%"
+                                   cellpadding="0"
+                                   cellspacing="0"
+                                   border="0"
+                                   style="
+                                       background-color:#f8f9fa;
+                                       border:1px solid #dee2e6;
+                                       border-radius:8px;
+                                       margin-bottom:28px;
+                                   ">
+
+                                <!-- Title -->
+                                <tr>
+                                    <td colspan="2"
+                                        style="
+                                            padding:20px 20px 15px 20px;
+                                            color:#212529;
+                                            font-size:18px;
+                                            font-weight:bold;
+                                            font-family:Arial, Helvetica, sans-serif;
+                                        ">
+                                        Appointment Details
+                                    </td>
+                                </tr>
+
+
+                                <!-- Doctor -->
+                                <tr>
+
+                                    <td width="40%"
+                                        style="
+                                            width:40%;
+                                            padding:14px 20px;
+                                            border-top:1px solid #e9ecef;
+                                            color:#212529;
+                                            font-size:14px;
+                                            font-weight:bold;
+                                            font-family:Arial, Helvetica, sans-serif;
+                                        ">
+                                        Doctor
+                                    </td>
+
+                                    <td width="60%"
+                                        style="
+                                            width:60%;
+                                            padding:14px 20px;
+                                            border-top:1px solid #e9ecef;
+                                            color:#495057;
+                                            font-size:14px;
+                                            font-family:Arial, Helvetica, sans-serif;
+                                        ">
+                                        Dr. {DoctorName}
+                                    </td>
+
+                                </tr>
+
+
+                                <!-- Department -->
+                                <tr>
+
+                                    <td width="40%"
+                                        style="
+                                            width:40%;
+                                            padding:14px 20px;
+                                            border-top:1px solid #e9ecef;
+                                            color:#212529;
+                                            font-size:14px;
+                                            font-weight:bold;
+                                            font-family:Arial, Helvetica, sans-serif;
+                                        ">
+                                        Department
+                                    </td>
+
+                                    <td width="60%"
+                                        style="
+                                            width:60%;
+                                            padding:14px 20px;
+                                            border-top:1px solid #e9ecef;
+                                            color:#495057;
+                                            font-size:14px;
+                                            font-family:Arial, Helvetica, sans-serif;
+                                        ">
+                                        {DepartmentName}
+                                    </td>
+
+                                </tr>
+
+
+                                <!-- Appointment Date -->
+                                <tr>
+
+                                    <td width="40%"
+                                        style="
+                                            width:40%;
+                                            padding:14px 20px;
+                                            border-top:1px solid #e9ecef;
+                                            color:#212529;
+                                            font-size:14px;
+                                            font-weight:bold;
+                                            font-family:Arial, Helvetica, sans-serif;
+                                        ">
+                                        Appointment Date
+                                    </td>
+
+                                    <td width="60%"
+                                        style="
+                                            width:60%;
+                                            padding:14px 20px;
+                                            border-top:1px solid #e9ecef;
+                                            color:#495057;
+                                            font-size:14px;
+                                            font-family:Arial, Helvetica, sans-serif;
+                                        ">
+                                        {AppointmentDate}
+                                    </td>
+
+                                </tr>
+
+
+                                <!-- Appointment Time -->
+                                <tr>
+
+                                    <td width="40%"
+                                        style="
+                                            width:40%;
+                                            padding:14px 20px;
+                                            border-top:1px solid #e9ecef;
+                                            color:#212529;
+                                            font-size:14px;
+                                            font-weight:bold;
+                                            font-family:Arial, Helvetica, sans-serif;
+                                        ">
+                                        Appointment Time
+                                    </td>
+
+                                    <td width="60%"
+                                        style="
+                                            width:60%;
+                                            padding:14px 20px;
+                                            border-top:1px solid #e9ecef;
+                                            color:#495057;
+                                            font-size:14px;
+                                            font-family:Arial, Helvetica, sans-serif;
+                                        ">
+                                        {AppointmentTime}
+                                    </td>
+
+                                </tr>
+
+                            </table>
+
+
+                            <!-- ================= INFORMATION ================= -->
+
+                            <table width="100%"
+                                   cellpadding="0"
+                                   cellspacing="0"
+                                   border="0"
+                                   style="margin-bottom:15px;">
+
+                                <tr>
+
+                                    <td style="
+                                        background-color:#fff3cd;
+                                        border:1px solid #ffecb5;
+                                        border-radius:6px;
+                                        padding:15px 18px;
+                                        color:#664d03;
+                                        font-size:14px;
+                                        line-height:22px;
+                                        font-family:Arial, Helvetica, sans-serif;
+                                    ">
+
+                                        <strong>Please Note:</strong><br>
+
+                                        Please arrive a few minutes before your scheduled
+                                        appointment time.
+
+                                    </td>
+
+                                </tr>
+
+                            </table>
+
+
+                            <!-- Thank You -->
+                            <p style="
+                                margin:20px 0 0 0;
+                                padding:0;
+                                color:#212529;
+                                font-size:14px;
+                                line-height:22px;
+                                font-family:Arial, Helvetica, sans-serif;
+                            ">
+                                Thank you for choosing our hospital.
+                            </p>
+
+                        </td>
+                    </tr>
+
+
+                    <!-- ================= FOOTER ================= -->
+                    <tr>
+
+                        <td align="center"
+                            style="
+                                background-color:#f8f9fa;
+                                border-top:1px solid #e9ecef;
+                                padding:20px;
+                            ">
+
+                            <p style="
+                                margin:0;
+                                padding:0;
+                                color:#6c757d;
+                                font-size:12px;
+                                line-height:20px;
+                                font-family:Arial, Helvetica, sans-serif;
+                            ">
+                                This is an automated email. Please do not reply to this email.
+                            </p>
+
+                            <p style="
+                                margin:5px 0 0 0;
+                                padding:0;
+                                color:#adb5bd;
+                                font-size:11px;
+                                line-height:18px;
+                                font-family:Arial, Helvetica, sans-serif;
+                            ">
+                                © Hospital Management System
+                            </p>
+
+                        </td>
+
+                    </tr>
+
+                </table>
+
+            </td>
+        </tr>
+
+    </table>
+
+</body>
+
+</html>

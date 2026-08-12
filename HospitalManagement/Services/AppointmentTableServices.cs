@@ -10,13 +10,19 @@ namespace HospitalManagement.Services
     {
         int AddAppointment(AppointmentTable Model);
 
-        List<GetAllAppointmentsforDoctor> GetAllAppointmentsforDoctor(int DoctorId);
+        List<AppointmentPatientDepartmentInnerJoin> GetAllAppointmentsforDoctor(int DoctorId);
 
-        AppointmentPatientDepartmentInnerJoin AppointmentPatientDepartmentInnerJoin(int AppointmentId);
+        AppointmentPatientDepartmentInnerJoin AppointmentPatientDepartmentInnerJoinforDoctor(int AppointmentId);
 
         int DoctorResponse(AppointmentTable Model);
 
-        List<GetAllAppointmentsforDoctor> GetAppointmentByStatus(int DoctorId, AppointmentStatusType? status);
+        List<AppointmentPatientDepartmentInnerJoin> GetAppointmentByStatus(int DoctorId, AppointmentStatusType? status);
+
+        List<AppointmentPatientDepartmentInnerJoin> AppointmentPatientDepartmentInnerJoinForPatient(int PatientId);
+
+        int UpdateAppointmentStatus(AppointmentTable Model);
+
+
 
     }
 
@@ -42,7 +48,7 @@ namespace HospitalManagement.Services
            return 0;
         }
 
-        public AppointmentPatientDepartmentInnerJoin AppointmentPatientDepartmentInnerJoin(int AppointmentId)
+        public AppointmentPatientDepartmentInnerJoin AppointmentPatientDepartmentInnerJoinforDoctor(int AppointmentId)
         {
            var Data =(from Appointment in _EntityDbContext.AppointmentTables
                       join PatientTable in _EntityDbContext.patient
@@ -50,7 +56,8 @@ namespace HospitalManagement.Services
                         join department in _EntityDbContext.DepartmentTbls
                         on Appointment.DepartmentId equals department.DepartmentId
                       where Appointment.AppointmentId == AppointmentId
-
+                      join DoctorTable in _EntityDbContext.DoctorsAndNurses
+                        on Appointment.DoctorId equals DoctorTable.DoctorNurceId
 
                       select new AppointmentPatientDepartmentInnerJoin
                         {
@@ -64,9 +71,12 @@ namespace HospitalManagement.Services
                             AppointmentTime=Appointment.AppointmentTime,
                             DepartmentId=Appointment.DepartmentId,
                             Reason=Appointment.Reason,
-                            
-                            SuggestedDate=Appointment.SuggestedDate,
-                            SuggestedTime=Appointment.SuggestedTime
+                            DoctorName= DoctorTable.FirstName+" "+DoctorTable.LastName,
+                            SuggestedDate =Appointment.SuggestedDate,
+                            SuggestedTime=Appointment.SuggestedTime,
+                            Status= Appointment.Status.Value,
+                          PatientEmail=PatientTable.Email
+
                       }
 
                       ).
@@ -74,6 +84,47 @@ namespace HospitalManagement.Services
 
             return Data;
 
+        }
+
+       
+
+        public List<AppointmentPatientDepartmentInnerJoin> AppointmentPatientDepartmentInnerJoinForPatient(int PatientId)
+        {
+            var Data = (from Appointment in _EntityDbContext.AppointmentTables
+                        join PatientTable in _EntityDbContext.patient
+                        on Appointment.PatientId equals PatientTable.PatientId
+                        join department in _EntityDbContext.DepartmentTbls
+                        on Appointment.DepartmentId equals department.DepartmentId
+                        where Appointment.PatientId == PatientId
+
+                        join DoctorTable in _EntityDbContext.DoctorsAndNurses
+                        on Appointment.DoctorId equals DoctorTable.DoctorNurceId
+
+
+
+
+                        select new AppointmentPatientDepartmentInnerJoin
+                        {
+                            PatientName = PatientTable.FirstName + " " + PatientTable.LastName,
+                            AppointmentBookDate = Appointment.AppointmentBookDate,
+                            DepartmentName = department.DepartmentName,
+                            AppointmentId = Appointment.AppointmentId,
+                            PatientId = Appointment.PatientId,
+                            DoctorId = Appointment.DoctorId,
+                            AppointmentDate = Appointment.AppointmentDate,
+                            AppointmentTime = Appointment.AppointmentTime,
+                            DepartmentId = Appointment.DepartmentId,
+                            Reason = Appointment.Reason,
+                            DoctorName = DoctorTable.FirstName + " " + DoctorTable.LastName,
+                            SuggestedDate = Appointment.SuggestedDate,
+                            SuggestedTime = Appointment.SuggestedTime,
+                            Status = Appointment.Status.Value
+                        }
+
+                       ).ToList();
+
+
+            return Data;
         }
 
         public void Dispose()
@@ -94,7 +145,8 @@ namespace HospitalManagement.Services
             {
                 Data.AppointmentDate = Model.AppointmentDate;
                 Data.AppointmentTime = Model.AppointmentTime;
-                Data.Status = AppointmentStatusType.approve;
+                Data.Status = Model.Status;
+                Data.PatientResponse = Model.PatientResponse;
                 _EntityDbContext.AppointmentTables.Update(Data);
                 int Count = _EntityDbContext.SaveChanges();
                 if (Count > 0)
@@ -105,23 +157,25 @@ namespace HospitalManagement.Services
             }
         }
 
-                public List<GetAllAppointmentsforDoctor> GetAllAppointmentsforDoctor(int DoctorId)
+                public List<AppointmentPatientDepartmentInnerJoin> GetAllAppointmentsforDoctor(int DoctorId)
                 {
                     var Data = (from Appointment in _EntityDbContext.AppointmentTables
                                 join PatientTable in _EntityDbContext.patient
                                 on Appointment.PatientId equals PatientTable.PatientId
                                 join department in _EntityDbContext.DepartmentTbls
                                 on Appointment.DepartmentId equals department.DepartmentId
-                                where Appointment.Status == AppointmentStatusType.Pending
-                                && Appointment.DoctorId == DoctorId
+
+                                where Appointment.DoctorId == DoctorId
 
 
-                                select new GetAllAppointmentsforDoctor
+                                select new AppointmentPatientDepartmentInnerJoin
                                 {
                                     PatientName = PatientTable.FirstName + " " + PatientTable.LastName,
                                     AppointmentBookDate = Appointment.AppointmentBookDate,
                                     DepartmentName = department.DepartmentName,
-                                    AppointmentId = Appointment.AppointmentId
+                                    AppointmentId = Appointment.AppointmentId,
+                                    Status = Appointment.Status.Value
+
 
 
                                 }
@@ -135,7 +189,7 @@ namespace HospitalManagement.Services
 
                 }
 
-        public List<GetAllAppointmentsforDoctor> GetAppointmentByStatus(int DoctorId, AppointmentStatusType? status)
+        public List<AppointmentPatientDepartmentInnerJoin> GetAppointmentByStatus(int DoctorId, AppointmentStatusType? status)
         {
             var Data = (from Appointment in _EntityDbContext.AppointmentTables
                         join PatientTable in _EntityDbContext.patient
@@ -146,12 +200,13 @@ namespace HospitalManagement.Services
                         && Appointment.DoctorId == DoctorId
 
 
-                        select new GetAllAppointmentsforDoctor
+                        select new AppointmentPatientDepartmentInnerJoin
                         {
                             PatientName = PatientTable.FirstName + " " + PatientTable.LastName,
                             AppointmentBookDate = Appointment.AppointmentBookDate,
                             DepartmentName = department.DepartmentName,
-                            AppointmentId = Appointment.AppointmentId
+                            AppointmentId = Appointment.AppointmentId,
+                            Status = Appointment.Status.Value
 
 
                         }
@@ -161,6 +216,21 @@ namespace HospitalManagement.Services
 
 
              return Data;
+        }
+
+        public int UpdateAppointmentStatus(AppointmentTable Model)
+        {
+            var Data = _EntityDbContext.AppointmentTables.Where(m => m.AppointmentId == Model.AppointmentId).FirstOrDefault();
+
+            Data.Status = Model.Status;
+            _EntityDbContext.AppointmentTables.Update(Data);
+            int Count = _EntityDbContext.SaveChanges();
+
+            if (Count>0)
+            {
+                return Count;
+            }
+            return 0;
         }
     }
 }

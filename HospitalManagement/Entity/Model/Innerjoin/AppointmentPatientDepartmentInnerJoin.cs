@@ -18,13 +18,13 @@ namespace HospitalManagement.Entity.Model.Innerjoin
 
         public string? Reason { get; set; }
 
-        public AppointmentStatusType Status { get; set; }
+        public AppointmentStatusType? Status { get; set; }
 
         public DateOnly? SuggestedDate { get; set; }
 
         public TimeOnly? SuggestedTime { get; set; }
 
-        //public PatientResponseType? PatientResponse { get; set; }
+        public PatientResponseType? PatientResponse { get; set; }
 
         public DateTime? AppointmentBookDate { get; set; }
 
@@ -32,5 +32,9 @@ namespace HospitalManagement.Entity.Model.Innerjoin
         public string? PatientName { get; set; }
 
         public string? DepartmentName { get; set; }
+
+        public string? DoctorName { get; set; }
+
+        public string? PatientEmail { get; set; }
     }
 }

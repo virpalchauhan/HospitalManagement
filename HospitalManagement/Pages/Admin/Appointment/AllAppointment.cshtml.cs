@@ -22,7 +22,7 @@ namespace HospitalManagement.Pages.Admin.Appointment
 
         [BindProperty]
 
-        public List<GetAllAppointmentsforDoctor> GetAllAppointmentsforDoctorList { get; set; }
+        public List<AppointmentPatientDepartmentInnerJoin> GetAllAppointmentsforDoctorList { get; set; }
 
 
         public AllAppointmentModel(IAppointmentTableServices _AppointmentTableServices)
@@ -41,9 +41,16 @@ namespace HospitalManagement.Pages.Admin.Appointment
         public JsonResult OnGetStatus(AppointmentStatusType? status)
         {
             CookieDoctorNurceId = User.FindFirst("DoctorNurceId")?.Value;
-            var data = _AppointmentTableServices.GetAppointmentByStatus(Convert.ToInt32(CookieDoctorNurceId),status);
 
+            if (!status.HasValue)
+            {
+                var Data = _AppointmentTableServices.GetAllAppointmentsforDoctor(Convert.ToInt32(CookieDoctorNurceId));
+                return new JsonResult(Data);
+            }
+
+            var data = _AppointmentTableServices.GetAppointmentByStatus(Convert.ToInt32(CookieDoctorNurceId),status);
             return new JsonResult(data);
+
         }
 
     }

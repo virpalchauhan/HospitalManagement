@@ -37,7 +37,7 @@ namespace HospitalManagement.Pages.Client.Account
 
         public void OnGet()
         {
-            Console.WriteLine(User.Identity?.IsAuthenticated);
+           
 
             CookiePatientId = User.FindFirst("PatientId")?.Value;
 

@@ -1,0 +1,308 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Appointment Rescheduled</title>
+</head>
+
+<body style="margin:0; padding:0; background-color:#f4f7fb; font-family:Arial, Helvetica, sans-serif;">
+
+    <div style="
+        width:100%;
+        padding:40px 0;
+        background-color:#f4f7fb;
+    ">
+
+        <div style="
+            max-width:650px;
+            margin:0 auto;
+            background-color:#ffffff;
+            border-radius:10px;
+            overflow:hidden;
+            box-shadow:0 3px 12px rgba(0,0,0,0.10);
+        ">
+
+            <!-- Header -->
+            <div style="
+                background-color:#ffc107;
+                color:#212529;
+                text-align:center;
+                padding:30px 20px;
+            ">
+
+                <h2 style="
+                    margin:0 0 8px 0;
+                    font-size:26px;
+                    font-weight:600;
+                ">
+                    Appointment Rescheduled
+                </h2>
+
+                <p style="
+                    margin:0;
+                    font-size:15px;
+                ">
+                    Hospital Management System
+                </p>
+
+            </div>
+
+
+            <!-- Body -->
+            <div style="padding:30px;">
+
+                <!-- Greeting -->
+                <h3 style="
+                    margin:0 0 15px 0;
+                    color:#212529;
+                    font-size:19px;
+                ">
+                    Hello <strong>{PatientName}</strong>,
+                </h3>
+
+
+                <!-- Message -->
+                <p style="
+                    margin:0 0 20px 0;
+                    color:#6c757d;
+                    font-size:15px;
+                    line-height:1.6;
+                ">
+                    The doctor is unable to confirm your requested
+                    appointment time and has suggested a new date and time.
+                    Please review the new appointment details below.
+                </p>
+
+
+                <!-- Status -->
+                <div style="
+                    background-color:#fff3cd;
+                    border:1px solid #ffecb5;
+                    color:#664d03;
+                    padding:15px;
+                    border-radius:6px;
+                    margin-bottom:25px;
+                    font-size:15px;
+                ">
+
+                    <strong>Appointment Status:</strong>
+                    Rescheduled
+
+                </div>
+
+
+                <!-- Appointment Details -->
+                <div style="
+                    background-color:#f8f9fa;
+                    border:1px solid #e9ecef;
+                    border-radius:7px;
+                    padding:22px;
+                    margin-bottom:25px;
+                ">
+
+                    <h4 style="
+                        margin:0 0 20px 0;
+                        color:#212529;
+                        font-size:18px;
+                    ">
+                        Appointment Details
+                    </h4>
+
+
+                    <!-- Doctor -->
+                    <div style="
+                        display:flex;
+                        padding:11px 0;
+                        border-bottom:1px solid #e9ecef;
+                    ">
+
+                        <div style="
+                            width:40%;
+                            color:#212529;
+                            font-weight:bold;
+                            font-size:14px;
+                        ">
+                            Doctor
+                        </div>
+
+                        <div style="
+                            width:60%;
+                            color:#495057;
+                            font-size:14px;
+                        ">
+                            Dr. {DoctorName}
+                        </div>
+
+                    </div>
+
+
+                    <!-- Department -->
+                    <div style="
+                        display:flex;
+                        padding:11px 0;
+                        border-bottom:1px solid #e9ecef;
+                    ">
+
+                        <div style="
+                            width:40%;
+                            color:#212529;
+                            font-weight:bold;
+                            font-size:14px;
+                        ">
+                            Department
+                        </div>
+
+                        <div style="
+                            width:60%;
+                            color:#495057;
+                            font-size:14px;
+                        ">
+                            {DepartmentName}
+                        </div>
+
+                    </div>
+
+
+                    <!-- Suggested Date -->
+                    <div style="
+                        display:flex;
+                        padding:11px 0;
+                        border-bottom:1px solid #e9ecef;
+                    ">
+
+                        <div style="
+                            width:40%;
+                            color:#212529;
+                            font-weight:bold;
+                            font-size:14px;
+                        ">
+                            Suggested Date
+                        </div>
+
+                        <div style="
+                            width:60%;
+                            color:#495057;
+                            font-size:14px;
+                        ">
+                            {SuggestedDate}
+                        </div>
+
+                    </div>
+
+
+                    <!-- Suggested Time -->
+                    <div style="
+                        display:flex;
+                        padding:11px 0;
+                    ">
+
+                        <div style="
+                            width:40%;
+                            color:#212529;
+                            font-weight:bold;
+                            font-size:14px;
+                        ">
+                            Suggested Time
+                        </div>
+
+                        <div style="
+                            width:60%;
+                            color:#495057;
+                            font-size:14px;
+                        ">
+                            {SuggestedTime}
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Action Required -->
+                <div style="
+                    background-color:#cff4fc;
+                    border:1px solid #b6effb;
+                    color:#055160;
+                    padding:16px;
+                    border-radius:6px;
+                    margin-bottom:25px;
+                    font-size:14px;
+                    line-height:1.6;
+                ">
+
+                    <strong style="font-size:15px;">
+                        Action Required
+                    </strong>
+
+                    <p style="
+                        margin:6px 0 0 0;
+                    ">
+                        Please log in to your patient account to
+                        Accept or Reject the suggested appointment
+                        date and time.
+                    </p>
+
+                </div>
+
+
+                <!-- View Appointment Button -->
+                <div style="
+                    text-align:center;
+                    margin:25px 0;
+                ">
+
+                    <a href="#"
+                       style="
+                           display:inline-block;
+                           background-color:#0d6efd;
+                           color:#ffffff;
+                           text-decoration:none;
+                           padding:12px 28px;
+                           border-radius:6px;
+                           font-size:14px;
+                           font-weight:bold;
+                       ">
+                        View Appointment
+                    </a>
+
+                </div>
+
+
+                <!-- Additional Information -->
+                <p style="
+                    margin:0;
+                    color:#6c757d;
+                    font-size:14px;
+                    line-height:1.6;
+                ">
+                    If you have any questions, please contact the hospital
+                    administration.
+                </p>
+
+            </div>
+
+
+            <!-- Footer -->
+            <div style="
+                background-color:#f8f9fa;
+                border-top:1px solid #e9ecef;
+                text-align:center;
+                padding:18px;
+                color:#6c757d;
+                font-size:12px;
+            ">
+
+                This is an automated email. Please do not reply to this email.
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

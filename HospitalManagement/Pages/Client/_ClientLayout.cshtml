@@ -207,11 +207,27 @@
                                 <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
 
                                 <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
-                                <li class="nav-item highlighted-menu icon-menu">
-                                    <a class="nav-link" href="appointment.html">
+                                <li class="nav-item highlighted-menu appointment-dropdown icon-menu">
+
+                                    <a class="nav-link" href="#">
                                         <i class="fa-solid fa-calendar-days"></i>
-                                        <span class="menu-text">Book Appointment</span>
+                                        <span class="menu-text">Appointment</span>
                                     </a>
+
+                                    <ul class="dropdown-menu-custom">
+                                        <li>
+                                            <a href="/Client/Appointment/BookAppointment">
+                                                Book Appointment
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="/Client/Appointment/AppointmentList">
+                                                Appointment List
+                                            </a>
+                                        </li>
+                                    </ul>
+
                                 </li>
 
                                 @if (!string.IsNullOrEmpty(token))

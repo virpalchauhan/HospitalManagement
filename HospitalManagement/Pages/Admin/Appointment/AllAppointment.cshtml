@@ -1,5 +1,6 @@
 ﻿@page
 @model HospitalManagement.Pages.Admin.Appointment.AllAppointmentModel
+@using HospitalManagement.Entity.Model.Enums;
 @{
 
     Layout = "/Pages/Admin/_AdminLayout.cshtml";
@@ -17,17 +18,12 @@
         <div style="min-width:250px;">
             <label class="form-label mb-1">Status</label>
 
-            <select class="form-select"
-                    id="Status"
-                    name="Status">
-
-                <option value="0" selected>Pending</option>
-                <option value="1">Confirmed</option>
-                <option value="2">Rejected</option>
-               
-                <option value="4">Completed</option>
-                <option value="5">approve</option>
-
+            <select id="Status" name="Status" class="form-select">
+                <option value="">All</option>
+                @foreach (var status in Enum.GetValues<AppointmentStatusType>())
+                {
+                    <option value="@((byte)status)">@status</option>
+                }
             </select>
         </div>
 
@@ -42,7 +38,7 @@
                         <th scope="col">No</th>
                         <th scope="col">Patient Name</th>
                         <th scope="col">Department Name</th>
-
+                        <th scope="col">Status</th>
                         <th scope="col">View</th>
 
                         <th scope="col">Request Date</th>
@@ -55,6 +51,7 @@
                             <td>@count</td>
                             <td>@item.PatientName</td>
                             <td>@item.DepartmentName</td>
+                            <td>@item.Status</td>
 
                             <td>
                                 <a asp-page="/Admin/Appointment/SingleAppointment"
@@ -106,7 +103,7 @@
                         },
 
                         success: function (response) {
-
+                            debugger;
                             var html = "";
 
                             var count = 1;
@@ -120,6 +117,31 @@
                                 html += "<td>" + item.patientName + "</td>";
 
                                 html += "<td>" + item.departmentName + "</td>";
+
+                                var statusText = "";
+
+                                switch (item.status) {
+                                    case 0:
+                                        statusText = "Pending";
+                                        break;
+
+                                    case 1:
+                                        statusText = "Confirmed";
+                                        break;
+
+                                    case 2:
+                                        statusText = "Rescheduled";
+                                        break;
+
+                                    case 3:
+                                        statusText = "Completed";
+                                        break;
+
+                                    case 4:
+                                        statusText = "Cancelled";
+                                        break;
+                                }
+                                html += "<td>" + statusText + "</td>";
 
                                 html += "<td>";
 
