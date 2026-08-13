@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.IdentityModel.Tokens.Jwt;
 
@@ -9,63 +8,86 @@ namespace HospitalManagement.Filters
     {
         public void OnPageHandlerExecuted(PageHandlerExecutedContext context)
         {
-
         }
 
         public void OnPageHandlerExecuting(PageHandlerExecutingContext context)
         {
-                //var httpContext = context.HttpContext;
+            var adminOnlyPaths = new[]
+{
+                  "/Admin/Department",
+                  "/Admin/DoctorApplications",
+                  "/Admin/SocialMedia"
+};
 
-                //var path = httpContext.Request.Path;
+            var httpContext = context.HttpContext;
 
-
-
-                //string[] PageList = new string[] {
-
-                //"/Admin/Account/ForgotPassword",
-
-
-                //};
+            var path = httpContext.Request.Path;
 
 
-                //if (path.StartsWithSegments("/Admin/Account/Login"))
-                //{
-                //    return;
-                //}
+            if (path.StartsWithSegments("/Admin/Account/Login"))
+            {
+                return;
+            }
 
 
-                //var token = httpContext.Request.Cookies["AuthToken"];
-
-                //if (string.IsNullOrEmpty(token))
-                //{
-                //    context.Result = new RedirectToPageResult("/Admin/Account/Login");
-                //    return;
-                //}
-
-                //var handler = new JwtSecurityTokenHandler();
-
-                //try
-                //{
-                //    var jwtToken = handler.ReadJwtToken(token);
-
-                //    var userId = jwtToken.Claims
-                //        .FirstOrDefault(x => x.Type == "DoctorNurceId")?.Value;
-
-                //    var role = jwtToken.Claims
-                //        .FirstOrDefault(x => x.Type == "RollType")?.Value;
-
-                //    if (string.IsNullOrEmpty(userId))
-                //    {
-                //        context.Result = new RedirectToPageResult("/Admin/Account/Login");
-                //        return;
-                //    }
+            var token = httpContext.Request.Cookies["AdminAuthToken"];
 
 
-                //}
-                //catch
-                //{
-                //    context.Result = new RedirectToPageResult("/Admin/Account/Login");
-                //}
+            if (string.IsNullOrEmpty(token))
+            {
+                context.Result = new RedirectToPageResult(
+                    "/Admin/Account/Login"
+                );
+
+                return;
+            }
+
+            var handler = new JwtSecurityTokenHandler();
+
+            try
+            {
+                var jwtToken = handler.ReadJwtToken(token);
+
+                var userId = jwtToken.Claims
+                    .FirstOrDefault(x => x.Type == "DoctorNurceId")?.Value;
+
+                var role = jwtToken.Claims
+                    .FirstOrDefault(x => x.Type == "RollType")?.Value;
+
+
+
+
+                if (adminOnlyPaths.Any(x => path.StartsWithSegments(x)))
+                {
+                    if (role != "3")
+                    {
+                        context.Result = new RedirectToPageResult("/Admin/Index");
+                        return;
+                    }
+                }
+
+
+
+                if (string.IsNullOrEmpty(userId))
+                {
+                    context.Result = new RedirectToPageResult(
+                        "/Admin/Account/Login"
+                    );
+
+                    return;
+                }
+
+
+                httpContext.Items["RollType"] = role;
+            }
+            catch
+            {
+                context.Result = new RedirectToPageResult(
+                    "/Admin/Account/Login"
+                );
+
+                return;
+            }
         }
 
         public void OnPageHandlerSelected(PageHandlerSelectedContext context)

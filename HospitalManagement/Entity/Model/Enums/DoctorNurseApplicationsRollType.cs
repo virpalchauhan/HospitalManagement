@@ -3,7 +3,8 @@
     public enum DoctorNurseApplicationsRollType :byte
     {
         Doctor = 1,
-        Nurse = 2
+        Nurse = 2,
+        Admin=3
     }
 
 }

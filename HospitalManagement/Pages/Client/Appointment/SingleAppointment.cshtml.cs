@@ -2,6 +2,7 @@ using HospitalManagement.Entity.Model;
 using HospitalManagement.Entity.Model.Enums;
 using HospitalManagement.Entity.Model.Innerjoin;
 using HospitalManagement.Services;
+using Microsoft.AspNetCore.Http.Metadata;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -38,27 +39,52 @@ namespace HospitalManagement.Pages.Client.Appointment
 
         }
 
-        public void OnPostAccept()
+        public IActionResult OnPostAccept()
         {
             AppointmentTable UpdateAppointmentStatus = new AppointmentTable
             {
                 //Status = AppointmentStatusType.Accept,
-                AppointmentId= AppointmentPatientDepartmentInnerJoin.AppointmentId
+                AppointmentId= AppointmentPatientDepartmentInnerJoin.AppointmentId,
+                Status= AppointmentStatusType.Confirmed
             };
 
             var Result = _AppointmentTableServices.UpdateAppointmentStatus(UpdateAppointmentStatus);
 
+            if (Result>=1)
+            {
+                TempData["Msg"] = "Appointment Status Update Successfully";
+                return RedirectToPage("/Client/Appointment/AppointmentList");
+            }
+            else
+            {
+                TempData["Msg"] = "Appointment Status Update Failed";
+                return RedirectToPage("/Client/Appointment/AppointmentList");
+            }
+
+            
+
 
         }
-        public void OnPostRejected()
+        public IActionResult OnPostRejected()
         {
             AppointmentTable UpdateAppointmentStatus = new AppointmentTable
             {
-                //Status = AppointmentStatusType.Rejected,
+                Status = AppointmentStatusType.Reject,
                 AppointmentId = AppointmentPatientDepartmentInnerJoin.AppointmentId
             };
 
             var Result = _AppointmentTableServices.UpdateAppointmentStatus(UpdateAppointmentStatus);
+
+            if (Result >= 1)
+            {
+                TempData["Msg"] = "Appointment Status Update Successfully";
+                return RedirectToPage("/Client/Appointment/AppointmentList");
+            }
+            else
+            {
+                TempData["Msg"] = "Appointment Status Update Failed";
+                return RedirectToPage("/Client/Appointment/AppointmentList");
+            }
 
         }
     }

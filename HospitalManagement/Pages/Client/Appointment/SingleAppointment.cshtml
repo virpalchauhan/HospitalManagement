@@ -57,7 +57,7 @@
                            
 
                             
-                            <div class="form-group col-md-6 mb-4">
+                            @*<div class="form-group col-md-6 mb-4">
                                 <label class="mb-2" style="color:white;">
                                   Your Suggested Date
                                 </label>
@@ -81,7 +81,7 @@
                                        placeholder="Enter Mobile Number">
 
                               
-                            </div>
+                            </div>*@
 
                            
                             <div class="form-group col-md-6 mb-4">
@@ -89,7 +89,7 @@
                                     Appointment Date By Doctor
                                 </label>
 
-                                <input asp-for="AppointmentPatientDepartmentInnerJoin.AppointmentDate"
+                                <input asp-for="AppointmentPatientDepartmentInnerJoin.SuggestedDate"
                                        class="form-control"
                                        readonly>
 
@@ -100,10 +100,10 @@
                             
                             <div class="form-group col-md-4 mb-4">
                                 <label class="mb-2" style="color:white;">
-                                    City
+                                    Appointment Time By Doctor
                                 </label>
 
-                                <input asp-for="AppointmentPatientDepartmentInnerJoin.AppointmentTime"
+                                <input asp-for="AppointmentPatientDepartmentInnerJoin.SuggestedTime"
                                        class="form-control" readonly
                                       >
 
