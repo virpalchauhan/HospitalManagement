@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\Admin\Doctor Nurse Teams\" />
     <Folder Include="wwwroot\Client\ResumePhoto\" />
     <Folder Include="wwwroot\Client\ProfilePhoto\" />
   </ItemGroup>

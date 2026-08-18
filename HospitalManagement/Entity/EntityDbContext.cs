@@ -24,6 +24,10 @@ namespace HospitalManagement.Entity
 
         public DbSet<AppointmentTable> AppointmentTables { get; set; }
 
+        public DbSet<LeaveRequests> LeaveRequests { get; set; }
+
+        public DbSet<DoctorNurseTeam> DoctorNurseTeams { get; set; }
+
 
 
     }

@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Leave Request Rejected</title>
+</head>
+
+<body style="margin:0; padding:0; background-color:#f4f6f8; font-family:Arial, Helvetica, sans-serif;">
+
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f6f8; padding:30px 0;">
+        <tr>
+            <td align="center">
+
+                <table width="600" cellpadding="0" cellspacing="0"
+                       style="background-color:#ffffff; border-radius:8px; overflow:hidden;">
+
+                    <!-- Header -->
+                    <tr>
+                        <td style="background-color:#dc3545; padding:25px; text-align:center;">
+                            <h1 style="color:#ffffff; margin:0; font-size:24px;">
+                                Leave Request Rejected
+                            </h1>
+                        </td>
+                    </tr>
+
+                    <!-- Content -->
+                    <tr>
+                        <td style="padding:30px;">
+
+                            <p style="font-size:16px; color:#333333;">
+                                Dear <strong>{EmployeeName}</strong>,
+                            </p>
+
+                            <p style="font-size:15px; color:#555555; line-height:1.6;">
+                                We regret to inform you that your leave request has been
+                                <strong style="color:#dc3545;">
+                                    rejected
+                                </strong>
+                                by the administrator.
+                            </p>
+
+                            <!-- Leave Details -->
+                            <table width="100%" cellpadding="8" cellspacing="0"
+                                   style="border-collapse:collapse; margin-top:20px;">
+
+                                <tr>
+                                    <td style="border:1px solid #dddddd; font-weight:bold;">
+                                        Leave Type
+                                    </td>
+                                    <td style="border:1px solid #dddddd;">
+                                        {LeaveType}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border:1px solid #dddddd; font-weight:bold;">
+                                        From Date
+                                    </td>
+                                    <td style="border:1px solid #dddddd;">
+                                        {FromDate}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border:1px solid #dddddd; font-weight:bold;">
+                                        To Date
+                                    </td>
+                                    <td style="border:1px solid #dddddd;">
+                                        {ToDate}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border:1px solid #dddddd; font-weight:bold;">
+                                        Status
+                                    </td>
+                                    <td style="border:1px solid #dddddd; color:#dc3545; font-weight:bold;">
+                                        Rejected
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                            <!-- Admin Remark -->
+                            <div style="margin-top:25px;">
+
+                                <p style="font-weight:bold; color:#333333; margin-bottom:8px;">
+                                    Reason / Admin Remark
+                                </p>
+
+                                <div style="background-color:#f8f9fa; border-left:4px solid #dc3545;
+                                            padding:15px; color:#555555;">
+                                    {AdminRemark}
+                                </div>
+
+                            </div>
+
+                            <p style="font-size:15px; color:#555555; line-height:1.6; margin-top:25px;">
+                                If required, you may contact the administrator for further
+                                clarification regarding this decision.
+                            </p>
+
+                            <p style="font-size:15px; color:#555555;">
+                                Regards,<br>
+                                <strong>Hospital Management Team</strong>
+                            </p>
+
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td style="background-color:#f8f9fa; padding:15px; text-align:center;">
+
+                            <p style="margin:0; font-size:12px; color:#888888;">
+                                This is an automated email. Please do not reply to this email.
+                            </p>
+
+                        </td>
+                    </tr>
+
+                </table>
+
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>

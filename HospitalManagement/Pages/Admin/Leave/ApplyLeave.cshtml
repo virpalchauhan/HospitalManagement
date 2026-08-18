@@ -1,0 +1,134 @@
+﻿@page
+@model HospitalManagement.Pages.Admin.Leave.ApplyLeaveModel
+@using HospitalManagement.Entity.Model.Enums
+@{
+
+    Layout = "/Pages/Admin/_AdminLayout.cshtml";
+
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="col">
+            <div class="card">
+
+                <div class="card-header">
+                    <h2 class="mb-0">Apply Leave</h2>
+                </div>
+
+                <div class="card-body">
+
+                    <form id="leaveForm" method="post">
+
+                        <!-- Leave Type -->
+                        <div class="mb-3">
+                            <label class="form-label">Leave Type</label>
+
+                            <select asp-for="LeaveRequestViewModel.LeaveType"
+                                    asp-items="Html.GetEnumSelectList<LeaveType>()"
+                                    class="form-select">
+
+                                <option value="">-- Select Leave Type --</option>
+
+                            </select>
+
+                            <span asp-validation-for="LeaveRequestViewModel.LeaveType"
+                                  class="text-danger"></span>
+
+
+                        </div>
+
+                        <div class="row">
+
+                            <!-- From Date -->
+                            <div class="col-lg-6">
+
+                                <div class="mb-3">
+
+                                    <label class="form-label">
+                                        From Date
+                                    </label>
+
+                                    <input asp-for="LeaveRequestViewModel.FromDate"
+                                           type="date"
+                                           id="FromDate"
+                                           class="form-control"
+                                           value="@DateTime.Today.ToString("yyyy-MM-dd")"
+                                           min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+
+                                    <span asp-validation-for="LeaveRequestViewModel.FromDate"
+                                          class="text-danger">
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- To Date -->
+                            <div class="col-lg-6">
+
+                                <div class="mb-3">
+
+                                    <label class="form-label">
+                                        To Date
+                                    </label>
+
+                                    <input asp-for="LeaveRequestViewModel.ToDate"
+                                           type="date"
+                                           id="ToDate"
+                                           class="form-control"
+                                           value="@DateTime.Today.ToString("yyyy-MM-dd")"
+                                           min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+
+                                    <span asp-validation-for="LeaveRequestViewModel.ToDate"
+                                          class="text-danger">
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Reason -->
+                        <div class="mb-3">
+                            <label class="form-label">Reason</label>
+
+                            <textarea asp-for="LeaveRequestViewModel.Reason"
+                                      class="form-control"
+                                      rows="5"
+                                      placeholder="Enter Leave Reason"></textarea>
+
+                            <span asp-validation-for="LeaveRequestViewModel.Reason"
+                                  class="text-danger"></span>
+                        </div>
+
+
+                        <button type="submit"
+                                class="btn btn-success rounded-pill">
+                            Apply Leave
+                        </button>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@if (TempData["Msg"] != null)
+{
+    <script>
+        alert("@TempData["Msg"]");
+
+        @if (TempData["ClearForm"] != null)
+        {
+            <text>
+                document.getElementById("leaveForm").reset();
+            </text>
+        }
+    </script>
+}

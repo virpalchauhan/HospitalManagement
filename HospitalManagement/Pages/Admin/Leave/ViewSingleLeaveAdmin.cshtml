@@ -1,0 +1,289 @@
+﻿@page
+@model HospitalManagement.Pages.Admin.Leave.ViewSingleLeaveAdminModel
+@using HospitalManagement.Entity.Model.Enums
+
+@{
+    Layout = "/Pages/Admin/_AdminLayout.cshtml";
+}
+
+<style>
+
+    .view-only-input {
+        cursor: not-allowed;
+        background-color: transparent !important;
+    }
+
+        .view-only-input:hover {
+            cursor: not-allowed;
+        }
+
+    .view-only-textarea {
+        cursor: not-allowed;
+        background-color: transparent !important;
+        resize: none;
+    }
+
+        .view-only-textarea:hover {
+            cursor: not-allowed;
+        }
+</style>
+
+
+<form id="form1" method="post">
+
+    <div class="card">
+
+        <div class="card-header">
+            <h5 class="card-title mb-0">
+                Leave Request Details
+            </h5>
+        </div>
+
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <!-- Employee Name -->
+                <div class="col-6">
+                    <div class="d-flex flex-column gap-2 mb-3">
+
+                        <label>Employee Name</label>
+
+                        <input class="form-control view-only-input"
+                               value="@Model.LeaveRequestSingleData.EmployeeName"
+                               readonly />
+
+                    </div>
+                </div>
+
+
+                <!-- Employee Type -->
+                <div class="col-6">
+                    <div class="d-flex flex-column gap-2 mb-3">
+
+                        <label>Employee Type</label>
+
+                        <input class="form-control view-only-input"
+                               value="@Model.LeaveRequestSingleData.EmployeeType"
+                               readonly />
+
+                    </div>
+                </div>
+
+
+                <!-- Department -->
+                <div class="col-6">
+                    <div class="d-flex flex-column gap-2 mb-3">
+
+                        <label>Department</label>
+
+                        <input class="form-control view-only-input"
+                               value="@Model.LeaveRequestSingleData.DepartmentName"
+                               readonly />
+
+                    </div>
+                </div>
+
+
+                <!-- Leave Type -->
+                <div class="col-6">
+                    <div class="d-flex flex-column gap-2 mb-3">
+
+                        <label>Leave Type</label>
+
+                        <input class="form-control view-only-input"
+                               value="@Model.LeaveRequestSingleData.LeaveType"
+                               readonly />
+
+                    </div>
+                </div>
+
+
+                <!-- From Date -->
+                <div class="col-6">
+                    <div class="d-flex flex-column gap-2 mb-3">
+
+                        <label>From Date</label>
+
+                        <input class="form-control view-only-input"
+                               value="@(Model.LeaveRequestSingleData.FromDate.HasValue
+                                   ? Model.LeaveRequestSingleData.FromDate.Value.ToString("dd-MM-yyyy")
+                                   : "-")"
+                               readonly />
+
+                    </div>
+                </div>
+
+
+                <!-- To Date -->
+                <div class="col-6">
+                    <div class="d-flex flex-column gap-2 mb-3">
+
+                        <label>To Date</label>
+
+                        <input class="form-control view-only-input"
+                               value="@(Model.LeaveRequestSingleData.ToDate.HasValue
+                                   ? Model.LeaveRequestSingleData.ToDate.Value.ToString("dd-MM-yyyy")
+                                   : "-")"
+                               readonly />
+
+                    </div>
+                </div>
+
+
+                <!-- Status -->
+                <div class="col-6">
+                    <div class="d-flex flex-column gap-2 mb-3">
+
+                        <label>Status</label>
+
+                        <div>
+
+                            @if (Model.LeaveRequestSingleData.Status ==
+                               LeaveStatusType.Pending)
+                            {
+                                <span class="badge bg-warning fs-6">
+                                    Pending
+                                </span>
+                            }
+                            else if (Model.LeaveRequestSingleData.Status ==
+                                LeaveStatusType.Approved)
+                            {
+                                <span class="badge bg-success fs-6">
+                                    Approved
+                                </span>
+                            }
+                            else if (Model.LeaveRequestSingleData.Status ==
+                                LeaveStatusType.Rejected)
+                            {
+                                <span class="badge bg-danger fs-6">
+                                    Rejected
+                                </span>
+                            }
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- Request Date -->
+                <div class="col-6">
+                    <div class="d-flex flex-column gap-2 mb-3">
+
+                        <label>Request Date</label>
+
+                        <input class="form-control view-only-input"
+                               value="@Model.LeaveRequestSingleData.CreatedAt.ToString("dd-MM-yyyy")"
+                               readonly />
+
+                    </div>
+                </div>
+
+
+                <!-- Reason -->
+                <div class="col-12">
+                    <div class="d-flex flex-column gap-2 mb-3">
+
+                        <label>Leave Reason</label>
+
+                        <textarea class="form-control view-only-textarea"
+                                  rows="5"
+                                  readonly>@Model.LeaveRequestSingleData.Reason</textarea>
+
+                    </div>
+                </div>
+
+
+                <!-- Admin Remark -->
+                <div class="col-12">
+                    <div class="d-flex flex-column gap-2 mb-3">
+
+                        <label>Admin Remark</label>
+
+                        <textarea class="form-control" asp-for="LeaveRequestSingleData.AdminRemark" rows="5"></textarea>
+                        <span asp-validation-for="LeaveRequestSingleData.AdminRemark" class="text-danger"></span>
+
+                    </div>
+                </div>
+
+
+               
+
+
+                <!-- Leave Duration -->
+                <div class="col-6">
+                    <div class="d-flex flex-column gap-2 mb-3">
+
+                        <label>Leave Duration</label>
+
+                        <input class="form-control view-only-input"
+                               value="@(Model.LeaveRequestSingleData.FromDate.HasValue &&
+                                        Model.LeaveRequestSingleData.ToDate.HasValue
+                                        ? ((Model.LeaveRequestSingleData.ToDate.Value.DayNumber -
+                                            Model.LeaveRequestSingleData.FromDate.Value.DayNumber) + 1)
+                                            + " Day(s)"
+                                        : "-")"
+                               readonly />
+
+                    </div>
+                </div>
+
+
+                <!-- Admin Actions -->
+                @if (Model.LeaveRequestSingleData.Status ==
+                   LeaveStatusType.Pending)
+                {
+                    <div class="my-3 d-flex justify-content-center gap-3">
+
+                       
+
+                            <input type="hidden"
+                                   asp-for="LeaveRequestId" />
+
+                            <button asp-page-handler="Approve" type="submit"
+                                    class="btn btn-success">
+
+                                Approve
+
+                            </button>
+
+                        
+
+
+                        <button type="submit" asp-page-handler="Reject"
+                                class="btn btn-danger">
+
+                            Reject
+
+                        </button>
+
+                    </div>
+                }
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+ 
+
+</form>
+
+
+@if (TempData["Msg"] is string message)
+{
+    <script>
+        alert('@message');
+    </script>
+}
+
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+
+

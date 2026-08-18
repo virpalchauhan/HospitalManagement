@@ -339,7 +339,7 @@
 
 
 
-                                        @if (role == "Doctor")
+                                        @if (role == "Doctor" || role== "Nurse")
                                         {
                                             <li class="nav-item">
                                                 <a class="nav-link menu-arrow" href="#sidebarAppointment" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAppointment">
@@ -364,7 +364,44 @@
                                             </li>
                                         }
 
+                                        <li class="nav-item">
+                                            <a class="nav-link menu-arrow" href="#sidebarLeave" data-bs-toggle="collapse"
+                                               role="button" aria-expanded="false" aria-controls="sidebarLeave">
 
+                                                <span class="nav-icon">
+                                                    <iconify-icon icon="solar:calendar-add-outline"></iconify-icon>
+                                                </span>
+
+                                                <span class="nav-text">Leave</span>
+                                            </a>
+
+                                            <div class="collapse" id="sidebarLeave">
+                                                <ul class="nav sub-navbar-nav">
+                                                    @if (role == "Doctor" || role== "Nurse")
+                                                    {
+                                                        <li class="sub-nav-item">
+                                                            <a class="sub-nav-link" href="/Admin/Leave/ApplyLeave">
+                                                                Apply Leave
+                                                            </a>
+                                                        </li>
+
+                                                        <li class="sub-nav-item">
+                                                            <a class="sub-nav-link" href="/Admin/Leave/MyLeaveRequests">
+                                                                My Leave Requests
+                                                            </a>
+                                                        </li>
+                                                    }
+                                                        @if (role == "Admin")
+                                                        {
+                                                            <li class="sub-nav-item">
+                                                                <a class="sub-nav-link" href="/Admin/Leave/AllLeaveRequests">
+                                                                    All Leave Requests
+                                                                </a>
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                            </div>
+                                        </li>
 
 
 

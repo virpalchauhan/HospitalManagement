@@ -1,0 +1,226 @@
+﻿@page
+@model HospitalManagement.Pages.Admin.Leave.ViewLeaveModel
+@using HospitalManagement.Entity.Model.Enums
+@{
+    Layout = "/Pages/Admin/_AdminLayout.cshtml";
+}
+
+<style>
+
+    .view-only-input {
+        cursor: not-allowed;
+        background-color: transparent !important;
+        color: #aeb9c8 !important;
+        border: 1px solid #3a424d;
+    }
+
+        .view-only-input:hover {
+            cursor: not-allowed;
+        }
+
+    .view-only-textarea {
+        cursor: not-allowed;
+        background-color: transparent !important;
+        color: #aeb9c8 !important;
+        border: 1px solid #3a424d;
+        resize: none;
+    }
+
+        .view-only-textarea:hover {
+            cursor: not-allowed;
+        }
+</style>
+
+
+<div id="form1">
+
+    <div class="card">
+
+        <div class="card-header">
+            <h5 class="card-title mb-0">
+                Leave Request Details
+            </h5>
+        </div>
+
+
+        <div class="card-body">
+
+            @if (Model.LeaveRequests != null)
+            {
+                <div class="row">
+
+                    <!-- Leave Type -->
+                    <div class="col-6">
+                        <div class="d-flex flex-column gap-2 mb-3">
+
+                            <label>Leave Type</label>
+
+                            <input class="form-control view-only-input"
+                                   value="@Model.LeaveRequests.LeaveType"
+                                   readonly
+                                   tabindex="-1" />
+
+                        </div>
+                    </div>
+
+
+                    <!-- Status -->
+                    <div class="col-6">
+                        <div class="d-flex flex-column gap-2 mb-3">
+
+                            <label>Status</label>
+
+                            <div>
+
+                                @if (Model.LeaveRequests.Status == LeaveStatusType.Pending)
+                                {
+                                    <span class="badge bg-warning fs-6">
+                                        Pending
+                                    </span>
+                                }
+                                else if (Model.LeaveRequests.Status == LeaveStatusType.Approved)
+                                {
+                                    <span class="badge bg-success fs-6">
+                                        Approved
+                                    </span>
+                                }
+                                else if (Model.LeaveRequests.Status == LeaveStatusType.Rejected)
+                                {
+                                    <span class="badge bg-danger fs-6">
+                                        Rejected
+                                    </span>
+                                }
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <!-- From Date -->
+                    <div class="col-6">
+                        <div class="d-flex flex-column gap-2 mb-3">
+
+                            <label>From Date</label>
+
+                            <input class="form-control view-only-input"
+                                   value="@Model.LeaveRequests.FromDate.Value.ToString("dd-MM-yyyy")"
+                                   readonly
+                                   tabindex="-1" />
+
+                        </div>
+                    </div>
+
+
+                    <!-- To Date -->
+                    <div class="col-6">
+                        <div class="d-flex flex-column gap-2 mb-3">
+
+                            <label>To Date</label>
+
+                            <input class="form-control view-only-input"
+                                   value="@Model.LeaveRequests.ToDate.Value.ToString("dd-MM-yyyy")"
+                                   readonly
+                                   tabindex="-1" />
+
+                        </div>
+                    </div>
+
+
+                    <!-- Reason -->
+                    <div class="col-12">
+                        <div class="d-flex flex-column gap-2 mb-3">
+
+                            <label>Leave Reason</label>
+
+                            <textarea class="form-control view-only-textarea"
+                                      rows="5"
+                                      readonly
+                                      tabindex="-1">@Model.LeaveRequests.Reason</textarea>
+
+                        </div>
+                    </div>
+
+
+                    <!-- Admin Remark -->
+                    <div class="col-12">
+                        <div class="d-flex flex-column gap-2 mb-3">
+
+                            <label>Admin Remark</label>
+
+                            <textarea class="form-control view-only-textarea"
+                                      rows="5"
+                                      readonly
+                                      tabindex="-1">@(string.IsNullOrEmpty(Model.LeaveRequests.AdminRemark)
+                                          ? "No remark added by admin."
+                                          : Model.LeaveRequests.AdminRemark)</textarea>
+
+                        </div>
+                    </div>
+
+
+                    <!-- Request Date -->
+                    <div class="col-6">
+                        <div class="d-flex flex-column gap-2 mb-3">
+
+                            <label>Request Date</label>
+
+                            <input class="form-control view-only-input"
+                                   value="@Model.LeaveRequests.CreatedAt.ToString("dd-MM-yyyy")"
+                                   readonly
+                                   tabindex="-1" />
+
+                        </div>
+                    </div>
+
+
+                    <!-- Reviewed Date -->
+                    <div class="col-6">
+                        <div class="d-flex flex-column gap-2 mb-3">
+
+                            <label>Reviewed Date</label>
+
+                            <input class="form-control view-only-input"
+                                   value="@(Model.LeaveRequests.ReviewedAt.HasValue
+                                       ? Model.LeaveRequests.ReviewedAt.Value.ToString("dd-MM-yyyy")
+                                       : "Not Reviewed Yet")"
+                                   readonly
+                                   tabindex="-1" />
+
+                        </div>
+                    </div>
+
+
+                    <!-- Back Button -->
+                    <div class="my-3 d-flex justify-content-center">
+
+                        <a asp-page="/Admin/Leave/MyLeaveRequests"
+                           class="btn btn-secondary">
+
+                            Back to My Leave Requests
+
+                        </a>
+
+                    </div>
+
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-danger">
+                    Leave request not found.
+                </div>
+
+                <a asp-page="/Admin/Leave/MyLeaveRequests"
+                   class="btn btn-secondary">
+
+                    Back to My Leave Requests
+
+                </a>
+            }
+
+        </div>
+
+    </div>
+
+</div>

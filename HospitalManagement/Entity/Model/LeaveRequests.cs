@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HospitalManagement.Entity.Model
 {
-    [Table("LeaveRequest")]
+    [Table("LeaveRequests")]
 
-    public class LeaveRequest
+    public class LeaveRequests
     {
         [Key]
 
@@ -18,15 +18,15 @@ namespace HospitalManagement.Entity.Model
 
         public LeaveType LeaveType { get; set; }
 
-        public DateTime FromDate { get; set; }
+        public DateOnly? FromDate { get; set; }
 
-        public DateTime ToDate { get; set; }
+        public DateOnly? ToDate { get; set; }
 
-        public string Reason { get; set; }
+        public string? Reason { get; set; }
 
         public LeaveStatusType Status { get; set; }
 
-        public string AdminRemark { get; set; }
+        public string? AdminRemark { get; set; }
 
         public int? ReviewedBy { get; set; }
 

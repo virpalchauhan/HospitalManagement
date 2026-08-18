@@ -78,7 +78,10 @@ builder.Services.AddScoped<DoctorApplicationSubmittedEmailCode>();
 builder.Services.AddScoped<ForgotPasswordTempletCode>();
 builder.Services.AddScoped<PasswordChangedTempletCode>();
 builder.Services.AddScoped<RegistrationOTPVerificationCode>();
+builder .Services.AddScoped<LeaveApprovedEmailTemplateCode>();
+builder.Services.AddScoped<LeaveRejectedEmailTemplateCode>();
 builder.Services.AddScoped<IAppointmentTableServices, AppointmentTableServices>();
+builder.Services.AddScoped<ILeaveRequestServices, LeaveRequestServices>();
 builder.Services.AddHttpContextAccessor();
 
 // 🧠 SESSION
