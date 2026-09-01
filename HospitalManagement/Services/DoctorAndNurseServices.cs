@@ -21,8 +21,7 @@ namespace HospitalManagement.Services
 
         List<DoctorsAndNurse> GetDoctorsByDepartment(int departmentId);
 
-
-
+        List<DoctorsAndNurse> GetAvailableNurses();
 
     }
 
@@ -140,6 +139,23 @@ namespace HospitalManagement.Services
 
             
 
+        }
+
+        public List<DoctorsAndNurse> GetAvailableNurses()
+        {
+            var nurses = db.DoctorsAndNurses
+                .Where(n =>
+                    n.RollType == DoctorNurseApplicationsRollType.Nurse
+                    &&
+                    !db.DoctorNurseTeamMembers
+                        .Any(tm =>
+                            tm.NurseId == n.DoctorNurceId
+                            && tm.IsActive == true
+                        )
+                )
+                .ToList();
+
+            return nurses;
         }
     }
 

@@ -1,0 +1,122 @@
+﻿@page
+@model HospitalManagement.Pages.Admin.DoctorNurseTeams.TeamListModel
+@{
+
+    Layout = "/Pages/Admin/_AdminLayout.cshtml";
+    int count = 1;
+
+}
+
+<div class="card">
+
+    <div class="card-header">
+        <h2>
+            List Doctor Nurse Team
+        </h2>
+    </div>
+
+    <div class="card-body">
+
+        <div class="table-responsive">
+
+            <table class="table table-hover table-centered">
+
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Team Name</th>
+                        <th scope="col">Doctor</th>
+                        <th scope="col">Department</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">View</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Manage Members</th>
+                        <th scope="col">Creation Date</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item in Model.DoctorNurseTeamListViewModelList)
+                    {
+                        <tr>
+
+                            <td>
+                                <div class="d-flex align-items-center gap-1">
+                                    <div class="d-block">
+                                        <h5 class="mb-0">@count</h5>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td>
+                                @item.TeamName
+                            </td>
+
+                            <td>
+                                @item.DoctorName
+                            </td>
+
+                            <td>
+                                @item.DepartmentName
+                            </td>
+
+                            <td>
+                                <textarea class="form-control"
+                                          rows="2"
+                                          readonly>@item.Description</textarea>
+                            </td>
+
+                            <td>
+                                @(item.IsActive == true ? "Active" : "Deactive")
+                            </td>
+
+                            <td>
+                                <a asp-page="/Admin/DoctorNurseTeams/ViewSingleTeam"
+                                   asp-route-TeamId="@item.TeamId"
+                                   class="btn btn-info btn-sm w-100">
+                                    View
+                                </a>
+                            </td>
+
+                            <td>
+                                <a asp-page="/Admin/DoctorNurseTeams/EditTeam"
+                                   asp-route-TeamId="@item.TeamId"
+                                   class="btn btn-success btn-sm w-100">
+                                    Edit
+                                </a>
+                            </td>
+                            <td>
+                                <a asp-page="/Admin/DoctorNurseTeams/ManageMembers"
+                                   asp-route-TeamId="@item.TeamId"
+                                   class="btn btn-primary btn-sm">
+                                    Manage Members
+                                </a>
+                            </td>
+                            <td>
+                                @item.CreatedDate
+                            </td>
+
+                        </tr>
+
+                        count++;
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+@if (TempData["Msg"] != null)
+{
+    <script>
+        alert("@TempData["Msg"]");
+    </script>
+}

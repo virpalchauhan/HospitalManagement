@@ -15,7 +15,7 @@ namespace HospitalManagement.Pages
         public IActionResult OnGet()
         {
             //return RedirectToPage("Client/Account/Login");
-            return RedirectToPage("Admin/Leave/AllLeaveRequests");
+            return RedirectToPage("Admin/DoctorNurseTeams/TeamList");
         }
     }
 }

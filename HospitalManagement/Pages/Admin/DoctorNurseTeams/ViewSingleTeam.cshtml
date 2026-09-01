@@ -1,0 +1,141 @@
+﻿@page
+@model HospitalManagement.Pages.Admin.DoctorNurseTeams.ViewSingleTeamModel
+@{
+    Layout = "/Pages/Admin/_AdminLayout.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-lg-12">
+
+        <!-- Team Details Card -->
+        <div class="card">
+
+            <div class="card-header">
+                <h2 class="mb-0">View Doctor Nurse Team</h2>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <!-- Team Name -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Team Name</label>
+
+                        <input type="text"
+                               class="form-control"
+                               asp-for="DoctorNurseTeamListViewModel.TeamName"
+                               readonly>
+                    </div>
+
+                    <!-- Doctor -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Doctor</label>
+
+                        <input type="text"
+                               class="form-control"
+                               asp-for="DoctorNurseTeamListViewModel.DoctorName"
+                               readonly>
+                    </div>
+
+                    <!-- Department -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Department</label>
+
+                        <input type="text"
+                               class="form-control"
+                               asp-for="DoctorNurseTeamListViewModel.DepartmentName"
+                               readonly>
+                    </div>
+
+                    <!-- Status -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Status</label>
+
+                        <input type="text"
+                               class="form-control"
+                               value="@(Model.DoctorNurseTeamListViewModel.IsActive == true ? "Active" : "Deactive")"
+                               readonly>
+                    </div>
+
+                    <!-- Created Date -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Created Date</label>
+
+                        <input type="text"
+                               class="form-control"
+                               asp-for="DoctorNurseTeamListViewModel.CreatedDate"
+                               readonly>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">Description</label>
+
+                        <textarea class="form-control"
+                                  rows="4" asp-for="DoctorNurseTeamListViewModel.Description"
+                                  readonly></textarea>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Team Members Card -->
+        <div class="card">
+
+            <div class="card-header">
+                <h3 class="mb-0">Team Members</h3>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    @foreach (var item in Model.NurseList)
+                    {
+                       
+                        <div class="col-md-6 mb-3">
+                            <div class="border rounded p-3">
+                                <h5 class="mb-1">@item.Name</h5>
+                                <small class="text-muted">
+                                    Nurse
+                                </small>
+                            </div>
+                        </div>
+                    }
+
+
+
+                  
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Back Button -->
+        <div class="mb-3">
+
+            <a asp-page="/Admin/DoctorNurseTeams/TeamList"
+               class="btn btn-secondary rounded-pill">
+                Back to Team List
+            </a>
+
+            @*<a asp-page="/Admin/DoctorNurseTeams/EditTeam"
+               asp-route-TeamId="DoctorNurseTeamListViewModel.TeamId"
+               class="btn btn-primary rounded-pill">
+                Edit Team
+            </a>*@
+
+        </div>
+
+    </div>
+
+</div>

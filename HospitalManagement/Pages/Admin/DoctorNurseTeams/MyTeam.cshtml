@@ -1,0 +1,350 @@
+﻿@page
+@model HospitalManagement.Pages.Admin.DoctorNurseTeams.MyTeamModel
+@{
+    Layout = "/Pages/Admin/_AdminLayout.cshtml";
+    string ActiveValue;
+    int Count = 1;
+
+}
+
+
+
+<div class="row">
+    <div class="col-lg-12">
+        @{
+            var role = User.FindFirst("RoleType")?.Value;
+        }
+        @if (Model.SingleDoctorTeamInfo != null)
+        {
+            <!-- ================================= -->
+            <!-- TEAM INFORMATION -->
+            <!-- ================================= -->
+
+            <div class="card">
+
+                <div class="card-header">
+                    <h2 class="mb-0">My Team</h2>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <!-- Team Name -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">
+                                Team Name
+                            </label>
+
+                            <input type="text"
+                                   class="form-control"
+                                   value="@Model.SingleDoctorTeamInfo.TeamName"
+                                   readonly>
+                        </div>
+
+                        <!-- Department -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">
+                                Department
+                            </label>
+
+                            <input type="text"
+                                   class="form-control"
+                                   value="@Model.SingleDoctorTeamInfo.DepartmentName"
+                                   readonly>
+                        </div>
+
+                        <!-- Doctor -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">
+                                Team Doctor
+                            </label>
+
+                            <input type="text"
+                                   class="form-control"
+                                   value="@Model.SingleDoctorTeamInfo.DoctorName"
+                                   readonly>
+                        </div>
+
+                        <!-- Status -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">
+                                Team Status
+                            </label>
+
+                            <input type="text"
+                                   class="form-control"
+                                   value="@(Model.SingleDoctorTeamInfo.IsActive == true ? "Active" : "Deactive")"
+                                   readonly>
+                        </div>
+
+
+                        <!-- Created Date -->
+                        @*<div class="col-md-6 mb-3">
+                            <label class="form-label">
+                                Created Date
+                            </label>
+
+                            <input type="text"
+                                   class="form-control"
+                                   value="@Model.SingleDoctorTeamInfo.CreateDate"
+                                   readonly>
+                        </div>*@
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+        <!-- ================================= -->
+        <!-- DOCTOR LOGIN -->
+        <!-- ================================= -->
+        @if (role == "Doctor")
+        {
+
+            <div class="card">
+
+                <div class="card-header">
+                    <h3 class="mb-0">
+                        My Team Members
+                    </h3>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="table-responsive">
+
+                        <table class="table table-hover table-centered">
+
+                            <thead class="table-light">
+
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nurse Name</th>
+                                    <th>Joined Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+
+
+                                @if (Model.MultipulNurseByTeam != null)
+                                {
+                                    @foreach (var item in Model.MultipulNurseByTeam)
+                                    {
+                                        <tr>
+                                            <td>@Count</td>
+                                            <td>@item.NurseName</td>
+                                            <td>@item.CreateDate</td>
+
+                                            <td>
+                                                @if (item.IsActive == true)
+                                                {
+                                                    <span class="badge bg-success">
+                                                        Active
+                                                    </span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-danger">
+                                                        Deactive
+                                                    </span>
+                                                }
+                                            </td>
+
+                                            <td>
+                                                <button type="button"
+                                                        class="btn btn-info btn-sm">
+                                                    View
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        Count++;
+                                    }
+                                }
+
+
+                                </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        }
+
+            <!-- ================================= -->
+            <!-- NURSE LOGIN -->
+            <!-- ================================= -->
+
+            @if (Model.SingleDoctorTeamInfo != null)
+            {
+                <div class="card">
+
+                    <div class="card-header">
+                        <h3 class="mb-0">
+                            My Team
+                        </h3>
+                    </div>
+
+                    <div class="card-body">
+
+                        <!-- ========================= -->
+                        <!-- TEAM DOCTOR -->
+                        <!-- ========================= -->
+
+                        <div class="card border mb-4">
+
+                            <div class="card-header">
+                                <h4 class="mb-0">
+                                    Team Doctor
+                                </h4>
+                            </div>
+
+                            <div class="card-body">
+
+                                <div class="row">
+
+                                    <div class="col-md-6 mb-3">
+
+                                        <label class="form-label">
+                                            Doctor Name
+                                        </label>
+
+                                        <input type="text"
+                                               class="form-control"
+                                               value="@Model.SingleDoctorTeamInfo.DoctorName"
+                                               readonly>
+
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+
+                                        <label class="form-label">
+                                            Department
+                                        </label>
+
+                                        <input type="text"
+                                               class="form-control"
+                                               value="@Model.SingleDoctorTeamInfo.DepartmentName"
+                                               readonly>
+
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+
+                                        <label class="form-label">
+                                            Team Name
+                                        </label>
+
+                                        <input type="text"
+                                               class="form-control"
+                                               value="@Model.SingleDoctorTeamInfo.TeamName"
+                                               readonly>
+
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+
+                                        <label class="form-label">
+                                            Team Status
+                                        </label>
+
+                                        <input type="text"
+                                               class="form-control"
+                                               value="@(Model.SingleDoctorTeamInfo.IsActive == true ? "Active" : "Deactive")"
+                                               readonly>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ========================= -->
+                        <!-- OTHER NURSES -->
+                        <!-- ========================= -->
+
+                        <div class="card border">
+
+                            <div class="card-header">
+                                <h4 class="mb-0">
+                                    My Team Members
+                                </h4>
+                            </div>
+
+                            <div class="card-body">
+
+                                <div class="table-responsive">
+
+                                    <table class="table table-hover table-centered">
+
+                                        <thead class="table-light">
+
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Nurse Name</th>
+
+
+                                                <th>Type</th>
+
+                                            </tr>
+
+                                        </thead>
+
+                                        <tbody>
+
+
+
+                                            @foreach (var item in Model.MultipulNurseByTeam)
+                                            {
+                                                <tr>
+                                                    <td>@Count</td>
+                                                    <td>@item.NurseName</td>
+                                                    <td>@item.RollType</td>
+
+
+
+
+
+                                                </tr>
+                                                Count++;
+                                            }
+
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            }
+
+            <!-- ================================= -->
+            <!-- INVALID / NO TEAM -->
+            <!-- ================================= -->
+
+
+
+        </div>
+</div>

@@ -62,15 +62,29 @@ builder.Services.AddDbContext<EntityDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DbCon")));
 
 // 🧩 SERVICES
+
+// ================================
+// Interface + Implementation
+// ================================
+
 builder.Services.AddScoped<IDepartmentTblServices, DepartmentTblServices>();
+builder.Services.AddScoped<IDoctorNurseTeamMemberServices, DoctorNurseTeamMemberServices>();
 builder.Services.AddScoped<IDoctorNurseApplicationServices, DoctorNurseApplicationServices>();
 builder.Services.AddScoped<IDoctorAndNurseServices, DoctorAndNurseServices>();
 builder.Services.AddScoped<IAccountServices, AccountServices>();
 builder.Services.AddScoped<IJwtTokenHelper, JwtTokenHelper>();
 builder.Services.AddScoped<ISocialMediaMastersServices, SocialMediaMastersServices>();
-builder.Services.AddScoped<AuthPageFilter>();
 builder.Services.AddScoped<IPatientServices, PatientServices>();
 builder.Services.AddScoped<IPendingRegistrationPatientsServices, PendingRegistrationPatientsServices>();
+builder.Services.AddScoped<IAppointmentTableServices, AppointmentTableServices>();
+builder.Services.AddScoped<ILeaveRequestServices, LeaveRequestServices>();
+builder.Services.AddScoped<IDoctorNurseTeamService, DoctorNurseTeamServices>();
+
+
+// ================================
+// Normal Concrete Classes
+// ================================
+
 builder.Services.AddScoped<AppointmentConfirmedEmailTempletCode>();
 builder.Services.AddScoped<DoctorActivationTempletCode>();
 builder.Services.AddScoped<DoctorApplicationRejectTempletCode>();
@@ -78,10 +92,21 @@ builder.Services.AddScoped<DoctorApplicationSubmittedEmailCode>();
 builder.Services.AddScoped<ForgotPasswordTempletCode>();
 builder.Services.AddScoped<PasswordChangedTempletCode>();
 builder.Services.AddScoped<RegistrationOTPVerificationCode>();
-builder .Services.AddScoped<LeaveApprovedEmailTemplateCode>();
+builder.Services.AddScoped<LeaveApprovedEmailTemplateCode>();
 builder.Services.AddScoped<LeaveRejectedEmailTemplateCode>();
-builder.Services.AddScoped<IAppointmentTableServices, AppointmentTableServices>();
-builder.Services.AddScoped<ILeaveRequestServices, LeaveRequestServices>();
+
+
+// ================================
+// Filters
+// ================================
+
+builder.Services.AddScoped<AuthPageFilter>();
+
+
+// ================================
+// Other Services
+// ================================
+
 builder.Services.AddHttpContextAccessor();
 
 // 🧠 SESSION

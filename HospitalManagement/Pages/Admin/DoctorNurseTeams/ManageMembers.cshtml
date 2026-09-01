@@ -1,0 +1,296 @@
+﻿@page
+@model HospitalManagement.Pages.Admin.DoctorNurseTeams.ManageMembersModel
+@{
+    Layout = "/Pages/Admin/_AdminLayout.cshtml";
+    int Count = 1;
+}
+
+<div class="row">
+
+    <div class="col-lg-12">
+
+        <!-- Team Information -->
+        <div class="card">
+
+            <div class="card-header">
+                <h2 class="mb-0">Manage Team Members</h2>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <!-- Team Name -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Team Name</label>
+
+                        <input type="text"
+                               class="form-control"
+                               asp-for="DoctorNurseTeamListViewModel.TeamName"
+                               readonly>
+                    </div>
+
+                    <!-- Doctor -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Doctor</label>
+
+                        <input type="text"
+                               class="form-control"
+                               asp-for="DoctorNurseTeamListViewModel.DoctorName"
+                               readonly>
+                    </div>
+
+                    <!-- Department -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Department</label>
+
+                        <input type="text"
+                               class="form-control"
+                               asp-for="DoctorNurseTeamListViewModel.DepartmentName"
+                               readonly>
+                    </div>
+
+                    <!-- Status -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Status</label>
+
+                        <input type="text"
+                               class="form-control"
+                               value="@(Model.DoctorNurseTeamListViewModel.IsActive == true ? "Active" : "Deactive")"
+                               readonly>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Add Nurse -->
+        <div class="card">
+
+            <div class="card-header">
+                <h3 class="mb-0">Add Nurse</h3>
+            </div>
+
+            <div class="card-body">
+
+                <form method="post">
+
+                    <input type="hidden"
+                           asp-for="DoctorNurseTeamListViewModel.TeamId" />
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+                                Select Nurse
+                            </label>
+
+                            <select asp-for="AddTeamMemberViewModel.NurseId"
+                                    class="form-select">
+
+                                <option value="">
+                                    -- Select Nurse --
+                                </option>
+
+                                @foreach (var item in Model.NursesDrop)
+                                {
+                                    <option value="@item.DoctorNurceId">
+                                        @item.FirstName @item.LastName
+                                    </option>
+                                }
+
+                            </select>
+
+                            <span asp-validation-for="AddTeamMemberViewModel.NurseId"
+                                  class="text-danger"></span>
+
+                        </div>
+
+                        <div class="col-md-6 mb-3 d-flex align-items-end">
+
+                            <button type="submit"
+                                    class="btn btn-success rounded-pill">
+
+                                Add Nurse
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+
+        <!-- Current Team Members -->
+        <div class="card">
+
+            <div class="card-header">
+                <h3 class="mb-0">Current Team Members</h3>
+            </div>
+
+            <div class="card-body">
+
+                <div class="table-responsive">
+
+                    <table class="table table-hover table-centered">
+
+                        <thead class="table-light">
+
+                            <tr>
+                                <th>No</th>
+                                <th>Nurse Name</th>
+                                <th>Joined Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var item in Model.NurseList)
+                            {
+                                <tr id="member-@item.TeamMemberId" class="member-row">
+
+                                    <td class="member-count">
+                                        @Count
+                                    </td>
+
+                                    <td>
+                                        @item.Name
+                                    </td>
+
+                                    <td>
+                                        @item.JoinedDate
+                                    </td>
+
+                                    <td>
+                                        <span class="badge bg-success">
+                                            Active
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <button type="button"
+                                                class="btn btn-danger btn-sm"
+                                                onclick="UpdateNursActivity(@item.TeamMemberId)">
+                                            Remove
+                                        </button>
+                                    </td>
+
+                                </tr>
+
+                                Count++;
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Back Button -->
+        <div class="mb-3">
+
+            <a asp-page="/Admin/DoctorNurseTeams/TeamList"
+               class="btn btn-secondary rounded-pill">
+
+                Back to Team List
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Anti Forgery Token -->
+@Html.AntiForgeryToken()
+
+
+<!-- jQuery -->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+@if (TempData["Msg"] != null)
+{
+    <script>
+        alert("@TempData["Msg"]");
+    </script>
+}
+
+
+<script>
+
+    function UpdateNursActivity(teamMemberId) {
+
+        if (!confirm("Are you sure you want to remove this nurse from the team?")) {
+            return;
+        }
+
+        // Get Anti-Forgery Token
+        var token = $('input[name="__RequestVerificationToken"]').val();
+
+        $.ajax({
+
+            url: '?handler=UpdateNursActivity',
+
+            type: 'POST',
+
+            data: {
+                TeamMemberId: teamMemberId,
+                __RequestVerificationToken: token
+            },
+
+            success: function (response) {
+
+                if (response.success) {
+
+                    // Selected nurse ki row remove
+                    $('#member-' + teamMemberId).remove();
+
+                    // Remaining rows ka number update
+                    $('.member-row').each(function (index) {
+
+                        $(this).find('.member-count').text(index + 1);
+
+                    });
+
+                    alert(response.message);
+                }
+                else {
+
+                    alert(response.message);
+                }
+            },
+
+            error: function (xhr) {
+
+                console.log("Status Code:", xhr.status);
+                console.log("Response:", xhr.responseText);
+
+                alert("Something went wrong while removing the nurse.");
+
+            }
+
+        });
+
+    }
+
+</script>

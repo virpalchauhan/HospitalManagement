@@ -12,7 +12,7 @@ namespace HospitalManagement.ViewModel.Admin.DoctorNurseTeam
         public string TeamName { get; set; }
 
         [Required(ErrorMessage = "Please select a Doctor.")]
-        public int? DoctorId { get; set; }
+        public int DoctorId { get; set; }
 
         [Required(ErrorMessage = "Please select a Department.")]
         public int? DepartmentId { get; set; }
@@ -21,7 +21,8 @@ namespace HospitalManagement.ViewModel.Admin.DoctorNurseTeam
         [StringLength(500, ErrorMessage = "Description cannot exceed 500 characters.")]
         public string Description { get; set; }
 
-        public bool IsActive { get; set; }
+        [Required(ErrorMessage = "Please select status.")]
+        public bool? IsActive { get; set; }
 
         public DateTime CreatedDate { get; set; }
 

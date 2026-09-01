@@ -28,6 +28,8 @@ namespace HospitalManagement.Entity
 
         public DbSet<DoctorNurseTeam> DoctorNurseTeams { get; set; }
 
+        public DbSet<DoctorNurseTeamMember> DoctorNurseTeamMembers { get; set; }
+
 
 
     }
